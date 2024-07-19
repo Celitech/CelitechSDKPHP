@@ -1,0 +1,169 @@
+{
+  "liblabVersion": "2.1.20",
+  "date": "2024-07-19T12:11:27.610Z",
+  "config": {
+    "apiId": 788,
+    "sdkName": "Celitech",
+    "sdkVersion": "1.1.65",
+    "liblabVersion": "1",
+    "deliveryMethods": ["zip"],
+    "languages": ["php"],
+    "apiVersion": "1.1.65",
+    "specFilePath": "swagger.yaml",
+    "languageOptions": {
+      "python": {
+        "alwaysInitializeOptionals": true,
+        "pypiPackageName": "celitech-sdk",
+        "githubRepoName": "CelitechSDKPython",
+        "liblabVersion": "2",
+        "sdkVersion": "1.1.65"
+      },
+      "php": {
+        "packageName": "celitech-sdk/sdk",
+        "additionalConstructorParameters": [
+          {
+            "name": "clientId",
+            "example": "client-id"
+          },
+          {
+            "name": "clientSecret",
+            "example": "client-secret"
+          }
+        ],
+        "githubRepoName": "CelitechSDKPHP",
+        "sdkVersion": "1.1.65"
+      },
+      "typescript": {
+        "bundle": false,
+        "exportClassDefault": false,
+        "httpClient": "axios",
+        "npmName": "celitech-sdk",
+        "githubRepoName": "CelitechSDKTypeScript",
+        "ignoreFiles": [],
+        "liblabVersion": "1",
+        "sdkVersion": "1.1.65"
+      }
+    },
+    "publishing": {
+      "githubOrg": "Celitech"
+    },
+    "devContainer": true,
+    "environmentVariables": [
+      {
+        "description": "Client ID parameter",
+        "name": "CLIENT_ID"
+      },
+      {
+        "description": "Client Secret parameter",
+        "name": "CLIENT_SECRET"
+      }
+    ],
+    "generateEnv": true,
+    "includeOptionalSnippetParameters": false,
+    "inferServiceNames": false,
+    "injectedModels": [],
+    "license": {
+      "type": "MIT",
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT",
+      "path": "MIT.ejs"
+    },
+    "responseHeaders": false,
+    "retry": {
+      "enabled": true,
+      "maxAttempts": 3,
+      "retryDelay": 150,
+      "maxDelay": 5000,
+      "retryDelayJitter": 50,
+      "backOffFactor": 2,
+      "httpCodesToRetry": [408, 429, 500, 502, 503, 504],
+      "httpMethodsToRetry": ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
+    },
+    "multiTenant": true,
+    "hooksLocation": {
+      "bucketKey": "6260/hooks.zip",
+      "bucketName": "prod-liblab-api-stack-hooks"
+    },
+    "specUrl": "https://prod-liblab-api-stack-specs.s3.us-east-1.amazonaws.com/788/open-api-spec.yaml?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA5P3QKKDKGVNIJ2H7%2F20240719%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240719T121122Z&X-Amz-Expires=43200&X-Amz-Signature=bee8d5729d495c565e46224d9ad956aab660b9d08e6c613a2099dbb1d0a17489&X-Amz-SignedHeaders=host&x-id=GetObject",
+    "includeWatermark": false,
+    "packageName": "celitech-sdk/sdk",
+    "additionalConstructorParameters": [
+      {
+        "name": "clientId",
+        "example": "client-id"
+      },
+      {
+        "name": "clientSecret",
+        "example": "client-secret"
+      }
+    ],
+    "githubRepoName": "CelitechSDKPHP",
+    "language": "php",
+    "deliveryMethod": "zip",
+    "hooks": {
+      "enabled": false,
+      "sourceDir": ""
+    },
+    "usesFormData": false,
+    "authentication": {},
+    "fileOutput": "/tmp",
+    "httpLibrary": {
+      "name": "axios",
+      "packages": {
+        "axios": "^1.6.8"
+      },
+      "languages": ["typescript"]
+    },
+    "auth": [],
+    "customQueries": {
+      "paths": [],
+      "rawQueries": [],
+      "queriesData": []
+    }
+  },
+  "files": [
+    ".gitignore",
+    "README.md",
+    "src/Client.php",
+    "composer.json",
+    "example/index.php",
+    "src/services/BaseService.php",
+    "src/services/Destinations.php",
+    "src/services/Packages.php",
+    "src/services/Purchases.php",
+    "src/services/ESim.php",
+    "src/Environment.php",
+    "./LICENSE",
+    "src/Retry.php",
+    ".devcontainer/devcontainer.json",
+    "src/models/ListDestinationsOkResponse.php",
+    "src/models/ListPackagesOkResponse.php",
+    "src/models/ListPurchasesOkResponse.php",
+    "src/models/CreatePurchaseRequest.php",
+    "src/models/CreatePurchaseOkResponse.php",
+    "src/models/TopUpEsimRequest.php",
+    "src/models/TopUpEsimOkResponse.php",
+    "src/models/EditPurchaseRequest.php",
+    "src/models/EditPurchaseOkResponse.php",
+    "src/models/GetPurchaseConsumptionOkResponse.php",
+    "src/models/GetEsimOkResponse.php",
+    "src/models/GetEsimDeviceOkResponse.php",
+    "src/models/GetEsimHistoryOkResponse.php",
+    "src/models/GetEsimMacOkResponse.php",
+    "src/models/Destinations.php",
+    "src/models/Packages.php",
+    "src/models/Purchases.php",
+    "src/models/Package.php",
+    "src/models/PurchasesEsim.php",
+    "src/models/CreatePurchaseOkResponsePurchase.php",
+    "src/models/CreatePurchaseOkResponseProfile.php",
+    "src/models/TopUpEsimOkResponsePurchase.php",
+    "src/models/TopUpEsimOkResponseProfile.php",
+    "src/models/GetEsimOkResponseEsim.php",
+    "src/models/Device.php",
+    "src/models/GetEsimHistoryOkResponseEsim.php",
+    "src/models/History.php",
+    "src/models/GetEsimMacOkResponseEsim.php",
+    "src/utils/Serializer.php"
+  ]
+}
