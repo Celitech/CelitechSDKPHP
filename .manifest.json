@@ -1,14 +1,14 @@
 {
   "liblabVersion": "2.1.20",
-  "date": "2024-07-19T12:11:27.610Z",
+  "date": "2024-07-19T13:05:33.774Z",
   "config": {
-    "apiId": 788,
+    "apiId": 807,
     "sdkName": "Celitech",
-    "sdkVersion": "1.1.65",
+    "sdkVersion": "1.1.66",
     "liblabVersion": "1",
     "deliveryMethods": ["zip"],
     "languages": ["php"],
-    "apiVersion": "1.1.65",
+    "apiVersion": "1.1.66",
     "specFilePath": "swagger.yaml",
     "languageOptions": {
       "python": {
@@ -16,7 +16,7 @@
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.65"
+        "sdkVersion": "1.1.66"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -31,7 +31,7 @@
           }
         ],
         "githubRepoName": "CelitechSDKPHP",
-        "sdkVersion": "1.1.65"
+        "sdkVersion": "1.1.66"
       },
       "typescript": {
         "bundle": false,
@@ -41,7 +41,7 @@
         "githubRepoName": "CelitechSDKTypeScript",
         "ignoreFiles": [],
         "liblabVersion": "1",
-        "sdkVersion": "1.1.65"
+        "sdkVersion": "1.1.66"
       }
     },
     "publishing": {
@@ -81,10 +81,10 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "6260/hooks.zip",
+      "bucketKey": "6263/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
-    "specUrl": "https://prod-liblab-api-stack-specs.s3.us-east-1.amazonaws.com/788/open-api-spec.yaml?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA5P3QKKDKGVNIJ2H7%2F20240719%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240719T121122Z&X-Amz-Expires=43200&X-Amz-Signature=bee8d5729d495c565e46224d9ad956aab660b9d08e6c613a2099dbb1d0a17489&X-Amz-SignedHeaders=host&x-id=GetObject",
+    "specUrl": "https://prod-liblab-api-stack-specs.s3.us-east-1.amazonaws.com/807/open-api-spec.yaml?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA5P3QKKDKGVNIJ2H7%2F20240719%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240719T130532Z&X-Amz-Expires=43200&X-Amz-Signature=3bfb108f182cbe62f13980b1928eb86516a1df8b3a3e0095349ee137a37d9880&X-Amz-SignedHeaders=host&x-id=GetObject",
     "includeWatermark": false,
     "packageName": "celitech-sdk/sdk",
     "additionalConstructorParameters": [
@@ -101,8 +101,8 @@
     "language": "php",
     "deliveryMethod": "zip",
     "hooks": {
-      "enabled": false,
-      "sourceDir": ""
+      "enabled": true,
+      "sourceDir": "/tmp/resources/hooks"
     },
     "usesFormData": false,
     "authentication": {},
@@ -132,6 +132,8 @@
     "src/services/Packages.php",
     "src/services/Purchases.php",
     "src/services/ESim.php",
+    "src/hooks/HookInterface.php",
+    "src/hooks/CustomHook.php",
     "src/Environment.php",
     "./LICENSE",
     "src/Retry.php",
