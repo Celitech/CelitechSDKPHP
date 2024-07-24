@@ -23,7 +23,7 @@ class ESim extends BaseService
     /**
      * Get eSIM Status
      */
-    public function getESIM(string $iccid): GetEsimOkResponse
+    public function getEsim(string $iccid): GetEsimOkResponse
     {
         $data = $this->sendRequest('get', '/esim', [
             'query' => [
@@ -37,7 +37,7 @@ class ESim extends BaseService
     /**
      * Get eSIM Device
      */
-    public function getESIMDevice(string $iccid): GetEsimDeviceOkResponse
+    public function getEsimDevice(string $iccid): GetEsimDeviceOkResponse
     {
         $data = $this->sendRequest('get', "/esim/{$iccid}/device", []);
 
@@ -47,7 +47,7 @@ class ESim extends BaseService
     /**
      * Get eSIM History
      */
-    public function getESIMHistory(string $iccid): GetEsimHistoryOkResponse
+    public function getEsimHistory(string $iccid): GetEsimHistoryOkResponse
     {
         $data = $this->sendRequest('get', "/esim/{$iccid}/history", []);
 
@@ -57,7 +57,7 @@ class ESim extends BaseService
     /**
      * Get eSIM MAC
      */
-    public function getESIMMac(string $iccid): GetEsimMacOkResponse
+    public function getEsimMac(string $iccid): GetEsimMacOkResponse
     {
         $data = $this->sendRequest('get', "/esim/{$iccid}/mac", []);
 
