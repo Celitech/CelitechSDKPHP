@@ -58,7 +58,7 @@ class Purchases extends BaseService
     /**
      * This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is not feasible for eSIMs in "DELETED" or "ERROR" state.
      */
-    public function topUpESIM(TopUpEsimRequest $input): TopUpEsimOkResponse
+    public function topUpEsim(TopUpEsimRequest $input): TopUpEsimOkResponse
     {
         $data = $this->sendRequest('post', '/purchases/topup', ['json' => Serializer::serialize($input)]);
 
