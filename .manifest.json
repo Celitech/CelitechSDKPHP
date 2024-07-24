@@ -1,14 +1,14 @@
 {
-  "liblabVersion": "2.1.22",
-  "date": "2024-07-23T14:32:41.096Z",
+  "liblabVersion": "2.1.23",
+  "date": "2024-07-24T18:30:16.141Z",
   "config": {
-    "apiId": 819,
+    "apiId": 952,
     "sdkName": "Celitech",
-    "sdkVersion": "1.1.71",
-    "liblabVersion": "1",
+    "sdkVersion": "1.1.73",
+    "liblabVersion": "2",
     "deliveryMethods": ["zip"],
     "languages": ["php"],
-    "apiVersion": "1.1.71",
+    "apiVersion": "1.1.73",
     "specFilePath": "swagger.yaml",
     "languageOptions": {
       "python": {
@@ -26,7 +26,7 @@
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.71"
+        "sdkVersion": "1.1.73"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -41,7 +41,8 @@
           }
         ],
         "githubRepoName": "CelitechSDKPHP",
-        "sdkVersion": "1.1.71"
+        "liblabVersion": "2",
+        "sdkVersion": "1.1.73"
       },
       "typescript": {
         "bundle": false,
@@ -59,9 +60,8 @@
           }
         ],
         "githubRepoName": "CelitechSDKTypeScript",
-        "ignoreFiles": [],
         "liblabVersion": "2",
-        "sdkVersion": "1.1.71"
+        "sdkVersion": "1.1.73"
       }
     },
     "publishing": {
@@ -101,10 +101,10 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "6342/hooks.zip",
+      "bucketKey": "6371/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
-    "specUrl": "https://prod-liblab-api-stack-specs.s3.us-east-1.amazonaws.com/819/open-api-spec.yaml?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA5P3QKKDKGVNIJ2H7%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T143233Z&X-Amz-Expires=43200&X-Amz-Signature=e60e010fbb2260e633a3b6b6919d9e94ea1120bd4e68b4ff4215e5c4f959f644&X-Amz-SignedHeaders=host&x-id=GetObject",
+    "specUrl": "https://prod-liblab-api-stack-specs.s3.us-east-1.amazonaws.com/952/open-api-spec.yaml?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA5P3QKKDKGVNIJ2H7%2F20240724%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240724T183009Z&X-Amz-Expires=43200&X-Amz-Signature=cb6b6d37a7a0163ff607819608459289681c6107b59c0c440a503e35664fd492&X-Amz-SignedHeaders=host&x-id=GetObject",
     "includeWatermark": false,
     "packageName": "celitech-sdk/sdk",
     "additionalConstructorParameters": [
