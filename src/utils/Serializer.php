@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
 
 class Serializer
 {
@@ -21,11 +22,12 @@ class Serializer
         if (self::$serializer === null) {
             $classMetadataFactory = new ClassMetadataFactory(new AttributeLoader());
             $nameConverter = new MetadataAwareNameConverter($classMetadataFactory);
-            $normalizer = new ObjectNormalizer($classMetadataFactory, $nameConverter, null, new PhpDocExtractor());
-            self::$serializer = new SymfonySerializer(
-                [$normalizer, new ArrayDenormalizer()],
-                [new JsonEncoder(), new JsonDecode()]
-            );
+            $normalizers = [
+                new BackedEnumNormalizer(),
+                new ObjectNormalizer($classMetadataFactory, $nameConverter, null, new PhpDocExtractor()),
+                new ArrayDenormalizer(),
+            ];
+            self::$serializer = new SymfonySerializer($normalizers, [new JsonEncoder(), new JsonDecode()]);
         }
 
         return self::$serializer;
