@@ -1,6 +1,6 @@
 {
-  "liblabVersion": "2.1.31",
-  "date": "2024-09-05T11:13:02.164Z",
+  "liblabVersion": "2.4.0",
+  "date": "2024-09-20T20:17:24.263Z",
   "config": {
     "apiId": 1117,
     "sdkName": "Celitech",
@@ -48,7 +48,7 @@
       "typescript": {
         "bundle": true,
         "exportClassDefault": false,
-        "httpClient": "axios",
+        "httpClient": "fetch",
         "npmName": "celitech-sdk",
         "additionalConstructorParameters": [
           {
@@ -103,7 +103,7 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "7002/hooks.zip",
+      "bucketKey": "7312/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
     "includeWatermark": false,
