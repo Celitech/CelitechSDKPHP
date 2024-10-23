@@ -18,9 +18,19 @@ class CreatePurchaseOkResponseProfile
     #[SerializedName('activationCode')]
     public ?string $activationCode;
 
-    public function __construct(?string $iccid = null, ?string $activationCode = null)
-    {
+    /**
+     * Manual Activation Code of the eSIM
+     */
+    #[SerializedName('manualActivationCode')]
+    public ?string $manualActivationCode;
+
+    public function __construct(
+        ?string $iccid = null,
+        ?string $activationCode = null,
+        ?string $manualActivationCode = null
+    ) {
         $this->iccid = $iccid;
         $this->activationCode = $activationCode;
+        $this->manualActivationCode = $manualActivationCode;
     }
 }

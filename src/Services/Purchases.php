@@ -3,16 +3,7 @@
 namespace Celitech\Services;
 
 use Celitech\Utils\Serializer;
-use Celitech\Models\CreatePurchaseOkResponse;
-use Celitech\Models\CreatePurchaseRequest;
-use Celitech\Models\EditPurchaseOkResponse;
-use Celitech\Models\EditPurchaseRequest;
-use Celitech\Models\GetPurchaseConsumptionOkResponse;
-use Celitech\Models\ListDestinationsOkResponse;
-use Celitech\Models\ListPackagesOkResponse;
-use Celitech\Models\ListPurchasesOkResponse;
-use Celitech\Models\TopUpEsimOkResponse;
-use Celitech\Models\TopUpEsimRequest;
+use Celitech\Models;
 
 class Purchases extends BaseService
 {
@@ -28,7 +19,7 @@ class Purchases extends BaseService
         float $limit = null,
         float $after = null,
         float $before = null
-    ): ListPurchasesOkResponse {
+    ): Models\ListPurchasesOkResponse {
         $data = $this->sendRequest('get', '/purchases', [
             'query' => [
                 'iccid' => $iccid,
@@ -42,46 +33,46 @@ class Purchases extends BaseService
             ],
         ]);
 
-        return Serializer::deserialize($data, ListPurchasesOkResponse::class);
+        return Serializer::deserialize($data, Models\ListPurchasesOkResponse::class);
     }
 
     /**
      * This endpoint is used to purchase a new eSIM by providing the package details.
      */
-    public function createPurchase(CreatePurchaseRequest $input): CreatePurchaseOkResponse
+    public function createPurchase(Models\CreatePurchaseRequest $input): Models\CreatePurchaseOkResponse
     {
         $data = $this->sendRequest('post', '/purchases', ['json' => Serializer::serialize($input)]);
 
-        return Serializer::deserialize($data, CreatePurchaseOkResponse::class);
+        return Serializer::deserialize($data, Models\CreatePurchaseOkResponse::class);
     }
 
     /**
      * This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is not feasible for eSIMs in "DELETED" or "ERROR" state.
      */
-    public function topUpEsim(TopUpEsimRequest $input): TopUpEsimOkResponse
+    public function topUpEsim(Models\TopUpEsimRequest $input): Models\TopUpEsimOkResponse
     {
         $data = $this->sendRequest('post', '/purchases/topup', ['json' => Serializer::serialize($input)]);
 
-        return Serializer::deserialize($data, TopUpEsimOkResponse::class);
+        return Serializer::deserialize($data, Models\TopUpEsimOkResponse::class);
     }
 
     /**
      * This endpoint allows you to modify the dates of an existing package with a future activation start time. Editing can only be performed for packages that have not been activated, and it cannot change the package size. The modification must not change the package duration category to ensure pricing consistency.
      */
-    public function editPurchase(EditPurchaseRequest $input): EditPurchaseOkResponse
+    public function editPurchase(Models\EditPurchaseRequest $input): Models\EditPurchaseOkResponse
     {
         $data = $this->sendRequest('post', '/purchases/edit', ['json' => Serializer::serialize($input)]);
 
-        return Serializer::deserialize($data, EditPurchaseOkResponse::class);
+        return Serializer::deserialize($data, Models\EditPurchaseOkResponse::class);
     }
 
     /**
      * This endpoint can be called for consumption notifications (e.g. every 1 hour or when the user clicks a button). It returns the data balance (consumption) of purchased packages.
      */
-    public function getPurchaseConsumption(string $purchaseId): GetPurchaseConsumptionOkResponse
+    public function getPurchaseConsumption(string $purchaseId): Models\GetPurchaseConsumptionOkResponse
     {
         $data = $this->sendRequest('get', "/purchases/{$purchaseId}/consumption", []);
 
-        return Serializer::deserialize($data, GetPurchaseConsumptionOkResponse::class);
+        return Serializer::deserialize($data, Models\GetPurchaseConsumptionOkResponse::class);
     }
 }

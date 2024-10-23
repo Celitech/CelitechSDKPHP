@@ -3,8 +3,7 @@
 namespace Celitech\Services;
 
 use Celitech\Utils\Serializer;
-use Celitech\Models\ListDestinationsOkResponse;
-use Celitech\Models\ListPackagesOkResponse;
+use Celitech\Models;
 
 class Packages extends BaseService
 {
@@ -20,7 +19,7 @@ class Packages extends BaseService
         int $startTime = null,
         int $endTime = null,
         float $duration = null
-    ): ListPackagesOkResponse {
+    ): Models\ListPackagesOkResponse {
         $data = $this->sendRequest('get', '/packages', [
             'query' => [
                 'destination' => $destination,
@@ -34,6 +33,6 @@ class Packages extends BaseService
             ],
         ]);
 
-        return Serializer::deserialize($data, ListPackagesOkResponse::class);
+        return Serializer::deserialize($data, Models\ListPackagesOkResponse::class);
     }
 }
