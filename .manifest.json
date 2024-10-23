@@ -1,16 +1,17 @@
 {
-  "liblabVersion": "2.1.31",
-  "date": "2024-09-05T11:13:02.164Z",
+  "liblabVersion": "2.7.0",
+  "date": "2024-10-23T15:17:08.175Z",
   "config": {
-    "apiId": 1117,
+    "apiId": 1312,
     "sdkName": "Celitech",
-    "sdkVersion": "1.1.87",
+    "sdkVersion": "1.1.89",
     "liblabVersion": "2",
     "deliveryMethods": ["zip"],
     "languages": ["php"],
-    "apiVersion": "1.1.87",
+    "apiVersion": "1.1.89",
+    "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
-    "docs": ["api", "snippets"],
+    "docs": ["api", "snippets", "enhancedApiSpec"],
     "languageOptions": {
       "python": {
         "alwaysInitializeOptionals": true,
@@ -27,7 +28,7 @@
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.87"
+        "sdkVersion": "1.1.89"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -43,12 +44,12 @@
         ],
         "githubRepoName": "CelitechSDKPHP",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.87"
+        "sdkVersion": "1.1.89"
       },
       "typescript": {
         "bundle": true,
         "exportClassDefault": false,
-        "httpClient": "axios",
+        "httpClient": "fetch",
         "npmName": "celitech-sdk",
         "additionalConstructorParameters": [
           {
@@ -62,13 +63,23 @@
         ],
         "githubRepoName": "CelitechSDKTypeScript",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.87"
+        "sdkVersion": "1.1.89",
+        "generateEnumAs": "enum"
       }
     },
     "publishing": {
       "githubOrg": "Celitech"
     },
-    "apiName": "CELITECH API",
+    "integrations": {
+      "enhancedApiSpec": {
+        "githubRepoName": "CelitechCoreAPIReference",
+        "targetBranch": "main",
+        "provider": "redocly",
+        "redocly": {
+          "openapiPath": "swagger.yaml"
+        }
+      }
+    },
     "devContainer": true,
     "environmentVariables": [
       {
@@ -103,7 +114,7 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "7002/hooks.zip",
+      "bucketKey": "7742/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
     "includeWatermark": false,
@@ -131,7 +142,7 @@
     "httpLibrary": {
       "name": "axios",
       "packages": {
-        "axios": "^1.7.4"
+        "axios": "^1.7.7"
       },
       "languages": ["typescript"]
     },
@@ -148,46 +159,46 @@
     "src/Client.php",
     "composer.json",
     "example/index.php",
-    "src/services/BaseService.php",
-    "src/services/Destinations.php",
-    "src/services/Packages.php",
-    "src/services/Purchases.php",
-    "src/services/ESim.php",
+    "src/Services/BaseService.php",
+    "src/Services/Destinations.php",
+    "src/Services/Packages.php",
+    "src/Services/Purchases.php",
+    "src/Services/ESim.php",
     "src/hooks/HookInterface.php",
     "src/hooks/CustomHook.php",
     "src/Environment.php",
     "./LICENSE",
     "src/Retry.php",
     ".devcontainer/devcontainer.json",
-    "src/models/ListDestinationsOkResponse.php",
-    "src/models/ListPackagesOkResponse.php",
-    "src/models/ListPurchasesOkResponse.php",
-    "src/models/CreatePurchaseRequest.php",
-    "src/models/CreatePurchaseOkResponse.php",
-    "src/models/TopUpEsimRequest.php",
-    "src/models/TopUpEsimOkResponse.php",
-    "src/models/EditPurchaseRequest.php",
-    "src/models/EditPurchaseOkResponse.php",
-    "src/models/GetPurchaseConsumptionOkResponse.php",
-    "src/models/GetEsimOkResponse.php",
-    "src/models/GetEsimDeviceOkResponse.php",
-    "src/models/GetEsimHistoryOkResponse.php",
-    "src/models/GetEsimMacOkResponse.php",
-    "src/models/Destinations.php",
-    "src/models/Packages.php",
-    "src/models/Purchases.php",
-    "src/models/Package.php",
-    "src/models/PurchasesEsim.php",
-    "src/models/CreatePurchaseOkResponsePurchase.php",
-    "src/models/CreatePurchaseOkResponseProfile.php",
-    "src/models/TopUpEsimOkResponsePurchase.php",
-    "src/models/TopUpEsimOkResponseProfile.php",
-    "src/models/GetEsimOkResponseEsim.php",
-    "src/models/Device.php",
-    "src/models/GetEsimHistoryOkResponseEsim.php",
-    "src/models/History.php",
-    "src/models/GetEsimMacOkResponseEsim.php",
-    "src/utils/Serializer.php",
+    "src/Models/ListDestinationsOkResponse.php",
+    "src/Models/ListPackagesOkResponse.php",
+    "src/Models/ListPurchasesOkResponse.php",
+    "src/Models/CreatePurchaseRequest.php",
+    "src/Models/CreatePurchaseOkResponse.php",
+    "src/Models/TopUpEsimRequest.php",
+    "src/Models/TopUpEsimOkResponse.php",
+    "src/Models/EditPurchaseRequest.php",
+    "src/Models/EditPurchaseOkResponse.php",
+    "src/Models/GetPurchaseConsumptionOkResponse.php",
+    "src/Models/GetEsimOkResponse.php",
+    "src/Models/GetEsimDeviceOkResponse.php",
+    "src/Models/GetEsimHistoryOkResponse.php",
+    "src/Models/GetEsimMacOkResponse.php",
+    "src/Models/Destinations.php",
+    "src/Models/Packages.php",
+    "src/Models/Purchases.php",
+    "src/Models/Package.php",
+    "src/Models/PurchasesEsim.php",
+    "src/Models/CreatePurchaseOkResponsePurchase.php",
+    "src/Models/CreatePurchaseOkResponseProfile.php",
+    "src/Models/TopUpEsimOkResponsePurchase.php",
+    "src/Models/TopUpEsimOkResponseProfile.php",
+    "src/Models/GetEsimOkResponseEsim.php",
+    "src/Models/Device.php",
+    "src/Models/GetEsimHistoryOkResponseEsim.php",
+    "src/Models/History.php",
+    "src/Models/GetEsimMacOkResponseEsim.php",
+    "src/Utils/Serializer.php",
     "documentation/snippets/destinations-get.md",
     "documentation/snippets/packages-get.md",
     "documentation/snippets/purchases-get.md",

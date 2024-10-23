@@ -7,7 +7,7 @@ use Celitech\Models\EditPurchaseRequest;
 $sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
 
 
-$input = new EditPurchaseRequest(
+$input = new Models\EditPurchaseRequest(
   purchaseId: "purchaseId",
   startDate: "startDate",
   endDate: "endDate",

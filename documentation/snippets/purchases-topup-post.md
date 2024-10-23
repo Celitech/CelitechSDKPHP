@@ -7,7 +7,7 @@ use Celitech\Models\TopUpEsimRequest;
 $sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
 
 
-$input = new TopUpEsimRequest(
+$input = new Models\TopUpEsimRequest(
   iccid: "iccid",
   dataLimitInGb: 123,
   startDate: "startDate",
