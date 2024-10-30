@@ -1,18 +1,37 @@
 {
-  "liblabVersion": "2.7.0",
-  "date": "2024-10-23T15:17:08.175Z",
+  "liblabVersion": "2.9.0",
+  "date": "2024-10-30T13:00:47.088Z",
   "config": {
-    "apiId": 1312,
+    "apiId": 1350,
     "sdkName": "Celitech",
-    "sdkVersion": "1.1.89",
+    "sdkVersion": "1.1.92",
+    "languages": ["php"],
+    "auth": ["bearer"],
+    "docs": ["snippets"],
     "liblabVersion": "2",
     "deliveryMethods": ["zip"],
-    "languages": ["php"],
-    "apiVersion": "1.1.89",
+    "apiVersion": "1.1.92",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
-    "docs": ["api", "snippets", "enhancedApiSpec"],
     "languageOptions": {
+      "java": {
+        "groupId": "io.github.celitech",
+        "artifactId": "celitech-sdk",
+        "additionalConstructorParameters": [
+          {
+            "name": "clientId",
+            "example": "client-id"
+          },
+          {
+            "name": "clientSecret",
+            "example": "client-secret"
+          }
+        ],
+        "githubRepoName": "CelitechSDKJava",
+        "homepage": "https://docs.celitech.com/",
+        "liblabVersion": "2",
+        "sdkVersion": "1.1.92"
+      },
       "python": {
         "alwaysInitializeOptionals": true,
         "additionalConstructorParameters": [
@@ -28,7 +47,7 @@
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.89"
+        "sdkVersion": "1.1.92"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -44,7 +63,7 @@
         ],
         "githubRepoName": "CelitechSDKPHP",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.89"
+        "sdkVersion": "1.1.92"
       },
       "typescript": {
         "bundle": true,
@@ -63,22 +82,12 @@
         ],
         "githubRepoName": "CelitechSDKTypeScript",
         "liblabVersion": "2",
-        "sdkVersion": "1.1.89",
+        "sdkVersion": "1.1.92",
         "generateEnumAs": "enum"
       }
     },
     "publishing": {
       "githubOrg": "Celitech"
-    },
-    "integrations": {
-      "enhancedApiSpec": {
-        "githubRepoName": "CelitechCoreAPIReference",
-        "targetBranch": "main",
-        "provider": "redocly",
-        "redocly": {
-          "openapiPath": "swagger.yaml"
-        }
-      }
     },
     "devContainer": true,
     "environmentVariables": [
@@ -114,7 +123,7 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "7742/hooks.zip",
+      "bucketKey": "7882/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
     "includeWatermark": false,
@@ -146,7 +155,6 @@
       },
       "languages": ["typescript"]
     },
-    "auth": [],
     "customQueries": {
       "paths": [],
       "rawQueries": [],
