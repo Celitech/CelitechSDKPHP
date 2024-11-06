@@ -1,16 +1,16 @@
 {
   "liblabVersion": "2.9.3",
-  "date": "2024-11-05T15:55:38.581Z",
+  "date": "2024-11-06T16:24:24.918Z",
   "config": {
-    "apiId": 1396,
+    "apiId": 1405,
     "sdkName": "Celitech",
-    "sdkVersion": "1.2.5",
+    "sdkVersion": "1.2.8",
     "languages": ["php"],
     "auth": ["bearer"],
-    "docs": ["snippets"],
+    "docs": ["snippets", "enhancedApiSpec"],
     "liblabVersion": "2",
     "deliveryMethods": ["zip"],
-    "apiVersion": "1.2.5",
+    "apiVersion": "1.2.8",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "languageOptions": {
@@ -38,7 +38,7 @@
         "githubRepoName": "CelitechSDKJava",
         "homepage": "https://docs.celitech.com/",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5"
+        "sdkVersion": "1.2.8"
       },
       "python": {
         "alwaysInitializeOptionals": true,
@@ -55,7 +55,7 @@
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5"
+        "sdkVersion": "1.2.8"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -71,7 +71,7 @@
         ],
         "githubRepoName": "CelitechSDKPHP",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5"
+        "sdkVersion": "1.2.8"
       },
       "typescript": {
         "bundle": true,
@@ -90,12 +90,22 @@
         ],
         "githubRepoName": "CelitechSDKTypeScript",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5",
+        "sdkVersion": "1.2.8",
         "generateEnumAs": "enum"
       }
     },
     "publishing": {
       "githubOrg": "Celitech"
+    },
+    "integrations": {
+      "enhancedApiSpec": {
+        "githubRepoName": "CelitechCoreAPIReference",
+        "targetBranch": "main",
+        "provider": "redocly",
+        "redocly": {
+          "openapiPath": "swagger.yaml"
+        }
+      }
     },
     "devContainer": true,
     "environmentVariables": [
@@ -131,7 +141,7 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "8006/hooks.zip",
+      "bucketKey": "8019/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
     "includeWatermark": false,
