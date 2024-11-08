@@ -8,6 +8,7 @@ use Celitech\Services;
 
 class Client
 {
+    public $OAuth;
     public $Destinations;
     public $Packages;
     public $Purchases;
@@ -18,6 +19,7 @@ class Client
         string $clientId = '',
         string $clientSecret = ''
     ) {
+        $this->OAuth = new Services\OAuth($environment, $clientId, $clientSecret);
         $this->Destinations = new Services\Destinations($environment, $clientId, $clientSecret);
         $this->Packages = new Services\Packages($environment, $clientId, $clientSecret);
         $this->Purchases = new Services\Purchases($environment, $clientId, $clientSecret);
@@ -26,6 +28,7 @@ class Client
 
     public function setBaseUrl(string $url)
     {
+        $this->OAuth->setBaseUrl($url);
         $this->Destinations->setBaseUrl($url);
         $this->Packages->setBaseUrl($url);
         $this->Purchases->setBaseUrl($url);
