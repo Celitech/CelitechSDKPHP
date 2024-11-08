@@ -1,16 +1,16 @@
 {
   "liblabVersion": "2.9.3",
-  "date": "2024-11-05T15:55:38.581Z",
+  "date": "2024-11-08T09:47:32.184Z",
   "config": {
-    "apiId": 1396,
+    "apiId": 1412,
     "sdkName": "Celitech",
-    "sdkVersion": "1.2.5",
+    "sdkVersion": "1.3.1",
     "languages": ["php"],
-    "auth": ["bearer"],
-    "docs": ["snippets"],
+    "auth": ["oauth"],
+    "docs": ["snippets", "enhancedApiSpec"],
     "liblabVersion": "2",
     "deliveryMethods": ["zip"],
-    "apiVersion": "1.2.5",
+    "apiVersion": "1.3.1",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "languageOptions": {
@@ -38,7 +38,7 @@
         "githubRepoName": "CelitechSDKJava",
         "homepage": "https://docs.celitech.com/",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5"
+        "sdkVersion": "1.3.1"
       },
       "python": {
         "alwaysInitializeOptionals": true,
@@ -55,7 +55,7 @@
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5"
+        "sdkVersion": "1.3.1"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -71,7 +71,7 @@
         ],
         "githubRepoName": "CelitechSDKPHP",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5"
+        "sdkVersion": "1.3.1"
       },
       "typescript": {
         "bundle": true,
@@ -90,12 +90,27 @@
         ],
         "githubRepoName": "CelitechSDKTypeScript",
         "liblabVersion": "2",
-        "sdkVersion": "1.2.5",
+        "sdkVersion": "1.3.1",
         "generateEnumAs": "enum"
       }
     },
     "publishing": {
       "githubOrg": "Celitech"
+    },
+    "integrations": {
+      "enhancedApiSpec": {
+        "githubRepoName": "CelitechCoreAPIReference",
+        "targetBranch": "main",
+        "provider": "redocly",
+        "redocly": {
+          "openapiPath": "swagger.yaml"
+        }
+      }
+    },
+    "authentication": {
+      "oauth": {
+        "enabled": true
+      }
     },
     "devContainer": true,
     "environmentVariables": [
@@ -131,7 +146,7 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "8006/hooks.zip",
+      "bucketKey": "8040/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
     "includeWatermark": false,
@@ -154,7 +169,6 @@
       "sourceDir": "/tmp/resources/hooks"
     },
     "usesFormData": false,
-    "authentication": {},
     "fileOutput": "/tmp",
     "httpLibrary": {
       "name": "axios",
@@ -176,6 +190,7 @@
     "composer.json",
     "example/index.php",
     "src/Services/BaseService.php",
+    "src/Services/OAuth.php",
     "src/Services/Destinations.php",
     "src/Services/Packages.php",
     "src/Services/Purchases.php",
@@ -186,6 +201,8 @@
     "./LICENSE",
     "src/Retry.php",
     ".devcontainer/devcontainer.json",
+    "src/Models/GetAccessTokenRequest.php",
+    "src/Models/GetAccessTokenOkResponse.php",
     "src/Models/ListDestinationsOkResponse.php",
     "src/Models/ListPackagesOkResponse.php",
     "src/Models/ListPurchasesOkResponse.php",
@@ -200,6 +217,7 @@
     "src/Models/GetEsimDeviceOkResponse.php",
     "src/Models/GetEsimHistoryOkResponse.php",
     "src/Models/GetEsimMacOkResponse.php",
+    "src/Models/GrantType.php",
     "src/Models/Destinations.php",
     "src/Models/Packages.php",
     "src/Models/Purchases.php",
@@ -215,6 +233,7 @@
     "src/Models/History.php",
     "src/Models/GetEsimMacOkResponseEsim.php",
     "src/Utils/Serializer.php",
+    "documentation/snippets/oauth2-token-post.md",
     "documentation/snippets/destinations-get.md",
     "documentation/snippets/packages-get.md",
     "documentation/snippets/purchases-get.md",
