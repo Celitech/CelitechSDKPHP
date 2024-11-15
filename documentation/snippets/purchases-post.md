@@ -8,15 +8,10 @@ $sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
 
 
 $input = new Models\CreatePurchaseRequest(
-  destination: "destination",
-  dataLimitInGb: 123,
-  startDate: "startDate",
-  endDate: "endDate",
-  email: "email",
-  referenceId: "referenceId",
-  networkBrand: "networkBrand",
-  startTime: 123,
-  endTime: 123
+  destination: "FRA",
+  dataLimitInGb: 1,
+  startDate: "2023-11-01",
+  endDate: "2023-11-20"
 );
 
 $response = $sdk->Purchases->createPurchase(
