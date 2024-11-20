@@ -33,7 +33,7 @@ Get eSIM Status
 
 use Celitech\Client;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $response = $sdk->ESim->getEsim(
   iccid: "1111222233334444555000"
@@ -66,7 +66,7 @@ Get eSIM Device
 
 use Celitech\Client;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $response = $sdk->ESim->getEsimDevice(
   iccid: "1111222233334444555000"
@@ -99,7 +99,7 @@ Get eSIM History
 
 use Celitech\Client;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $response = $sdk->ESim->getEsimHistory(
   iccid: "1111222233334444555000"
@@ -132,7 +132,7 @@ Get eSIM MAC
 
 use Celitech\Client;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $response = $sdk->ESim->getEsimMac(
   iccid: "1111222233334444555000"

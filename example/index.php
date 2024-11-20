@@ -9,7 +9,7 @@ use Celitech\Models;
 use Celitech\Client;
 use Celitech\Models\GetAccessTokenRequest;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $input = new Models\GetAccessTokenRequest();
 

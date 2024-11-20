@@ -41,7 +41,7 @@ This endpoint can be used to list all the successful purchases made between a gi
 
 use Celitech\Client;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $response = $sdk->Purchases->listPurchases();
 
@@ -73,7 +73,7 @@ This endpoint is used to purchase a new eSIM by providing the package details.
 use Celitech\Client;
 use Celitech\Models\CreatePurchaseRequest;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 
 $input = new Models\CreatePurchaseRequest(
@@ -115,7 +115,7 @@ This endpoint is used to top-up an eSIM with the previously associated destinati
 use Celitech\Client;
 use Celitech\Models\TopUpEsimRequest;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 
 $input = new Models\TopUpEsimRequest(
@@ -157,7 +157,7 @@ This endpoint allows you to modify the dates of an existing package with a futur
 use Celitech\Client;
 use Celitech\Models\EditPurchaseRequest;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 
 $input = new Models\EditPurchaseRequest(
@@ -197,7 +197,7 @@ This endpoint can be called for consumption notifications (e.g. every 1 hour or 
 
 use Celitech\Client;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $response = $sdk->Purchases->getPurchaseConsumption(
   purchaseId: "4973fa15-6979-4daa-9cf3-672620df819c"

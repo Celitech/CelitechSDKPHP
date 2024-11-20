@@ -1,4 +1,4 @@
-# Celitech PHP SDK 1.3.8
+# Celitech PHP SDK 1.3.9
 
 
 Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
@@ -6,7 +6,7 @@ Welcome to the Celitech SDK documentation. This guide will help you get started 
 ## Versions
 
 - API version: `1.1.0`
-- SDK version: `1.3.8`
+- SDK version: `1.3.9`
 
 ## About the API
 
@@ -81,7 +81,7 @@ Below is a comprehensive example demonstrating how to authenticate and call a si
 
 use Celitech\Client;
 
-$sdk = new Client(clientId: 'client-id', clientSecret: 'client-secret');
+$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $response = $sdk->Destinations->listDestinations();
 
