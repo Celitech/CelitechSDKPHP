@@ -14,7 +14,7 @@ $input = new Models\CreatePurchaseRequest(
   endDate: "2023-11-20"
 );
 
-$response = $sdk->Purchases->createPurchase(
+$response = $sdk->purchases->createPurchase(
   input: $input
 );
 

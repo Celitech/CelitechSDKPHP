@@ -8,31 +8,32 @@ use Celitech\Services;
 
 class Client
 {
-    public $OAuth;
-    public $Destinations;
-    public $Packages;
-    public $Purchases;
-    public $ESim;
+    public $oAuth;
+    public $destinations;
+    public $packages;
+    public $purchases;
+    public $eSim;
 
     public function __construct(
         string $environment = Environment::Default,
+        float $timeout = 0,
         string $clientId = '',
         string $clientSecret = ''
     ) {
-        $this->OAuth = new Services\OAuth($environment, $clientId, $clientSecret);
-        $this->Destinations = new Services\Destinations($environment, $clientId, $clientSecret);
-        $this->Packages = new Services\Packages($environment, $clientId, $clientSecret);
-        $this->Purchases = new Services\Purchases($environment, $clientId, $clientSecret);
-        $this->ESim = new Services\ESim($environment, $clientId, $clientSecret);
+        $this->oAuth = new Services\OAuth($environment, $timeout, $clientId, $clientSecret);
+        $this->destinations = new Services\Destinations($environment, $timeout, $clientId, $clientSecret);
+        $this->packages = new Services\Packages($environment, $timeout, $clientId, $clientSecret);
+        $this->purchases = new Services\Purchases($environment, $timeout, $clientId, $clientSecret);
+        $this->eSim = new Services\ESim($environment, $timeout, $clientId, $clientSecret);
     }
 
     public function setBaseUrl(string $url)
     {
-        $this->OAuth->setBaseUrl($url);
-        $this->Destinations->setBaseUrl($url);
-        $this->Packages->setBaseUrl($url);
-        $this->Purchases->setBaseUrl($url);
-        $this->ESim->setBaseUrl($url);
+        $this->oAuth->setBaseUrl($url);
+        $this->destinations->setBaseUrl($url);
+        $this->packages->setBaseUrl($url);
+        $this->purchases->setBaseUrl($url);
+        $this->eSim->setBaseUrl($url);
     }
 }
 

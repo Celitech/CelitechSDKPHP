@@ -1,16 +1,16 @@
 {
-  "liblabVersion": "2.9.4",
-  "date": "2024-11-22T20:29:53.514Z",
+  "liblabVersion": "2.9.5",
+  "date": "2024-11-27T13:09:40.611Z",
   "config": {
-    "apiId": 1479,
+    "apiId": 1491,
     "sdkName": "Celitech",
-    "sdkVersion": "1.3.10",
+    "sdkVersion": "1.3.11",
     "languages": ["php"],
     "auth": ["oauth"],
     "docs": ["snippets", "enhancedApiSpec"],
     "liblabVersion": "2",
     "deliveryMethods": ["zip"],
-    "apiVersion": "1.3.10",
+    "apiVersion": "1.3.11",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "languageOptions": {
@@ -28,14 +28,14 @@
         "githubRepoName": "CelitechSDKJava",
         "homepage": "https://docs.celitech.com/",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.10"
+        "sdkVersion": "1.3.11"
       },
       "python": {
         "alwaysInitializeOptionals": true,
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.10"
+        "sdkVersion": "1.3.11"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -51,7 +51,7 @@
         ],
         "githubRepoName": "CelitechSDKPHP",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.10"
+        "sdkVersion": "1.3.11"
       },
       "typescript": {
         "bundle": true,
@@ -60,7 +60,7 @@
         "npmName": "celitech-sdk",
         "githubRepoName": "CelitechSDKTypeScript",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.10",
+        "sdkVersion": "1.3.11",
         "generateEnumAs": "enum"
       }
     },
@@ -116,7 +116,7 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "8231/hooks.zip",
+      "bucketKey": "8276/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
     "includeWatermark": false,
@@ -220,18 +220,33 @@
     "documentation/models/EditPurchaseRequest.md",
     "documentation/models/EditPurchaseOkResponse.md",
     "documentation/models/GetPurchaseConsumptionOkResponse.md",
+    "documentation/models/GrantType.md",
+    "documentation/models/Destinations.md",
+    "documentation/models/Packages.md",
+    "documentation/models/Package.md",
+    "documentation/models/PurchasesEsim.md",
+    "documentation/models/CreatePurchaseOkResponsePurchase.md",
+    "documentation/models/CreatePurchaseOkResponseProfile.md",
+    "documentation/models/TopUpEsimOkResponsePurchase.md",
+    "documentation/models/TopUpEsimOkResponseProfile.md",
+    "documentation/models/GetEsimOkResponseEsim.md",
+    "documentation/models/Device.md",
+    "documentation/models/History.md",
+    "documentation/models/GetEsimMacOkResponseEsim.md",
     "documentation/models/GetAccessTokenRequest.md",
     "documentation/models/ListDestinationsOkResponse.md",
     "documentation/models/ListPackagesOkResponse.md",
     "documentation/models/GetEsimOkResponse.md",
     "documentation/models/GetEsimDeviceOkResponse.md",
     "documentation/models/GetEsimMacOkResponse.md",
+    "documentation/models/GetEsimHistoryOkResponseEsim.md",
     "documentation/services/OAuth.md",
     "documentation/services/Destinations.md",
     "documentation/services/Packages.md",
     "documentation/models/CreatePurchaseOkResponse.md",
     "documentation/models/TopUpEsimOkResponse.md",
     "documentation/models/GetEsimHistoryOkResponse.md",
+    "documentation/models/Purchases.md",
     "documentation/models/ListPurchasesOkResponse.md",
     "documentation/services/ESim.md",
     "documentation/services/Purchases.md",

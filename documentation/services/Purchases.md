@@ -43,7 +43,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->Purchases->listPurchases();
+$response = $sdk->purchases->listPurchases();
 
 print_r($response);
 ```
@@ -83,7 +83,7 @@ $input = new Models\CreatePurchaseRequest(
   endDate: "2023-11-20"
 );
 
-$response = $sdk->Purchases->createPurchase(
+$response = $sdk->purchases->createPurchase(
   input: $input
 );
 
@@ -125,7 +125,7 @@ $input = new Models\TopUpEsimRequest(
   endDate: "2023-11-20"
 );
 
-$response = $sdk->Purchases->topUpEsim(
+$response = $sdk->purchases->topUpEsim(
   input: $input
 );
 
@@ -166,7 +166,7 @@ $input = new Models\EditPurchaseRequest(
   endDate: "2023-11-20"
 );
 
-$response = $sdk->Purchases->editPurchase(
+$response = $sdk->purchases->editPurchase(
   input: $input
 );
 
@@ -199,7 +199,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->Purchases->getPurchaseConsumption(
+$response = $sdk->purchases->getPurchaseConsumption(
   purchaseId: "4973fa15-6979-4daa-9cf3-672620df819c"
 );
 

@@ -16,9 +16,11 @@ class BaseService
     protected $client;
     protected string $baseUrl;
     protected array $options;
+    protected HandlerStack $stack;
 
     public function __construct(
         string $environment = Environment::Default,
+        float $timeout = 0,
         string $clientId = '',
         string $clientSecret = ''
     ) {
@@ -35,8 +37,11 @@ class BaseService
         $hook = new CustomHook(['clientId' => $clientId, 'clientSecret' => $clientSecret]);
         $stack->push($this->hookMiddleware($hook));
 
+        $this->stack = $stack;
+
         $this->client = new Client([
             'handler' => $stack,
+            'timeout' => $timeout / 1000,
         ]);
     }
 
@@ -53,6 +58,14 @@ class BaseService
     public function setBaseUrl(string $url): void
     {
         $this->baseUrl = $url;
+    }
+
+    public function setTimeout(float $timeout): void
+    {
+        $this->client = new Client([
+            'handler' => $this->stack,
+            'timeout' => $timeout / 1000,
+        ]);
     }
 
     private function hookMiddleware(CustomHook $hook)
