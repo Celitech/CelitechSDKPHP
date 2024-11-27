@@ -14,7 +14,7 @@ $input = new Models\TopUpEsimRequest(
   endDate: "2023-11-20"
 );
 
-$response = $sdk->Purchases->topUpEsim(
+$response = $sdk->purchases->topUpEsim(
   input: $input
 );
 

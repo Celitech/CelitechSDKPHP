@@ -35,7 +35,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->ESim->getEsim(
+$response = $sdk->eSim->getEsim(
   iccid: "1111222233334444555000"
 );
 
@@ -68,7 +68,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->ESim->getEsimDevice(
+$response = $sdk->eSim->getEsimDevice(
   iccid: "1111222233334444555000"
 );
 
@@ -101,7 +101,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->ESim->getEsimHistory(
+$response = $sdk->eSim->getEsimHistory(
   iccid: "1111222233334444555000"
 );
 
@@ -134,7 +134,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->ESim->getEsimMac(
+$response = $sdk->eSim->getEsimMac(
   iccid: "1111222233334444555000"
 );
 

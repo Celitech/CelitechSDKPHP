@@ -13,7 +13,7 @@ $input = new Models\EditPurchaseRequest(
   endDate: "2023-11-20"
 );
 
-$response = $sdk->Purchases->editPurchase(
+$response = $sdk->purchases->editPurchase(
   input: $input
 );
 

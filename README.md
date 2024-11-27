@@ -1,4 +1,4 @@
-# Celitech PHP SDK 1.3.10
+# Celitech PHP SDK 1.3.11
 
 
 Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
@@ -6,7 +6,7 @@ Welcome to the Celitech SDK documentation. This guide will help you get started 
 ## Versions
 
 - API version: `1.1.0`
-- SDK version: `1.3.10`
+- SDK version: `1.3.11`
 
 ## About the API
 
@@ -72,6 +72,14 @@ Environment variables are a way to configure your application outside the code. 
 
 If you are using a `.env` file, a template with the variable names is provided in the `.env.example` file located in the same directory as this README.
 
+## Setting a Custom Timeout
+
+You can set a custom timeout for the SDK's HTTP requests as follows:
+
+```php
+$sdk = new Client(timeout: 1000);
+```
+
 # Sample Usage
 
 Below is a comprehensive example demonstrating how to authenticate and call a simple endpoint:
@@ -83,7 +91,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->Destinations->listDestinations();
+$response = $sdk->destinations->listDestinations();
 
 print_r($response);
 

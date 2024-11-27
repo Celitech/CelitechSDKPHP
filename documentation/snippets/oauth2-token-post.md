@@ -9,7 +9,7 @@ $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $input = new Models\GetAccessTokenRequest();
 
-$response = $sdk->OAuth->getAccessToken(
+$response = $sdk->oAuth->getAccessToken(
   input: $input
 );
 
