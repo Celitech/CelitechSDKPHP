@@ -1,16 +1,16 @@
 {
-  "liblabVersion": "2.9.7",
-  "date": "2024-12-13T13:02:52.049Z",
+  "liblabVersion": "2.10.9",
+  "date": "2025-01-16T11:20:17.972Z",
   "config": {
-    "apiId": 1550,
+    "apiId": 1672,
     "sdkName": "Celitech",
-    "sdkVersion": "1.3.23",
+    "sdkVersion": "1.3.32",
     "languages": ["php"],
     "auth": ["oauth"],
     "docs": ["snippets", "enhancedApiSpec"],
     "liblabVersion": "2",
     "deliveryMethods": ["zip"],
-    "apiVersion": "1.3.23",
+    "apiVersion": "1.3.32",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "languageOptions": {
@@ -28,14 +28,14 @@
         "githubRepoName": "CelitechSDKJava",
         "homepage": "https://docs.celitech.com/",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.23"
+        "sdkVersion": "1.3.32"
       },
       "python": {
         "alwaysInitializeOptionals": true,
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.23"
+        "sdkVersion": "1.3.32"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
@@ -51,7 +51,7 @@
         ],
         "githubRepoName": "CelitechSDKPHP",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.23"
+        "sdkVersion": "1.3.32"
       },
       "typescript": {
         "bundle": true,
@@ -60,7 +60,7 @@
         "npmName": "celitech-sdk",
         "githubRepoName": "CelitechSDKTypeScript",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.23",
+        "sdkVersion": "1.3.32",
         "generateEnumAs": "enum"
       }
     },
@@ -116,7 +116,7 @@
     },
     "multiTenant": true,
     "hooksLocation": {
-      "bucketKey": "8444/hooks.zip",
+      "bucketKey": "8988/hooks.zip",
       "bucketName": "prod-liblab-api-stack-hooks"
     },
     "includeWatermark": false,
@@ -165,8 +165,8 @@
     "src/Services/Packages.php",
     "src/Services/Purchases.php",
     "src/Services/ESim.php",
-    "src/hooks/HookInterface.php",
-    "src/hooks/CustomHook.php",
+    "src/Hooks/HookInterface.php",
+    "src/Hooks/CustomHook.php",
     "src/Environment.php",
     "./LICENSE",
     "src/Retry.php",
@@ -234,6 +234,8 @@
     "documentation/models/Device.md",
     "documentation/models/History.md",
     "documentation/models/GetEsimMacOkResponseEsim.md",
+    "src/OAuth/OAuthToken.php",
+    "src/OAuth/TokenManager.php",
     "documentation/models/GetAccessTokenRequest.md",
     "documentation/models/ListDestinationsOkResponse.md",
     "documentation/models/ListPackagesOkResponse.md",
