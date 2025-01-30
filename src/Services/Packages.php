@@ -31,6 +31,7 @@ class Packages extends BaseService
                 'endTime' => $endTime,
                 'duration' => $duration,
             ],
+            'scopes' => [],
         ]);
 
         return Serializer::deserialize($data, Models\ListPackagesOkResponse::class);

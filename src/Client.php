@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Celitech;
 
 use Celitech\Services;
+use Celitech\OAuth\TokenManager;
 
 class Client
 {
@@ -13,18 +14,22 @@ class Client
     public $packages;
     public $purchases;
     public $eSim;
+    private TokenManager $tokenManager;
 
     public function __construct(
         string $environment = Environment::Default,
         float $timeout = 0,
+        string $baseOAuthUrl = 'https://auth.celitech.net',
         string $clientId = '',
         string $clientSecret = ''
     ) {
-        $this->oAuth = new Services\OAuth($environment, $timeout, $clientId, $clientSecret);
-        $this->destinations = new Services\Destinations($environment, $timeout, $clientId, $clientSecret);
-        $this->packages = new Services\Packages($environment, $timeout, $clientId, $clientSecret);
-        $this->purchases = new Services\Purchases($environment, $timeout, $clientId, $clientSecret);
-        $this->eSim = new Services\ESim($environment, $timeout, $clientId, $clientSecret);
+        $tokenManager = new TokenManager(baseOAuthUrl: $baseOAuthUrl, clientId: $clientId, clientSecret: $clientSecret);
+
+        $this->oAuth = new Services\OAuth($environment, $timeout, $tokenManager);
+        $this->destinations = new Services\Destinations($environment, $timeout, $tokenManager);
+        $this->packages = new Services\Packages($environment, $timeout, $tokenManager);
+        $this->purchases = new Services\Purchases($environment, $timeout, $tokenManager);
+        $this->eSim = new Services\ESim($environment, $timeout, $tokenManager);
     }
 
     public function setBaseUrl(string $url)
@@ -34,6 +39,24 @@ class Client
         $this->packages->setBaseUrl($url);
         $this->purchases->setBaseUrl($url);
         $this->eSim->setBaseUrl($url);
+    }
+
+    public function setBaseOAuthUrl(string $baseOAuthUrl): self
+    {
+        $this->baseOAuthUrl = $baseOAuthUrl;
+        return $this;
+    }
+
+    public function setClientId(string $clientId): self
+    {
+        $this->tokenManager->setClientId($clientId);
+        return $this;
+    }
+
+    public function setClientSecret(string $clientSecret): self
+    {
+        $this->tokenManager->setClientSecret($clientSecret);
+        return $this;
     }
 }
 

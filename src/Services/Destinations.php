@@ -12,7 +12,7 @@ class Destinations extends BaseService
      */
     public function listDestinations(): Models\ListDestinationsOkResponse
     {
-        $data = $this->sendRequest('get', '/destinations', []);
+        $data = $this->sendRequest('get', '/destinations', ['scopes' => []]);
 
         return Serializer::deserialize($data, Models\ListDestinationsOkResponse::class);
     }

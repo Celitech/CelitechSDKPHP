@@ -31,6 +31,7 @@ class Purchases extends BaseService
                 'after' => $after,
                 'before' => $before,
             ],
+            'scopes' => [],
         ]);
 
         return Serializer::deserialize($data, Models\ListPurchasesOkResponse::class);
@@ -41,7 +42,7 @@ class Purchases extends BaseService
      */
     public function createPurchase(Models\CreatePurchaseRequest $input): Models\CreatePurchaseOkResponse
     {
-        $data = $this->sendRequest('post', '/purchases', ['json' => Serializer::serialize($input)]);
+        $data = $this->sendRequest('post', '/purchases', ['json' => Serializer::serialize($input), 'scopes' => []]);
 
         return Serializer::deserialize($data, Models\CreatePurchaseOkResponse::class);
     }
@@ -51,7 +52,10 @@ class Purchases extends BaseService
      */
     public function topUpEsim(Models\TopUpEsimRequest $input): Models\TopUpEsimOkResponse
     {
-        $data = $this->sendRequest('post', '/purchases/topup', ['json' => Serializer::serialize($input)]);
+        $data = $this->sendRequest('post', '/purchases/topup', [
+            'json' => Serializer::serialize($input),
+            'scopes' => [],
+        ]);
 
         return Serializer::deserialize($data, Models\TopUpEsimOkResponse::class);
     }
@@ -61,7 +65,10 @@ class Purchases extends BaseService
      */
     public function editPurchase(Models\EditPurchaseRequest $input): Models\EditPurchaseOkResponse
     {
-        $data = $this->sendRequest('post', '/purchases/edit', ['json' => Serializer::serialize($input)]);
+        $data = $this->sendRequest('post', '/purchases/edit', [
+            'json' => Serializer::serialize($input),
+            'scopes' => [],
+        ]);
 
         return Serializer::deserialize($data, Models\EditPurchaseOkResponse::class);
     }
@@ -71,7 +78,7 @@ class Purchases extends BaseService
      */
     public function getPurchaseConsumption(string $purchaseId): Models\GetPurchaseConsumptionOkResponse
     {
-        $data = $this->sendRequest('get', "/purchases/{$purchaseId}/consumption", []);
+        $data = $this->sendRequest('get', "/purchases/{$purchaseId}/consumption", ['scopes' => []]);
 
         return Serializer::deserialize($data, Models\GetPurchaseConsumptionOkResponse::class);
     }

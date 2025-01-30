@@ -12,7 +12,7 @@ class OAuth extends BaseService
      */
     public function getAccessToken(Models\GetAccessTokenRequest $input): Models\GetAccessTokenOkResponse
     {
-        $data = $this->sendRequest('post', '/oauth2/token', ['form_params' => $input]);
+        $data = $this->sendRequest('post', '/oauth2/token', ['form_params' => Serializer::serialize($input)]);
 
         return Serializer::deserialize($data, Models\GetAccessTokenOkResponse::class);
     }

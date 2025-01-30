@@ -1,4 +1,4 @@
-# Celitech PHP SDK 1.3.23
+# Celitech PHP SDK 1.3.33
 
 
 Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
@@ -8,7 +8,7 @@ Welcome to the Celitech SDK documentation. This guide will help you get started 
 ## Versions
 
 - API version: `1.1.0`
-- SDK version: `1.3.23`
+- SDK version: `1.3.33`
 
 ## About the API
 
@@ -51,13 +51,17 @@ The Celitech API uses OAuth for authentication.
 You need to provide the OAuth parameters when initializing the SDK.
 
 ```php
-
+new Client(
+	clientId: 'CLIENT_ID',
+	clientSecret: 'CLIENT_SECRET'
+)
 ```
 
 If you need to set or update the OAuth parameters after the SDK initialization, you can use:
 
 ```php
-
+sdk.setClientId('CLIENT_ID')
+sdk.setClientSecret('CLIENT_SECRET')
 ```
 
 
