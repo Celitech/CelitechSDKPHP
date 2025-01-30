@@ -16,6 +16,7 @@ class ESim extends BaseService
             'query' => [
                 'iccid' => $iccid,
             ],
+            'scopes' => [],
         ]);
 
         return Serializer::deserialize($data, Models\GetEsimOkResponse::class);
@@ -26,7 +27,7 @@ class ESim extends BaseService
      */
     public function getEsimDevice(string $iccid): Models\GetEsimDeviceOkResponse
     {
-        $data = $this->sendRequest('get', "/esim/{$iccid}/device", []);
+        $data = $this->sendRequest('get', "/esim/{$iccid}/device", ['scopes' => []]);
 
         return Serializer::deserialize($data, Models\GetEsimDeviceOkResponse::class);
     }
@@ -36,7 +37,7 @@ class ESim extends BaseService
      */
     public function getEsimHistory(string $iccid): Models\GetEsimHistoryOkResponse
     {
-        $data = $this->sendRequest('get', "/esim/{$iccid}/history", []);
+        $data = $this->sendRequest('get', "/esim/{$iccid}/history", ['scopes' => []]);
 
         return Serializer::deserialize($data, Models\GetEsimHistoryOkResponse::class);
     }
@@ -46,7 +47,7 @@ class ESim extends BaseService
      */
     public function getEsimMac(string $iccid): Models\GetEsimMacOkResponse
     {
-        $data = $this->sendRequest('get', "/esim/{$iccid}/mac", []);
+        $data = $this->sendRequest('get', "/esim/{$iccid}/mac", ['scopes' => []]);
 
         return Serializer::deserialize($data, Models\GetEsimMacOkResponse::class);
     }

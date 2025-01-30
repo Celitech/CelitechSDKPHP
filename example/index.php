@@ -7,12 +7,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Celitech\Models;
 
 use Celitech\Client;
-use Celitech\Models\GetAccessTokenRequest;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$input = new Models\GetAccessTokenRequest();
-
-$response = $sdk->oAuth->getAccessToken(input: $input);
+$response = $sdk->destinations->listDestinations();
 
 print_r($response);

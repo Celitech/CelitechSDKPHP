@@ -4,12 +4,10 @@ namespace Celitech\Services;
 
 use Celitech\Environment;
 use Celitech\Retry;
-use Celitech\Hooks\CustomHook;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
+use Celitech\OAuth\TokenManager;
 
 class BaseService
 {
@@ -18,11 +16,12 @@ class BaseService
     protected array $options;
     protected HandlerStack $stack;
 
+    private TokenManager $tokenManager;
+
     public function __construct(
         string $environment = Environment::Default,
         float $timeout = 0,
-        string $clientId = '',
-        string $clientSecret = ''
+        TokenManager $tokenManager = null
     ) {
         $this->options = [
             'headers' => [],
@@ -34,8 +33,10 @@ class BaseService
 
         $stack->push(Retry::factory());
 
-        $hook = new CustomHook(['clientId' => $clientId, 'clientSecret' => $clientSecret]);
-        $stack->push($this->hookMiddleware($hook));
+        if ($tokenManager) {
+            $this->tokenManager = $tokenManager;
+            $stack->push(middleware: $this->oauthMiddleware());
+        }
 
         $this->stack = $stack;
 
@@ -68,23 +69,18 @@ class BaseService
         ]);
     }
 
-    private function hookMiddleware(CustomHook $hook)
+    private function oauthMiddleware()
     {
-        return function (callable $handler) use ($hook) {
-            return function (RequestInterface $request, array $options) use ($handler, $hook) {
-                $hook->beforeRequest($request);
+        return function (callable $handler) {
+            return function (RequestInterface $request, array $options) use ($handler) {
+                $scopes = $options['scopes'] ?? null;
+                if (is_array($scopes)) {
+                    $token = $this->tokenManager->getToken($scopes);
 
-                return $handler($request, $options)->then(
-                    function (ResponseInterface $response) use ($request, $hook) {
-                        $hook->afterResponse($request, $response);
-                        return $response;
-                    },
-                    function ($reason) use ($request, $hook) {
-                        if ($reason instanceof Exception) {
-                            $hook->onError($request, $reason);
-                        }
-                    }
-                );
+                    $request = $request->withHeader('Authorization', 'Bearer ' . $token->accessToken);
+                }
+
+                return $handler($request, $options);
             };
         };
     }
