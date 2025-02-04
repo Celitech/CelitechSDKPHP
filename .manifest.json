@@ -1,10 +1,10 @@
 {
   "liblabVersion": "2.13.0",
-  "date": "2025-02-03T12:01:55.736Z",
+  "date": "2025-02-04T11:39:34.415Z",
   "config": {
-    "apiId": 1722,
+    "apiId": 1729,
     "sdkName": "Celitech",
-    "sdkVersion": "1.3.34",
+    "sdkVersion": "1.3.35",
     "languages": ["php"],
     "auth": ["oauth"],
     "docs": ["snippets", "enhancedApiSpec"],
@@ -13,7 +13,7 @@
     "rawConfig": {
       "sdkName": "Celitech",
       "apiName": "Celitech",
-      "apiVersion": "1.3.34",
+      "apiVersion": "1.3.35",
       "specFilePath": "swagger.yaml",
       "languages": ["typescript", "python", "php", "java"],
       "docs": ["snippets", "enhancedApiSpec"],
@@ -52,25 +52,25 @@
       "languageOptions": {
         "typescript": {
           "githubRepoName": "CelitechSDKTypeScript",
-          "sdkVersion": "1.3.34",
+          "sdkVersion": "1.3.35",
           "liblabVersion": "2",
           "npmName": "celitech-sdk"
         },
         "python": {
           "githubRepoName": "CelitechSDKPython",
-          "sdkVersion": "1.3.34",
+          "sdkVersion": "1.3.35",
           "liblabVersion": "2",
           "pypiPackageName": "celitech-sdk"
         },
         "php": {
           "githubRepoName": "CelitechSDKPHP",
-          "sdkVersion": "1.3.34",
+          "sdkVersion": "1.3.35",
           "liblabVersion": "2",
           "packageName": "celitech-sdk/sdk"
         },
         "java": {
           "githubRepoName": "CelitechSDKJava",
-          "sdkVersion": "1.3.34",
+          "sdkVersion": "1.3.35",
           "liblabVersion": "2",
           "groupId": "io.github.celitech",
           "artifactId": "celitech-sdk",
@@ -98,7 +98,7 @@
         "githubOrg": "Celitech"
       }
     },
-    "apiVersion": "1.3.34",
+    "apiVersion": "1.3.35",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "languageOptions": {
@@ -116,20 +116,20 @@
         "githubRepoName": "CelitechSDKJava",
         "homepage": "https://docs.celitech.com/",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.34"
+        "sdkVersion": "1.3.35"
       },
       "python": {
         "alwaysInitializeOptionals": true,
         "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.34"
+        "sdkVersion": "1.3.35"
       },
       "php": {
         "packageName": "celitech-sdk/sdk",
         "githubRepoName": "CelitechSDKPHP",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.34"
+        "sdkVersion": "1.3.35"
       },
       "typescript": {
         "bundle": true,
@@ -138,7 +138,7 @@
         "npmName": "celitech-sdk",
         "githubRepoName": "CelitechSDKTypeScript",
         "liblabVersion": "2",
-        "sdkVersion": "1.3.34",
+        "sdkVersion": "1.3.35",
         "generateEnumAs": "enum"
       }
     },
@@ -229,6 +229,7 @@
     "src/Services/Packages.php",
     "src/Services/Purchases.php",
     "src/Services/ESim.php",
+    "src/Services/Iframe.php",
     "src/Environment.php",
     "./LICENSE",
     "src/Retry.php",
@@ -249,6 +250,7 @@
     "src/Models/GetEsimDeviceOkResponse.php",
     "src/Models/GetEsimHistoryOkResponse.php",
     "src/Models/GetEsimMacOkResponse.php",
+    "src/Models/TokenOkResponse.php",
     "src/Models/GrantType.php",
     "src/Models/Destinations.php",
     "src/Models/Packages.php",
@@ -277,12 +279,14 @@
     "documentation/snippets/esim-{iccid}-device-get.md",
     "documentation/snippets/esim-{iccid}-history-get.md",
     "documentation/snippets/esim-{iccid}-mac-get.md",
+    "documentation/snippets/iframe-token-get.md",
     "documentation/models/GetAccessTokenOkResponse.md",
     "documentation/models/CreatePurchaseRequest.md",
     "documentation/models/TopUpEsimRequest.md",
     "documentation/models/EditPurchaseRequest.md",
     "documentation/models/EditPurchaseOkResponse.md",
     "documentation/models/GetPurchaseConsumptionOkResponse.md",
+    "documentation/models/TokenOkResponse.md",
     "documentation/models/GrantType.md",
     "documentation/models/Destinations.md",
     "documentation/models/Packages.md",
@@ -308,6 +312,7 @@
     "documentation/services/OAuth.md",
     "documentation/services/Destinations.md",
     "documentation/services/Packages.md",
+    "documentation/services/Iframe.md",
     "documentation/models/CreatePurchaseOkResponse.md",
     "documentation/models/TopUpEsimOkResponse.md",
     "documentation/models/GetEsimHistoryOkResponse.md",
