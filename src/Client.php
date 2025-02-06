@@ -14,6 +14,7 @@ class Client
     public $packages;
     public $purchases;
     public $eSim;
+    public $iFrame;
     private TokenManager $tokenManager;
 
     public function __construct(
@@ -30,6 +31,7 @@ class Client
         $this->packages = new Services\Packages($environment, $timeout, $tokenManager);
         $this->purchases = new Services\Purchases($environment, $timeout, $tokenManager);
         $this->eSim = new Services\ESim($environment, $timeout, $tokenManager);
+        $this->iFrame = new Services\IFrame($environment, $timeout, $tokenManager);
     }
 
     public function setBaseUrl(string $url)
@@ -39,6 +41,7 @@ class Client
         $this->packages->setBaseUrl($url);
         $this->purchases->setBaseUrl($url);
         $this->eSim->setBaseUrl($url);
+        $this->iFrame->setBaseUrl($url);
     }
 
     public function setBaseOAuthUrl(string $baseOAuthUrl): self
