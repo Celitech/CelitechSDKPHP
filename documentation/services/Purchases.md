@@ -6,7 +6,7 @@ A list of all methods in the `Purchases` service. Click on the method name to vi
 | :------ | :---------- |
 |[listPurchases](#listpurchases)| This endpoint can be used to list all the successful purchases made between a given interval. |
 |[createPurchase](#createpurchase)| This endpoint is used to purchase a new eSIM by providing the package details. |
-|[topUpESIM](#topupesim)| This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is not feasible for eSIMs in "DELETED" or "ERROR" state. |
+|[topUpESIM](#topupesim)| This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is only feasible for eSIMs in "ENABLED" or "INSTALLED" state. You can check this state using the Get eSIM Status endpoint. |
 |[editPurchase](#editpurchase)| This endpoint allows you to modify the dates of an existing package with a future activation start time. Editing can only be performed for packages that have not been activated, and it cannot change the package size. The modification must not change the package duration category to ensure pricing consistency. |
 |[getPurchaseConsumption](#getpurchaseconsumption)| This endpoint can be called for consumption notifications (e.g. every 1 hour or when the user clicks a button). It returns the data balance (consumption) of purchased packages. |
 
@@ -92,7 +92,7 @@ print_r($response);
 
 ## topUpESIM
 
-This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is not feasible for eSIMs in "DELETED" or "ERROR" state.
+This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is only feasible for eSIMs in "ENABLED" or "INSTALLED" state. You can check this state using the Get eSIM Status endpoint.
 
 
 - HTTP Method: `POST`
@@ -102,7 +102,7 @@ This endpoint is used to top-up an eSIM with the previously associated destinati
 
 | Name    | Type| Required | Description |
 | :-------- | :----------| :----------| :----------|
-| input | Models\TopUpEsimRequest | ✅ | This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is not feasible for eSIMs in "DELETED" or "ERROR" state. |
+| input | Models\TopUpEsimRequest | ✅ | This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is only feasible for eSIMs in "ENABLED" or "INSTALLED" state. You can check this state using the Get eSIM Status endpoint. |
 
 **Return Type**
 

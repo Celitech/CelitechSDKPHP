@@ -48,7 +48,7 @@ class Purchases extends BaseService
     }
 
     /**
-     * This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is not feasible for eSIMs in "DELETED" or "ERROR" state.
+     * This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is only feasible for eSIMs in "ENABLED" or "INSTALLED" state. You can check this state using the Get eSIM Status endpoint.
      */
     public function topUpEsim(Models\TopUpEsimRequest $input): Models\TopUpEsimOkResponse
     {
