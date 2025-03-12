@@ -1,4 +1,4 @@
-# Celitech PHP SDK 1.3.38
+# Celitech PHP SDK 1.3.41
 
 
 Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
@@ -7,8 +7,8 @@ Welcome to the Celitech SDK documentation. This guide will help you get started 
 
 ## Versions
 
-- API version: `1.1.0`
-- SDK version: `1.3.38`
+- API version: `1.3.41`
+- SDK version: `1.3.41`
 
 ## About the API
 
