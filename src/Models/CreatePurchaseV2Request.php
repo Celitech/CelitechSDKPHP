@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseRequest
+class CreatePurchaseV2Request
 {
     /**
      * ISO representation of the package's destination
@@ -49,16 +49,10 @@ class CreatePurchaseRequest
     public ?string $networkBrand;
 
     /**
-     * Epoch value representing the start time of the package's validity. This timestamp can be set to the current time or any time within the next 12 months.
+     * Number of eSIMs to purchase.
      */
-    #[SerializedName('startTime')]
-    public ?float $startTime;
-
-    /**
-     * Epoch value representing the end time of the package's validity. End time can be maximum 90 days after Start time.
-     */
-    #[SerializedName('endTime')]
-    public ?float $endTime;
+    #[SerializedName('quantity')]
+    public float $quantity;
 
     public function __construct(
         string $destination,
@@ -68,8 +62,7 @@ class CreatePurchaseRequest
         ?string $email = null,
         ?string $referenceId = null,
         ?string $networkBrand = null,
-        ?float $startTime = null,
-        ?float $endTime = null
+        float $quantity
     ) {
         $this->destination = $destination;
         $this->dataLimitInGb = $dataLimitInGb;
@@ -78,7 +71,6 @@ class CreatePurchaseRequest
         $this->email = $email;
         $this->referenceId = $referenceId;
         $this->networkBrand = $networkBrand;
-        $this->startTime = $startTime;
-        $this->endTime = $endTime;
+        $this->quantity = $quantity;
     }
 }
