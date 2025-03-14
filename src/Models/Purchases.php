@@ -55,7 +55,7 @@ class Purchases
     public ?PurchasesEsim $esim;
 
     /**
-     * The source indicates where the eSIM was purchased, which can be from the API, dashboard, landing-page or promo-page. For purchases made before September 8, 2023, the value will be displayed as 'Not available'.
+     * The source indicates where the eSIM was purchased, which can be from the API, dashboard, landing-page, promo-page or iframe. For purchases made before September 8, 2023, the value will be displayed as 'Not available'.
      */
     #[SerializedName('source')]
     public ?string $source;
