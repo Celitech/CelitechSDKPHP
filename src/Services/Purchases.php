@@ -71,7 +71,7 @@ class Purchases extends BaseService
     }
 
     /**
-     * This endpoint allows you to modify the dates of an existing package with a future activation start time. Editing can only be performed for packages that have not been activated, and it cannot change the package size. The modification must not change the package duration category to ensure pricing consistency.
+     * This endpoint allows you to modify the dates of an existing package with a future activation start time. Editing can only be performed for packages that have not been activated, and it cannot change the package size. The modification must not change the package duration category to ensure pricing consistency. **Duration based packages cannot be edited.**
      */
     public function editPurchase(Models\EditPurchaseRequest $input): Models\EditPurchaseOkResponse
     {
