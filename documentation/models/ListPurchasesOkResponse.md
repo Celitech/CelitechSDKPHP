@@ -20,6 +20,7 @@
     | id | string | ❌ | ID of the purchase |
     | startDate | string | ❌ | Start date of the package's validity in the format 'yyyy-MM-ddThh:mm:ssZZ' |
     | endDate | string | ❌ | End date of the package's validity in the format 'yyyy-MM-ddThh:mm:ssZZ' |
+    | duration | number | ❌ | It designates the number of days the eSIM is valid for within 90-day validity from issuance date. |
     | createdDate | string | ❌ | Creation date of the purchase in the format 'yyyy-MM-ddThh:mm:ssZZ' |
     | startTime | number | ❌ | Epoch value representing the start time of the package's validity |
     | endTime | number | ❌ | Epoch value representing the end time of the package's validity |
@@ -38,7 +39,7 @@
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
     | id | string | ❌ | ID of the package |
-    | dataLimitInBytes | number | ❌ | Size of the package in Bytes |
+    | dataLimitInBytes | number | ❌ | Size of the package in bytes. For "limited" packages, this field will return the data limit in bytes. For "unlimited" packages, it will return **-1** as an identifier.  |
     | destination | string | ❌ | ISO representation of the package's destination |
     | destinationName | string | ❌ | Name of the package's destination |
     | priceInCents | number | ❌ | Price of the package in cents |
