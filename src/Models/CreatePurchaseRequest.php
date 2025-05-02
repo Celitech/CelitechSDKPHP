@@ -13,7 +13,7 @@ class CreatePurchaseRequest
     public string $destination;
 
     /**
-     * Size of the package in GB. The available options are 1, 2, 3, 5, 8, 20GB
+     * Size of the package in GB. The available options are 0.5, 1, 2, 3, 5, 8, 20GB
      */
     #[SerializedName('dataLimitInGB')]
     public float $dataLimitInGb;
