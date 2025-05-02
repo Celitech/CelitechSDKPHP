@@ -1,6 +1,6 @@
 {
-  "liblabVersion": "2.25.10",
-  "date": "2025-04-25T16:42:37.260Z",
+  "liblabVersion": "2.25.11",
+  "date": "2025-05-02T09:37:55.824Z",
   "config": {
     "apiId": 1897,
     "sdkName": "Celitech",
@@ -280,7 +280,6 @@
     "documentation/snippets/packages-get.md",
     "documentation/snippets/purchases-v2-post.md",
     "documentation/snippets/purchases-get.md",
-    "documentation/snippets/purchases-post.md",
     "documentation/snippets/purchases-topup-post.md",
     "documentation/snippets/purchases-edit-post.md",
     "documentation/snippets/purchases-{purchaseId}-consumption-get.md",

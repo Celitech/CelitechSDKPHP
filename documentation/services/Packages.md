@@ -21,6 +21,7 @@ List Packages
 | $destination | string | ❌ | ISO representation of the package's destination. |
 | $startDate | string | ❌ | Start date of the package's validity in the format 'yyyy-MM-dd'. This date can be set to the current day or any day within the next 12 months. |
 | $endDate | string | ❌ | End date of the package's validity in the format 'yyyy-MM-dd'. End date can be maximum 90 days after Start date. |
+| $dataLimitInGb | float | ❌ | Size of the package in GB. - **Limited Packages (1, 2, 3, 5, 8, 20GB) - **Unlimited Packages (Region-3 only):** Use **-1** for unlimited.  |
 | $afterCursor | string | ❌ | To get the next batch of results, use this parameter. It tells the API where to start fetching data after the last item you received. It helps you avoid repeats and efficiently browse through large sets of data. |
 | $limit | float | ❌ | Maximum number of packages to be returned in the response. The value must be greater than 0 and less than or equal to 160. If not provided, the default value is 20 |
 | $startTime | int | ❌ | Epoch value representing the start time of the package's validity. This timestamp can be set to the current time or any time within the next 12 months |
