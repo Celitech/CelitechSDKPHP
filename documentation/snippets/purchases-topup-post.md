@@ -9,9 +9,7 @@ $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $input = new Models\TopUpEsimRequest(
   iccid: "1111222233334444555000",
-  dataLimitInGb: 1,
-  startDate: "2023-11-01",
-  endDate: "2023-11-20"
+  dataLimitInGb: 1
 );
 
 $response = $sdk->purchases->topUpEsim(
