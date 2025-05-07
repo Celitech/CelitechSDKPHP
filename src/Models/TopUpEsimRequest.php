@@ -43,6 +43,12 @@ class TopUpEsimRequest
     public ?string $referenceId;
 
     /**
+     * Customize the email brand. This parameter is accessible to platforms with Diamond tier and requires an alphanumeric string of up to 25 characters.
+     */
+    #[SerializedName('emailBrand')]
+    public ?string $emailBrand;
+
+    /**
      * Epoch value representing the start time of the package's validity. This timestamp can be set to the current time or any time within the next 12 months.
      */
     #[SerializedName('startTime')]
@@ -61,6 +67,7 @@ class TopUpEsimRequest
         string $endDate,
         ?string $email = null,
         ?string $referenceId = null,
+        ?string $emailBrand = null,
         ?float $startTime = null,
         ?float $endTime = null
     ) {
@@ -70,6 +77,7 @@ class TopUpEsimRequest
         $this->endDate = $endDate;
         $this->email = $email;
         $this->referenceId = $referenceId;
+        $this->emailBrand = $emailBrand;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
     }

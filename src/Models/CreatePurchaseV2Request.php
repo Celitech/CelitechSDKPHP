@@ -54,6 +54,12 @@ class CreatePurchaseV2Request
     #[SerializedName('networkBrand')]
     public ?string $networkBrand;
 
+    /**
+     * Customize the email brand. This parameter is accessible to platforms with Diamond tier and requires an alphanumeric string of up to 25 characters.
+     */
+    #[SerializedName('emailBrand')]
+    public ?string $emailBrand;
+
     public function __construct(
         string $destination,
         float $dataLimitInGb,
@@ -62,7 +68,8 @@ class CreatePurchaseV2Request
         float $quantity,
         ?string $email = null,
         ?string $referenceId = null,
-        ?string $networkBrand = null
+        ?string $networkBrand = null,
+        ?string $emailBrand = null
     ) {
         $this->destination = $destination;
         $this->dataLimitInGb = $dataLimitInGb;
@@ -72,5 +79,6 @@ class CreatePurchaseV2Request
         $this->email = $email;
         $this->referenceId = $referenceId;
         $this->networkBrand = $networkBrand;
+        $this->emailBrand = $emailBrand;
     }
 }
