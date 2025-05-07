@@ -1,6 +1,6 @@
 {
-  "liblabVersion": "2.25.10",
-  "date": "2025-04-25T16:42:37.260Z",
+  "liblabVersion": "2.25.14",
+  "date": "2025-05-07T11:32:12.809Z",
   "config": {
     "apiId": 1897,
     "sdkName": "Celitech",
@@ -90,7 +90,7 @@
           "provider": "redocly",
           "githubRepoName": "CelitechCoreAPIReference",
           "redocly": {
-            "openapiPath": "swagger.yaml"
+            "openapiPath": "public/swagger.yaml"
           }
         }
       },
@@ -143,6 +143,7 @@
         "generateEnumAs": "enum"
       }
     },
+    "generateMCP": false,
     "publishing": {
       "githubOrg": "Celitech"
     },
@@ -152,7 +153,7 @@
         "targetBranch": "main",
         "provider": "redocly",
         "redocly": {
-          "openapiPath": "swagger.yaml"
+          "openapiPath": "public/swagger.yaml"
         }
       }
     },
@@ -184,7 +185,6 @@
       "path": "MIT.ejs"
     },
     "responseHeaders": false,
-    "generateMCP": false,
     "retry": {
       "enabled": true,
       "maxAttempts": 3,
@@ -280,7 +280,6 @@
     "documentation/snippets/packages-get.md",
     "documentation/snippets/purchases-v2-post.md",
     "documentation/snippets/purchases-get.md",
-    "documentation/snippets/purchases-post.md",
     "documentation/snippets/purchases-topup-post.md",
     "documentation/snippets/purchases-edit-post.md",
     "documentation/snippets/purchases-{purchaseId}-consumption-get.md",
