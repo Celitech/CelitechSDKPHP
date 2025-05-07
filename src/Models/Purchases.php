@@ -55,13 +55,19 @@ class Purchases
     public ?PurchasesEsim $esim;
 
     /**
-     * The source indicates where the eSIM was purchased, which can be from the API, dashboard, landing-page, promo-page or iframe. For purchases made before September 8, 2023, the value will be displayed as 'Not available'.
+     * The `source` indicates whether the purchase was made from the API, dashboard, landing-page, promo-page or iframe. For purchases made before September 8, 2023, the value will be displayed as 'Not available'.
      */
     #[SerializedName('source')]
     public ?string $source;
 
     /**
-     * The referenceId that was provided by the partner during the purchase or topup flow. This identifier can be used for analytics and debugging purposes.
+     * The `purchaseType` indicates whether this is the initial purchase that creates the eSIM (First Purchase) or a subsequent top-up on an existing eSIM (Top-up Purchase).
+     */
+    #[SerializedName('purchaseType')]
+    public ?string $purchaseType;
+
+    /**
+     * The `referenceId` that was provided by the partner during the purchase or top-up flow. This identifier can be used for analytics and debugging purposes.
      */
     #[SerializedName('referenceId')]
     public ?string $referenceId;
@@ -77,6 +83,7 @@ class Purchases
         ?Package $package = null,
         ?PurchasesEsim $esim = null,
         ?string $source = null,
+        ?string $purchaseType = null,
         ?string $referenceId = null
     ) {
         $this->id = $id;
@@ -89,6 +96,7 @@ class Purchases
         $this->package = $package;
         $this->esim = $esim;
         $this->source = $source;
+        $this->purchaseType = $purchaseType;
         $this->referenceId = $referenceId;
     }
 }
