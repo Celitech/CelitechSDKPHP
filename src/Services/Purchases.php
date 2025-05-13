@@ -8,7 +8,14 @@ use Celitech\Models;
 class Purchases extends BaseService
 {
     /**
-     * This endpoint is used to purchase a new eSIM by providing the package details.
+     * This endpoint lets you purchase a new eSIM by providing the package details.
+You must include **either**:
+  - Both `startDate` and `endDate` (to set a fixed date range),  
+  **or**
+  - `duration` (to set how many days the eSIM will be active).
+
+These options cannot be used together, only one of them should be provided.
+
      */
     public function createPurchaseV2(Models\CreatePurchaseV2Request $input): array
     {
@@ -58,7 +65,15 @@ class Purchases extends BaseService
     }
 
     /**
-     * This endpoint is used to top-up an eSIM with the previously associated destination by providing an existing ICCID and the package details. The top-up is only feasible for eSIMs in "ENABLED" or "INSTALLED" state. You can check this state using the Get eSIM Status endpoint.
+     * This endpoint lets you top up an existing eSIM by providing its ICCID and the new package details.   The destination must be the same as the one used in the original purchase.
+Top-up is only allowed for eSIMs that are in the **"ENABLED"** or **"INSTALLED"** state.   You can check the current state using the **Get eSIM Status** endpoint.
+You must include **either**:
+  - Both `startDate` and `endDate` (to set a fixed date range),  
+  **or**
+  - `duration` (to set how many days the eSIM will be active).
+
+These options cannot be used together — only one of them should be provided.
+
      */
     public function topUpEsim(Models\TopUpEsimRequest $input): Models\TopUpEsimOkResponse
     {
@@ -71,7 +86,7 @@ class Purchases extends BaseService
     }
 
     /**
-     * This endpoint allows you to modify the dates of an existing package with a future activation start time. Editing can only be performed for packages that have not been activated, and it cannot change the package size. The modification must not change the package duration category to ensure pricing consistency.
+     * This endpoint allows you to modify the dates of an existing package with a future activation start time. Editing can only be performed for packages that have not been activated, and it cannot change the package size. The modification must not change the package duration category to ensure pricing consistency. Duration based packages cannot be edited.
      */
     public function editPurchase(Models\EditPurchaseRequest $input): Models\EditPurchaseOkResponse
     {
