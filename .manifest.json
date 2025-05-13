@@ -1,6 +1,6 @@
 {
-  "liblabVersion": "2.25.10",
-  "date": "2025-04-25T16:42:37.260Z",
+  "liblabVersion": "2.25.14",
+  "date": "2025-05-13T12:11:17.095Z",
   "config": {
     "apiId": 1897,
     "sdkName": "Celitech",
@@ -143,6 +143,7 @@
         "generateEnumAs": "enum"
       }
     },
+    "mcpServer": false,
     "publishing": {
       "githubOrg": "Celitech"
     },
@@ -184,7 +185,6 @@
       "path": "MIT.ejs"
     },
     "responseHeaders": false,
-    "generateMCP": false,
     "retry": {
       "enabled": true,
       "maxAttempts": 3,
@@ -280,7 +280,6 @@
     "documentation/snippets/packages-get.md",
     "documentation/snippets/purchases-v2-post.md",
     "documentation/snippets/purchases-get.md",
-    "documentation/snippets/purchases-post.md",
     "documentation/snippets/purchases-topup-post.md",
     "documentation/snippets/purchases-edit-post.md",
     "documentation/snippets/purchases-{purchaseId}-consumption-get.md",
