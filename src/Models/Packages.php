@@ -13,14 +13,15 @@ class Packages
     public ?string $id;
 
     /**
-     * ISO representation of the package's destination
+     * ISO representation of the package's destination.
      */
     #[SerializedName('destination')]
     public ?string $destination;
 
     /**
-     * Size of the package in Bytes
-     */
+	 * Size of the package in bytes. For ``limited packages``, this field will return the data limit in bytes. For ``unlimited packages``, it will return ``-1`` as an identifier.
+
+	 */
     #[SerializedName('dataLimitInBytes')]
     public ?float $dataLimitInBytes;
 

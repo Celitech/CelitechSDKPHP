@@ -1,6 +1,6 @@
 {
-  "liblabVersion": "2.25.10",
-  "date": "2025-04-25T16:42:37.260Z",
+  "liblabVersion": "2.25.23",
+  "date": "2025-05-30T16:15:53.559Z",
   "config": {
     "apiId": 1897,
     "sdkName": "Celitech",
@@ -98,11 +98,19 @@
         "githubOrg": "Celitech"
       }
     },
+    "liblabConfigVersion": "1.0.0",
     "apiVersion": "1.3.42",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
+    "createDocs": false,
     "languageOptions": {
       "java": {
+        "githubRepoName": "CelitechSDKJava",
+        "homepage": "https://docs.celitech.com/",
+        "ignoreFiles": [],
+        "liblabVersion": "2",
+        "renameIllegalModelProperties": true,
+        "sdkVersion": "1.3.42",
         "groupId": "io.github.celitech",
         "artifactId": "celitech-sdk",
         "includeKotlinSnippets": false,
@@ -113,38 +121,43 @@
             "organization": "Celitech",
             "organizationUrl": "https://www.celitech.com"
           }
-        ],
-        "githubRepoName": "CelitechSDKJava",
-        "homepage": "https://docs.celitech.com/",
-        "liblabVersion": "2",
-        "sdkVersion": "1.3.42"
+        ]
       },
       "python": {
-        "alwaysInitializeOptionals": true,
-        "pypiPackageName": "celitech-sdk",
         "githubRepoName": "CelitechSDKPython",
+        "ignoreFiles": [],
         "liblabVersion": "2",
-        "sdkVersion": "1.3.42"
+        "renameIllegalModelProperties": true,
+        "sdkVersion": "1.3.42",
+        "alwaysInitializeOptionals": true,
+        "pypiPackageName": "celitech-sdk"
       },
       "php": {
-        "packageName": "celitech-sdk/sdk",
         "githubRepoName": "CelitechSDKPHP",
+        "ignoreFiles": [],
         "liblabVersion": "2",
-        "sdkVersion": "1.3.42"
+        "renameIllegalModelProperties": true,
+        "sdkVersion": "1.3.42",
+        "packageName": "celitech-sdk/sdk"
       },
       "typescript": {
-        "bundle": true,
-        "exportClassDefault": false,
-        "httpClient": "fetch",
-        "npmName": "celitech-sdk",
         "githubRepoName": "CelitechSDKTypeScript",
+        "ignoreFiles": [],
         "liblabVersion": "2",
+        "renameIllegalModelProperties": true,
         "sdkVersion": "1.3.42",
-        "generateEnumAs": "enum"
+        "bundle": true,
+        "denoteCommon": false,
+        "exportClassDefault": false,
+        "generateEnumAs": "enum",
+        "httpClient": "fetch",
+        "npmName": "celitech-sdk"
       }
     },
+    "validationsToIgnore": [],
     "publishing": {
-      "githubOrg": "Celitech"
+      "githubOrg": "Celitech",
+      "platform": "github"
     },
     "integrations": {
       "enhancedApiSpec": {
@@ -155,6 +168,10 @@
           "openapiPath": "swagger.yaml"
         }
       }
+    },
+    "analytics": {
+      "streaming": false,
+      "pagination": false
     },
     "authentication": {
       "oauth": {
@@ -175,8 +192,6 @@
     ],
     "generateEnv": true,
     "includeOptionalSnippetParameters": false,
-    "inferServiceNames": false,
-    "injectedModels": [],
     "license": {
       "type": "MIT",
       "name": "MIT",
@@ -184,7 +199,7 @@
       "path": "MIT.ejs"
     },
     "responseHeaders": false,
-    "generateMCP": false,
+    "buildAllModels": false,
     "retry": {
       "enabled": true,
       "maxAttempts": 3,
@@ -197,8 +212,10 @@
     },
     "multiTenant": true,
     "includeWatermark": false,
-    "packageName": "celitech-sdk/sdk",
     "githubRepoName": "CelitechSDKPHP",
+    "ignoreFiles": [],
+    "renameIllegalModelProperties": true,
+    "packageName": "celitech-sdk/sdk",
     "language": "php",
     "deliveryMethod": "zip",
     "hooks": {
@@ -207,10 +224,11 @@
     },
     "usesFormData": false,
     "fileOutput": "/tmp",
+    "inferServiceNames": false,
     "httpLibrary": {
       "name": "axios",
       "packages": {
-        "axios": "^1.7.9"
+        "axios": "^1.9.0"
       },
       "languages": ["typescript"]
     },
@@ -280,7 +298,6 @@
     "documentation/snippets/packages-get.md",
     "documentation/snippets/purchases-v2-post.md",
     "documentation/snippets/purchases-get.md",
-    "documentation/snippets/purchases-post.md",
     "documentation/snippets/purchases-topup-post.md",
     "documentation/snippets/purchases-edit-post.md",
     "documentation/snippets/purchases-{purchaseId}-consumption-get.md",
