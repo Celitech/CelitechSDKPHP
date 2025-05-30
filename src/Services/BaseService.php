@@ -3,7 +3,6 @@
 namespace Celitech\Services;
 
 use Celitech\Environment;
-use Celitech\Retry;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
@@ -30,8 +29,6 @@ class BaseService
         $this->baseUrl = $environment;
 
         $stack = HandlerStack::create();
-
-        $stack->push(Retry::factory());
 
         if ($tokenManager) {
             $this->tokenManager = $tokenManager;
