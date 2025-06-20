@@ -19,7 +19,7 @@ class Package
     public ?float $dataLimitInBytes;
 
     /**
-     * ISO representation of the package's destination
+     * ISO representation of the package's destination.
      */
     #[SerializedName('destination')]
     public ?string $destination;
