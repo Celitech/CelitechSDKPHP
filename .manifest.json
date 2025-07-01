@@ -1,10 +1,10 @@
 {
-  "liblabVersion": "2.25.28",
-  "date": "2025-06-20T13:33:39.382Z",
+  "liblabVersion": "2.25.34",
+  "date": "2025-07-01T08:23:36.457Z",
   "config": {
-    "apiId": 2357,
+    "apiId": 2427,
     "sdkName": "Celitech",
-    "sdkVersion": "1.3.44",
+    "sdkVersion": "1.3.45",
     "languages": ["php"],
     "auth": ["oauth"],
     "docs": ["snippets", "enhancedApiSpec"],
@@ -13,9 +13,9 @@
     "rawConfig": {
       "sdkName": "Celitech",
       "apiName": "Celitech",
-      "apiVersion": "1.3.44",
+      "apiVersion": "1.3.45",
       "specFilePath": "swagger.yaml",
-      "languages": ["typescript", "python", "php", "java"],
+      "languages": ["typescript", "python", "php", "java", "go", "csharp"],
       "docs": ["snippets", "enhancedApiSpec"],
       "auth": ["oauth"],
       "customizations": {
@@ -52,25 +52,25 @@
       "languageOptions": {
         "typescript": {
           "githubRepoName": "CelitechSDKTypeScript",
-          "sdkVersion": "1.3.44",
+          "sdkVersion": "1.3.45",
           "liblabVersion": "2",
           "npmName": "celitech-sdk"
         },
         "python": {
           "githubRepoName": "CelitechSDKPython",
-          "sdkVersion": "1.3.44",
+          "sdkVersion": "1.3.45",
           "liblabVersion": "2",
           "pypiPackageName": "celitech-sdk"
         },
         "php": {
           "githubRepoName": "CelitechSDKPHP",
-          "sdkVersion": "1.3.44",
+          "sdkVersion": "1.3.45",
           "liblabVersion": "2",
           "packageName": "celitech-sdk/sdk"
         },
         "java": {
           "githubRepoName": "CelitechSDKJava",
-          "sdkVersion": "1.3.44",
+          "sdkVersion": "1.3.45",
           "liblabVersion": "2",
           "groupId": "io.github.celitech",
           "artifactId": "celitech-sdk",
@@ -83,6 +83,18 @@
             }
           ],
           "homepage": "https://docs.celitech.com/"
+        },
+        "go": {
+          "githubRepoName": "CelitechSDKGo",
+          "sdkVersion": "1.3.45",
+          "liblabVersion": "2",
+          "goModuleName": "github.com/Celitech/CelitechSDKGo"
+        },
+        "csharp": {
+          "githubRepoName": "CelitechSDKCSharp",
+          "sdkVersion": "1.3.45",
+          "liblabVersion": "2",
+          "packageId": "Celitech.SDK"
         }
       },
       "integrations": {
@@ -99,18 +111,34 @@
       }
     },
     "liblabConfigVersion": "1.0.0",
-    "apiVersion": "1.3.44",
+    "apiVersion": "1.3.45",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "createDocs": false,
     "languageOptions": {
+      "csharp": {
+        "githubRepoName": "CelitechSDKCSharp",
+        "ignoreFiles": [],
+        "liblabVersion": "2",
+        "renameIllegalModelProperties": true,
+        "sdkVersion": "1.3.45",
+        "packageId": "Celitech.SDK"
+      },
+      "go": {
+        "githubRepoName": "CelitechSDKGo",
+        "ignoreFiles": [],
+        "liblabVersion": "2",
+        "renameIllegalModelProperties": true,
+        "sdkVersion": "1.3.45",
+        "goModuleName": "github.com/Celitech/CelitechSDKGo"
+      },
       "java": {
         "githubRepoName": "CelitechSDKJava",
         "homepage": "https://docs.celitech.com/",
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.44",
+        "sdkVersion": "1.3.45",
         "groupId": "io.github.celitech",
         "artifactId": "celitech-sdk",
         "includeKotlinSnippets": false,
@@ -128,7 +156,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.44",
+        "sdkVersion": "1.3.45",
         "alwaysInitializeOptionals": true,
         "pypiPackageName": "celitech-sdk"
       },
@@ -137,7 +165,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.44",
+        "sdkVersion": "1.3.45",
         "packageName": "celitech-sdk/sdk"
       },
       "typescript": {
@@ -145,7 +173,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.44",
+        "sdkVersion": "1.3.45",
         "bundle": true,
         "denoteCommon": false,
         "exportClassDefault": false,
@@ -331,6 +359,7 @@
     "documentation/models/GetEsimMacOkResponseEsim.md",
     "src/OAuth/OAuthToken.php",
     "src/OAuth/TokenManager.php",
+    ".env.example",
     "documentation/models/GetAccessTokenRequest.md",
     "documentation/models/ListDestinationsOkResponse.md",
     "documentation/models/ListPackagesOkResponse.md",
