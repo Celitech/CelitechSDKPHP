@@ -13,10 +13,16 @@ class Packages
     public ?string $id;
 
     /**
-     * ISO representation of the package's destination.
+     * ISO3 representation of the package's destination.
      */
     #[SerializedName('destination')]
     public ?string $destination;
+
+    /**
+     * ISO2 representation of the package's destination.
+     */
+    #[SerializedName('destinationISO2')]
+    public ?string $destinationIso2;
 
     /**
      * Size of the package in Bytes
@@ -45,6 +51,7 @@ class Packages
     public function __construct(
         ?string $id = null,
         ?string $destination = null,
+        ?string $destinationIso2 = null,
         ?float $dataLimitInBytes = null,
         ?float $minDays = null,
         ?float $maxDays = null,
@@ -52,6 +59,7 @@ class Packages
     ) {
         $this->id = $id;
         $this->destination = $destination;
+        $this->destinationIso2 = $destinationIso2;
         $this->dataLimitInBytes = $dataLimitInBytes;
         $this->minDays = $minDays;
         $this->maxDays = $maxDays;
