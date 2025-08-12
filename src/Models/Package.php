@@ -19,10 +19,16 @@ class Package
     public ?float $dataLimitInBytes;
 
     /**
-     * ISO representation of the package's destination.
+     * ISO3 representation of the package's destination.
      */
     #[SerializedName('destination')]
     public ?string $destination;
+
+    /**
+     * ISO2 representation of the package's destination.
+     */
+    #[SerializedName('destinationISO2')]
+    public ?string $destinationIso2;
 
     /**
      * Name of the package's destination
@@ -40,12 +46,14 @@ class Package
         ?string $id = null,
         ?float $dataLimitInBytes = null,
         ?string $destination = null,
+        ?string $destinationIso2 = null,
         ?string $destinationName = null,
         ?float $priceInCents = null
     ) {
         $this->id = $id;
         $this->dataLimitInBytes = $dataLimitInBytes;
         $this->destination = $destination;
+        $this->destinationIso2 = $destinationIso2;
         $this->destinationName = $destinationName;
         $this->priceInCents = $priceInCents;
     }

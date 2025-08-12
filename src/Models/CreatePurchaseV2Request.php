@@ -7,7 +7,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class CreatePurchaseV2Request
 {
     /**
-     * ISO representation of the package's destination.
+     * ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
      */
     #[SerializedName('destination')]
     public string $destination;
