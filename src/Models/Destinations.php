@@ -13,10 +13,16 @@ class Destinations
     public ?string $name;
 
     /**
-     * ISO representation of the destination
+     * ISO3 representation of the destination
      */
     #[SerializedName('destination')]
     public ?string $destination;
+
+    /**
+     * ISO2 representation of the destination
+     */
+    #[SerializedName('destinationISO2')]
+    public ?string $destinationIso2;
 
     /**
      * @var string[]|null
@@ -25,10 +31,15 @@ class Destinations
     #[SerializedName('supportedCountries')]
     public ?array $supportedCountries;
 
-    public function __construct(?string $name = null, ?string $destination = null, ?array $supportedCountries = [])
-    {
+    public function __construct(
+        ?string $name = null,
+        ?string $destination = null,
+        ?string $destinationIso2 = null,
+        ?array $supportedCountries = []
+    ) {
         $this->name = $name;
         $this->destination = $destination;
+        $this->destinationIso2 = $destinationIso2;
         $this->supportedCountries = $supportedCountries;
     }
 }
