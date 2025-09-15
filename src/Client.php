@@ -9,7 +9,6 @@ use Celitech\OAuth\TokenManager;
 
 class Client
 {
-    public $oAuth;
     public $destinations;
     public $packages;
     public $purchases;
@@ -24,19 +23,21 @@ class Client
         string $clientId = '',
         string $clientSecret = ''
     ) {
-        $tokenManager = new TokenManager(baseOAuthUrl: $baseOAuthUrl, clientId: $clientId, clientSecret: $clientSecret);
+        $this->tokenManager = new TokenManager(
+            baseOAuthUrl: $baseOAuthUrl,
+            clientId: $clientId,
+            clientSecret: $clientSecret
+        );
 
-        $this->oAuth = new Services\OAuth($environment, $timeout, $tokenManager);
-        $this->destinations = new Services\Destinations($environment, $timeout, $tokenManager);
-        $this->packages = new Services\Packages($environment, $timeout, $tokenManager);
-        $this->purchases = new Services\Purchases($environment, $timeout, $tokenManager);
-        $this->eSim = new Services\ESim($environment, $timeout, $tokenManager);
-        $this->iFrame = new Services\IFrame($environment, $timeout, $tokenManager);
+        $this->destinations = new Services\Destinations($environment, $timeout, $this->tokenManager);
+        $this->packages = new Services\Packages($environment, $timeout, $this->tokenManager);
+        $this->purchases = new Services\Purchases($environment, $timeout, $this->tokenManager);
+        $this->eSim = new Services\ESim($environment, $timeout, $this->tokenManager);
+        $this->iFrame = new Services\IFrame($environment, $timeout, $this->tokenManager);
     }
 
     public function setBaseUrl(string $url)
     {
-        $this->oAuth->setBaseUrl($url);
         $this->destinations->setBaseUrl($url);
         $this->packages->setBaseUrl($url);
         $this->purchases->setBaseUrl($url);
@@ -46,7 +47,7 @@ class Client
 
     public function setBaseOAuthUrl(string $baseOAuthUrl): self
     {
-        $this->baseOAuthUrl = $baseOAuthUrl;
+        $this->tokenManager->setBaseOAuthUrl($baseOAuthUrl);
         return $this;
     }
 
