@@ -30,15 +30,23 @@ class GetEsimOkResponseEsim
     #[SerializedName('status')]
     public ?string $status;
 
+    /**
+     * Indicates whether the eSIM is currently eligible for a top-up. This flag should be checked before attempting a top-up request.
+     */
+    #[SerializedName('isTopUpAllowed')]
+    public ?bool $isTopUpAllowed;
+
     public function __construct(
         ?string $iccid = null,
         ?string $smdpAddress = null,
         ?string $manualActivationCode = null,
-        ?string $status = null
+        ?string $status = null,
+        ?bool $isTopUpAllowed = null
     ) {
         $this->iccid = $iccid;
         $this->smdpAddress = $smdpAddress;
         $this->manualActivationCode = $manualActivationCode;
         $this->status = $status;
+        $this->isTopUpAllowed = $isTopUpAllowed;
     }
 }
