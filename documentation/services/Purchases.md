@@ -69,6 +69,7 @@ This endpoint can be used to list all the successful purchases made between a gi
 | $iccid | string | ❌ | ID of the eSIM |
 | $afterDate | string | ❌ | Start date of the interval for filtering purchases in the format 'yyyy-MM-dd' |
 | $beforeDate | string | ❌ | End date of the interval for filtering purchases in the format 'yyyy-MM-dd' |
+| $email | string | ❌ | Email associated to the purchase. |
 | $referenceId | string | ❌ | The referenceId that was provided by the partner during the purchase or topup flow. |
 | $afterCursor | string | ❌ | To get the next batch of results, use this parameter. It tells the API where to start fetching data after the last item you received. It helps you avoid repeats and efficiently browse through large sets of data. |
 | $limit | float | ❌ | Maximum number of purchases to be returned in the response. The value must be greater than 0 and less than or equal to 100. If not provided, the default value is 20 |
