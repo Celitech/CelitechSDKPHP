@@ -10,9 +10,9 @@ class TopUpEsimOkResponseProfile
      * ID of the eSIM
      */
     #[SerializedName('iccid')]
-    public ?string $iccid;
+    public string $iccid;
 
-    public function __construct(?string $iccid = null)
+    public function __construct(string $iccid)
     {
         $this->iccid = $iccid;
     }
