@@ -10,25 +10,22 @@ class GetEsimMacOkResponseEsim
      * ID of the eSIM
      */
     #[SerializedName('iccid')]
-    public ?string $iccid;
+    public string $iccid;
 
     /**
      * SM-DP+ Address
      */
     #[SerializedName('smdpAddress')]
-    public ?string $smdpAddress;
+    public string $smdpAddress;
 
     /**
      * The manual activation code
      */
     #[SerializedName('manualActivationCode')]
-    public ?string $manualActivationCode;
+    public string $manualActivationCode;
 
-    public function __construct(
-        ?string $iccid = null,
-        ?string $smdpAddress = null,
-        ?string $manualActivationCode = null
-    ) {
+    public function __construct(string $iccid, string $smdpAddress, string $manualActivationCode)
+    {
         $this->iccid = $iccid;
         $this->smdpAddress = $smdpAddress;
         $this->manualActivationCode = $manualActivationCode;
