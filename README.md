@@ -1,4 +1,4 @@
-# Celitech PHP SDK 1.3.55
+# Celitech PHP SDK 1.3.58
 
 
 Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
@@ -7,8 +7,8 @@ Welcome to the Celitech SDK documentation. This guide will help you get started 
 
 ## Versions
 
-- API version: `1.3.55`
-- SDK version: `1.3.55`
+- API version: `1.3.58`
+- SDK version: `1.3.58`
 
 ## About the API
 
@@ -149,7 +149,6 @@ The SDK includes several models that represent the data structures used in API r
 | [GetEsimOkResponse](documentation/models/GetEsimOkResponse.md) |  |
 | [GetEsimDeviceOkResponse](documentation/models/GetEsimDeviceOkResponse.md) |  |
 | [GetEsimHistoryOkResponse](documentation/models/GetEsimHistoryOkResponse.md) |  |
-| [GetEsimMacOkResponse](documentation/models/GetEsimMacOkResponse.md) |  |
 | [TokenOkResponse](documentation/models/TokenOkResponse.md) |  |
 | [GrantType](documentation/models/GrantType.md) |  |
 | [Destinations](documentation/models/Destinations.md) |  |
@@ -167,7 +166,6 @@ The SDK includes several models that represent the data structures used in API r
 | [Device](documentation/models/Device.md) |  |
 | [GetEsimHistoryOkResponseEsim](documentation/models/GetEsimHistoryOkResponseEsim.md) |  |
 | [History](documentation/models/History.md) |  |
-| [GetEsimMacOkResponseEsim](documentation/models/GetEsimMacOkResponseEsim.md) |  |
 </details>
 
 
