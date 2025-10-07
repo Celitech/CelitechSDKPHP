@@ -10,45 +10,45 @@ class Package
      * ID of the package
      */
     #[SerializedName('id')]
-    public ?string $id;
+    public string $id;
 
     /**
      * Size of the package in Bytes
      */
     #[SerializedName('dataLimitInBytes')]
-    public ?float $dataLimitInBytes;
+    public float $dataLimitInBytes;
 
     /**
      * ISO3 representation of the package's destination.
      */
     #[SerializedName('destination')]
-    public ?string $destination;
+    public string $destination;
 
     /**
      * ISO2 representation of the package's destination.
      */
     #[SerializedName('destinationISO2')]
-    public ?string $destinationIso2;
+    public string $destinationIso2;
 
     /**
      * Name of the package's destination
      */
     #[SerializedName('destinationName')]
-    public ?string $destinationName;
+    public string $destinationName;
 
     /**
      * Price of the package in cents
      */
     #[SerializedName('priceInCents')]
-    public ?float $priceInCents;
+    public float $priceInCents;
 
     public function __construct(
-        ?string $id = null,
-        ?float $dataLimitInBytes = null,
-        ?string $destination = null,
-        ?string $destinationIso2 = null,
-        ?string $destinationName = null,
-        ?float $priceInCents = null
+        string $id,
+        float $dataLimitInBytes,
+        string $destination,
+        string $destinationIso2,
+        string $destinationName,
+        float $priceInCents
     ) {
         $this->id = $id;
         $this->dataLimitInBytes = $dataLimitInBytes;

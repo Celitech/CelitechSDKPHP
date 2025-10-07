@@ -10,21 +10,21 @@ class CreatePurchaseV2OkResponsePurchase
      * ID of the purchase
      */
     #[SerializedName('id')]
-    public ?string $id;
+    public string $id;
 
     /**
      * ID of the package
      */
     #[SerializedName('packageId')]
-    public ?string $packageId;
+    public string $packageId;
 
     /**
      * Creation date of the purchase in the format 'yyyy-MM-ddThh:mm:ssZZ'
      */
     #[SerializedName('createdDate')]
-    public ?string $createdDate;
+    public string $createdDate;
 
-    public function __construct(?string $id = null, ?string $packageId = null, ?string $createdDate = null)
+    public function __construct(string $id, string $packageId, string $createdDate)
     {
         $this->id = $id;
         $this->packageId = $packageId;

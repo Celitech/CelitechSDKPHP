@@ -10,15 +10,15 @@ class GetEsimHistoryOkResponseEsim
      * ID of the eSIM
      */
     #[SerializedName('iccid')]
-    public ?string $iccid;
+    public string $iccid;
 
     /**
-     * @var History[]|null
+     * @var History[]
      */
     #[SerializedName('history')]
-    public ?array $history;
+    public array $history;
 
-    public function __construct(?string $iccid = null, ?array $history = [])
+    public function __construct(string $iccid, array $history)
     {
         $this->iccid = $iccid;
         $this->history = $history;
