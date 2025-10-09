@@ -7,12 +7,12 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class ListDestinationsOkResponse
 {
     /**
-     * @var Destinations[]|null
+     * @var Destinations[]
      */
     #[SerializedName('destinations')]
-    public ?array $destinations;
+    public array $destinations;
 
-    public function __construct(?array $destinations = [])
+    public function __construct(array $destinations)
     {
         $this->destinations = $destinations;
     }
