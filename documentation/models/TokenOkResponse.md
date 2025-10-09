@@ -6,6 +6,6 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | token | string | ❌ | The generated token |
+    | token | string | ✅ | The generated token |
 
 

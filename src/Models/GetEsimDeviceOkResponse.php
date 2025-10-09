@@ -7,9 +7,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class GetEsimDeviceOkResponse
 {
     #[SerializedName('device')]
-    public ?Device $device;
+    public Device $device;
 
-    public function __construct(?Device $device = null)
+    public function __construct(Device $device)
     {
         $this->device = $device;
     }

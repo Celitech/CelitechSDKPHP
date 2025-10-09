@@ -1,4 +1,4 @@
-# Celitech PHP SDK 1.3.55
+# Celitech PHP SDK 1.3.58
 
 
 Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
@@ -7,8 +7,8 @@ Welcome to the Celitech SDK documentation. This guide will help you get started 
 
 ## Versions
 
-- API version: `1.3.55`
-- SDK version: `1.3.55`
+- API version: `1.3.58`
+- SDK version: `1.3.58`
 
 ## About the API
 
@@ -30,13 +30,13 @@ Useful links: [Homepage](https://www.celitech.com) | [Support email](mailto:supp
 - [Models](#models)
 - [License](#license)
 
-## Setup & Configuration
+# Setup & Configuration
 
-### Supported Language Versions
+## Supported Language Versions
 
 This SDK is compatible with the following versions: `PHP >= 8.0`
 
-### Installation
+## Installation
 
 To get started with the SDK, we recommend installing using `composer`:
 
@@ -149,25 +149,7 @@ The SDK includes several models that represent the data structures used in API r
 | [GetEsimOkResponse](documentation/models/GetEsimOkResponse.md) |  |
 | [GetEsimDeviceOkResponse](documentation/models/GetEsimDeviceOkResponse.md) |  |
 | [GetEsimHistoryOkResponse](documentation/models/GetEsimHistoryOkResponse.md) |  |
-| [GetEsimMacOkResponse](documentation/models/GetEsimMacOkResponse.md) |  |
 | [TokenOkResponse](documentation/models/TokenOkResponse.md) |  |
-| [GrantType](documentation/models/GrantType.md) |  |
-| [Destinations](documentation/models/Destinations.md) |  |
-| [Packages](documentation/models/Packages.md) |  |
-| [CreatePurchaseV2OkResponsePurchase](documentation/models/CreatePurchaseV2OkResponsePurchase.md) |  |
-| [CreatePurchaseV2OkResponseProfile](documentation/models/CreatePurchaseV2OkResponseProfile.md) |  |
-| [Purchases](documentation/models/Purchases.md) |  |
-| [Package](documentation/models/Package.md) |  |
-| [PurchasesEsim](documentation/models/PurchasesEsim.md) |  |
-| [CreatePurchaseOkResponsePurchase](documentation/models/CreatePurchaseOkResponsePurchase.md) |  |
-| [CreatePurchaseOkResponseProfile](documentation/models/CreatePurchaseOkResponseProfile.md) |  |
-| [TopUpEsimOkResponsePurchase](documentation/models/TopUpEsimOkResponsePurchase.md) |  |
-| [TopUpEsimOkResponseProfile](documentation/models/TopUpEsimOkResponseProfile.md) |  |
-| [GetEsimOkResponseEsim](documentation/models/GetEsimOkResponseEsim.md) |  |
-| [Device](documentation/models/Device.md) |  |
-| [GetEsimHistoryOkResponseEsim](documentation/models/GetEsimHistoryOkResponseEsim.md) |  |
-| [History](documentation/models/History.md) |  |
-| [GetEsimMacOkResponseEsim](documentation/models/GetEsimMacOkResponseEsim.md) |  |
 </details>
 
 
