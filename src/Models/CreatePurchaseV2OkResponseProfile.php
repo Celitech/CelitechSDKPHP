@@ -10,25 +10,22 @@ class CreatePurchaseV2OkResponseProfile
      * ID of the eSIM
      */
     #[SerializedName('iccid')]
-    public ?string $iccid;
+    public string $iccid;
 
     /**
      * QR Code of the eSIM as base64
      */
     #[SerializedName('activationCode')]
-    public ?string $activationCode;
+    public string $activationCode;
 
     /**
      * Manual Activation Code of the eSIM
      */
     #[SerializedName('manualActivationCode')]
-    public ?string $manualActivationCode;
+    public string $manualActivationCode;
 
-    public function __construct(
-        ?string $iccid = null,
-        ?string $activationCode = null,
-        ?string $manualActivationCode = null
-    ) {
+    public function __construct(string $iccid, string $activationCode, string $manualActivationCode)
+    {
         $this->iccid = $iccid;
         $this->activationCode = $activationCode;
         $this->manualActivationCode = $manualActivationCode;
