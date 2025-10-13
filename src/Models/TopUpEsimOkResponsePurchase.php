@@ -10,31 +10,31 @@ class TopUpEsimOkResponsePurchase
      * ID of the purchase
      */
     #[SerializedName('id')]
-    public ?string $id;
+    public string $id;
 
     /**
      * ID of the package
      */
     #[SerializedName('packageId')]
-    public ?string $packageId;
+    public string $packageId;
 
     /**
      * Start date of the package's validity in the format 'yyyy-MM-ddThh:mm:ssZZ'
      */
     #[SerializedName('startDate')]
-    public ?string $startDate;
+    public string $startDate;
 
     /**
      * End date of the package's validity in the format 'yyyy-MM-ddThh:mm:ssZZ'
      */
     #[SerializedName('endDate')]
-    public ?string $endDate;
+    public string $endDate;
 
     /**
      * Creation date of the purchase in the format 'yyyy-MM-ddThh:mm:ssZZ'
      */
     #[SerializedName('createdDate')]
-    public ?string $createdDate;
+    public string $createdDate;
 
     /**
      * Epoch value representing the start time of the package's validity
@@ -49,11 +49,11 @@ class TopUpEsimOkResponsePurchase
     public ?float $endTime;
 
     public function __construct(
-        ?string $id = null,
-        ?string $packageId = null,
-        ?string $startDate = null,
-        ?string $endDate = null,
-        ?string $createdDate = null,
+        string $id,
+        string $packageId,
+        string $startDate,
+        string $endDate,
+        string $createdDate,
         ?float $startTime = null,
         ?float $endTime = null
     ) {

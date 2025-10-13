@@ -24,22 +24,26 @@ class Purchases extends BaseService
         string $iccid = null,
         string $afterDate = null,
         string $beforeDate = null,
+        string $email = null,
         string $referenceId = null,
         string $afterCursor = null,
         float $limit = null,
         float $after = null,
-        float $before = null
+        float $before = null,
+        string $purchaseId = null
     ): Models\ListPurchasesOkResponse {
         $data = $this->sendRequest('get', '/purchases', [
             'query' => [
                 'iccid' => $iccid,
                 'afterDate' => $afterDate,
                 'beforeDate' => $beforeDate,
+                'email' => $email,
                 'referenceId' => $referenceId,
                 'afterCursor' => $afterCursor,
                 'limit' => $limit,
                 'after' => $after,
                 'before' => $before,
+                'purchaseId' => $purchaseId,
             ],
             'scopes' => [],
         ]);
@@ -71,7 +75,15 @@ class Purchases extends BaseService
     }
 
     /**
-     * This endpoint allows you to modify the dates of an existing package with a future activation start time. Editing can only be performed for packages that have not been activated, and it cannot change the package size. The modification must not change the package duration category to ensure pricing consistency.
+     * This endpoint allows you to modify the validity dates of an existing purchase.  
+
+**Behavior:**
+- If the purchase has **not yet been activated**, both the start and end dates can be updated.  
+- If the purchase is **already active**, only the **end date** can be updated, while the **start date must remain unchanged** (and should be passed as originally set).  
+- Updates must comply with the same pricing structure; the modification cannot alter the package size or change its duration category.  
+
+The end date can be extended or shortened as long as it adheres to the same pricing category and does not exceed the allowed duration limits.
+
      */
     public function editPurchase(Models\EditPurchaseRequest $input): Models\EditPurchaseOkResponse
     {
