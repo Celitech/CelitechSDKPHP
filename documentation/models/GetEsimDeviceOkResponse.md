@@ -6,7 +6,7 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | device | model | ❌ |  |
+    | device | model | ✅ |  |
 
 # Device
 
@@ -16,10 +16,10 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | oem | string | ❌ | Name of the OEM |
-    | hardwareName | string | ❌ | Name of the Device |
-    | hardwareModel | string | ❌ | Model of the Device |
-    | eid | string | ❌ | Serial Number of the eSIM |
+    | oem | string | ✅ | Name of the OEM |
+    | hardwareName | string | ✅ | Name of the Device |
+    | hardwareModel | string | ✅ | Model of the Device |
+    | eid | string | ✅ | Serial Number of the eSIM |
 
 
 

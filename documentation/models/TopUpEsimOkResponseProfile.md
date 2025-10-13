@@ -6,6 +6,6 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | iccid | string | ❌ | ID of the eSIM |
+    | iccid | string | ✅ | ID of the eSIM |
 
 
