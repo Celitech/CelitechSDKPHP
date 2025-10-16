@@ -8,7 +8,7 @@ use Celitech\Models;
 class ESim extends BaseService
 {
     /**
-     * Get eSIM Status
+     * Get eSIM
      */
     public function getEsim(string $iccid): Models\GetEsimOkResponse
     {
@@ -40,15 +40,5 @@ class ESim extends BaseService
         $data = $this->sendRequest('get', "/esim/{$iccid}/history", ['scopes' => []]);
 
         return Serializer::deserialize($data, Models\GetEsimHistoryOkResponse::class);
-    }
-
-    /**
-     * Get eSIM MAC
-     */
-    public function getEsimMac(string $iccid): Models\GetEsimMacOkResponse
-    {
-        $data = $this->sendRequest('get', "/esim/{$iccid}/mac", ['scopes' => []]);
-
-        return Serializer::deserialize($data, Models\GetEsimMacOkResponse::class);
     }
 }

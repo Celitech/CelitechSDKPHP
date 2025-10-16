@@ -7,9 +7,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class GetEsimHistoryOkResponse
 {
     #[SerializedName('esim')]
-    public ?GetEsimHistoryOkResponseEsim $esim;
+    public GetEsimHistoryOkResponseEsim $esim;
 
-    public function __construct(?GetEsimHistoryOkResponseEsim $esim = null)
+    public function __construct(GetEsimHistoryOkResponseEsim $esim)
     {
         $this->esim = $esim;
     }
