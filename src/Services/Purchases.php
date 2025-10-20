@@ -21,6 +21,7 @@ class Purchases extends BaseService
      * This endpoint can be used to list all the successful purchases made between a given interval.
      */
     public function listPurchases(
+        string $purchaseId = null,
         string $iccid = null,
         string $afterDate = null,
         string $beforeDate = null,
@@ -29,11 +30,11 @@ class Purchases extends BaseService
         string $afterCursor = null,
         float $limit = null,
         float $after = null,
-        float $before = null,
-        string $purchaseId = null
+        float $before = null
     ): Models\ListPurchasesOkResponse {
         $data = $this->sendRequest('get', '/purchases', [
             'query' => [
+                'purchaseId' => $purchaseId,
                 'iccid' => $iccid,
                 'afterDate' => $afterDate,
                 'beforeDate' => $beforeDate,
@@ -43,7 +44,6 @@ class Purchases extends BaseService
                 'limit' => $limit,
                 'after' => $after,
                 'before' => $before,
-                'purchaseId' => $purchaseId,
             ],
             'scopes' => [],
         ]);
