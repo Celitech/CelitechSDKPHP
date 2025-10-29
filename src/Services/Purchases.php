@@ -9,18 +9,25 @@ class Purchases extends BaseService
 {
     /**
      * This endpoint is used to purchase a new eSIM by providing the package details.
+     * @return array
      */
     public function createPurchaseV2(Models\CreatePurchaseV2Request $input): array
     {
-        $data = $this->sendRequest('post', '/purchases/v2', ['json' => Serializer::serialize($input), 'scopes' => []]);
+        $response = $this->sendRequest('post', '/purchases/v2', [
+            'json' => Serializer::serialize($input),
+            'scopes' => [],
+        ]);
+        $data = $response->getBody()->getContents();
 
         return json_decode($data, true);
     }
 
     /**
      * This endpoint can be used to list all the successful purchases made between a given interval.
+     * @return Models\ListPurchasesOkResponse
      */
     public function listPurchases(
+        string $purchaseId = null,
         string $iccid = null,
         string $afterDate = null,
         string $beforeDate = null,
@@ -29,11 +36,11 @@ class Purchases extends BaseService
         string $afterCursor = null,
         float $limit = null,
         float $after = null,
-        float $before = null,
-        string $purchaseId = null
+        float $before = null
     ): Models\ListPurchasesOkResponse {
-        $data = $this->sendRequest('get', '/purchases', [
+        $response = $this->sendRequest('get', '/purchases', [
             'query' => [
+                'purchaseId' => $purchaseId,
                 'iccid' => $iccid,
                 'afterDate' => $afterDate,
                 'beforeDate' => $beforeDate,
@@ -43,33 +50,37 @@ class Purchases extends BaseService
                 'limit' => $limit,
                 'after' => $after,
                 'before' => $before,
-                'purchaseId' => $purchaseId,
             ],
             'scopes' => [],
         ]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\ListPurchasesOkResponse::class);
     }
 
     /**
      * This endpoint is used to purchase a new eSIM by providing the package details.
+     * @return Models\CreatePurchaseOkResponse
      */
     public function createPurchase(Models\CreatePurchaseRequest $input): Models\CreatePurchaseOkResponse
     {
-        $data = $this->sendRequest('post', '/purchases', ['json' => Serializer::serialize($input), 'scopes' => []]);
+        $response = $this->sendRequest('post', '/purchases', ['json' => Serializer::serialize($input), 'scopes' => []]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\CreatePurchaseOkResponse::class);
     }
 
     /**
-     * This endpoint is used to top-up an existing eSIM with the previously associated destination by providing its ICCID and package details. To determine if an eSIM can be topped up, use the Get eSIM Status endpoint, which returns the `isTopUpAllowed` flag.
+     * This endpoint is used to top-up an existing eSIM with the previously associated destination by providing its ICCID and package details. To determine if an eSIM can be topped up, use the Get eSIM endpoint, which returns the `isTopUpAllowed` flag.
+     * @return Models\TopUpEsimOkResponse
      */
     public function topUpEsim(Models\TopUpEsimRequest $input): Models\TopUpEsimOkResponse
     {
-        $data = $this->sendRequest('post', '/purchases/topup', [
+        $response = $this->sendRequest('post', '/purchases/topup', [
             'json' => Serializer::serialize($input),
             'scopes' => [],
         ]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\TopUpEsimOkResponse::class);
     }
@@ -84,23 +95,27 @@ class Purchases extends BaseService
 
 The end date can be extended or shortened as long as it adheres to the same pricing category and does not exceed the allowed duration limits.
 
+     * @return Models\EditPurchaseOkResponse
      */
     public function editPurchase(Models\EditPurchaseRequest $input): Models\EditPurchaseOkResponse
     {
-        $data = $this->sendRequest('post', '/purchases/edit', [
+        $response = $this->sendRequest('post', '/purchases/edit', [
             'json' => Serializer::serialize($input),
             'scopes' => [],
         ]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\EditPurchaseOkResponse::class);
     }
 
     /**
      * This endpoint can be called for consumption notifications (e.g. every 1 hour or when the user clicks a button). It returns the data balance (consumption) of purchased packages.
+     * @return Models\GetPurchaseConsumptionOkResponse
      */
     public function getPurchaseConsumption(string $purchaseId): Models\GetPurchaseConsumptionOkResponse
     {
-        $data = $this->sendRequest('get', "/purchases/{$purchaseId}/consumption", ['scopes' => []]);
+        $response = $this->sendRequest('get', "/purchases/{$purchaseId}/consumption", ['scopes' => []]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\GetPurchaseConsumptionOkResponse::class);
     }

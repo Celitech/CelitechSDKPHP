@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseV2Request
+class CreatePurchaseV2Request implements \JsonSerializable
 {
     /**
      * ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
@@ -80,5 +80,43 @@ class CreatePurchaseV2Request
         $this->referenceId = $referenceId;
         $this->networkBrand = $networkBrand;
         $this->emailBrand = $emailBrand;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            destination: $data['destination'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            startDate: $data['startDate'] ?? null,
+            endDate: $data['endDate'] ?? null,
+            quantity: $data['quantity'] ?? null,
+            email: $data['email'] ?? null,
+            referenceId: $data['referenceId'] ?? null,
+            networkBrand: $data['networkBrand'] ?? null,
+            emailBrand: $data['emailBrand'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'destination' => $this->destination,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'quantity' => $this->quantity,
+            'email' => $this->email,
+            'referenceId' => $this->referenceId,
+            'networkBrand' => $this->networkBrand,
+            'emailBrand' => $this->emailBrand,
+        ];
     }
 }
