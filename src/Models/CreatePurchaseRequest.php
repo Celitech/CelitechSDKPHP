@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseRequest
+class CreatePurchaseRequest implements \JsonSerializable
 {
     /**
      * ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
@@ -88,5 +88,45 @@ class CreatePurchaseRequest
         $this->emailBrand = $emailBrand;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            destination: $data['destination'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            startDate: $data['startDate'] ?? null,
+            endDate: $data['endDate'] ?? null,
+            email: $data['email'] ?? null,
+            referenceId: $data['referenceId'] ?? null,
+            networkBrand: $data['networkBrand'] ?? null,
+            emailBrand: $data['emailBrand'] ?? null,
+            startTime: $data['startTime'] ?? null,
+            endTime: $data['endTime'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'destination' => $this->destination,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'email' => $this->email,
+            'referenceId' => $this->referenceId,
+            'networkBrand' => $this->networkBrand,
+            'emailBrand' => $this->emailBrand,
+            'startTime' => $this->startTime,
+            'endTime' => $this->endTime,
+        ];
     }
 }
