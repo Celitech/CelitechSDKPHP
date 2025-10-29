@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class Purchases
+class Purchases implements \JsonSerializable
 {
     /**
      * ID of the purchase
@@ -98,5 +98,49 @@ class Purchases
         $this->source = $source;
         $this->purchaseType = $purchaseType;
         $this->referenceId = $referenceId;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            id: $data['id'] ?? null,
+            startDate: $data['startDate'] ?? null,
+            endDate: $data['endDate'] ?? null,
+            createdDate: $data['createdDate'] ?? null,
+            startTime: $data['startTime'] ?? null,
+            endTime: $data['endTime'] ?? null,
+            createdAt: $data['createdAt'] ?? null,
+            package: $data['package'] ?? null,
+            esim: $data['esim'] ?? null,
+            source: $data['source'] ?? null,
+            purchaseType: $data['purchaseType'] ?? null,
+            referenceId: $data['referenceId'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'createdDate' => $this->createdDate,
+            'startTime' => $this->startTime,
+            'endTime' => $this->endTime,
+            'createdAt' => $this->createdAt,
+            'package' => $this->package,
+            'esim' => $this->esim,
+            'source' => $this->source,
+            'purchaseType' => $this->purchaseType,
+            'referenceId' => $this->referenceId,
+        ];
     }
 }

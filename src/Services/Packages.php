@@ -9,6 +9,7 @@ class Packages extends BaseService
 {
     /**
      * List Packages
+     * @return Models\ListPackagesOkResponse
      */
     public function listPackages(
         string $destination = null,
@@ -20,7 +21,7 @@ class Packages extends BaseService
         int $endTime = null,
         float $duration = null
     ): Models\ListPackagesOkResponse {
-        $data = $this->sendRequest('get', '/packages', [
+        $response = $this->sendRequest('get', '/packages', [
             'query' => [
                 'destination' => $destination,
                 'startDate' => $startDate,
@@ -33,6 +34,7 @@ class Packages extends BaseService
             ],
             'scopes' => [],
         ]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\ListPackagesOkResponse::class);
     }

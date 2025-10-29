@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class ListPackagesOkResponse
+class ListPackagesOkResponse implements \JsonSerializable
 {
     /**
      * @var Packages[]
@@ -22,5 +22,26 @@ class ListPackagesOkResponse
     {
         $this->packages = $packages;
         $this->afterCursor = $afterCursor;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(packages: $data['packages'] ?? null, afterCursor: $data['afterCursor'] ?? null);
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'packages' => $this->packages,
+            'afterCursor' => $this->afterCursor,
+        ];
     }
 }
