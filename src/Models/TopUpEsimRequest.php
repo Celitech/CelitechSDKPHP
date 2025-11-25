@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class TopUpEsimRequest
+class TopUpEsimRequest implements \JsonSerializable
 {
     /**
      * ID of the eSIM
@@ -80,5 +80,43 @@ class TopUpEsimRequest
         $this->emailBrand = $emailBrand;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            iccid: $data['iccid'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            startDate: $data['startDate'] ?? null,
+            endDate: $data['endDate'] ?? null,
+            email: $data['email'] ?? null,
+            referenceId: $data['referenceId'] ?? null,
+            emailBrand: $data['emailBrand'] ?? null,
+            startTime: $data['startTime'] ?? null,
+            endTime: $data['endTime'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'iccid' => $this->iccid,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'email' => $this->email,
+            'referenceId' => $this->referenceId,
+            'emailBrand' => $this->emailBrand,
+            'startTime' => $this->startTime,
+            'endTime' => $this->endTime,
+        ];
     }
 }
