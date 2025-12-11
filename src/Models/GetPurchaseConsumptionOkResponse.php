@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class GetPurchaseConsumptionOkResponse
+class GetPurchaseConsumptionOkResponse implements \JsonSerializable
 {
     /**
      * Remaining balance of the package in bytes
@@ -22,5 +22,29 @@ class GetPurchaseConsumptionOkResponse
     {
         $this->dataUsageRemainingInBytes = $dataUsageRemainingInBytes;
         $this->status = $status;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            dataUsageRemainingInBytes: $data['dataUsageRemainingInBytes'] ?? null,
+            status: $data['status'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'dataUsageRemainingInBytes' => $this->dataUsageRemainingInBytes,
+            'status' => $this->status,
+        ];
     }
 }

@@ -9,35 +9,41 @@ class ESim extends BaseService
 {
     /**
      * Get eSIM
+     * @return Models\GetEsimOkResponse
      */
     public function getEsim(string $iccid): Models\GetEsimOkResponse
     {
-        $data = $this->sendRequest('get', '/esim', [
+        $response = $this->sendRequest('get', '/esim', [
             'query' => [
                 'iccid' => $iccid,
             ],
             'scopes' => [],
         ]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\GetEsimOkResponse::class);
     }
 
     /**
      * Get eSIM Device
+     * @return Models\GetEsimDeviceOkResponse
      */
     public function getEsimDevice(string $iccid): Models\GetEsimDeviceOkResponse
     {
-        $data = $this->sendRequest('get', "/esim/{$iccid}/device", ['scopes' => []]);
+        $response = $this->sendRequest('get', "/esim/{$iccid}/device", ['scopes' => []]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\GetEsimDeviceOkResponse::class);
     }
 
     /**
      * Get eSIM History
+     * @return Models\GetEsimHistoryOkResponse
      */
     public function getEsimHistory(string $iccid): Models\GetEsimHistoryOkResponse
     {
-        $data = $this->sendRequest('get', "/esim/{$iccid}/history", ['scopes' => []]);
+        $response = $this->sendRequest('get', "/esim/{$iccid}/history", ['scopes' => []]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\GetEsimHistoryOkResponse::class);
     }
