@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class TopUpEsimRequest
+class TopUpEsimRequest implements \JsonSerializable
 {
     /**
      * ID of the eSIM
@@ -22,13 +22,19 @@ class TopUpEsimRequest
      * Start date of the package's validity in the format 'yyyy-MM-dd'. This date can be set to the current day or any day within the next 12 months.
      */
     #[SerializedName('startDate')]
-    public string $startDate;
+    public ?string $startDate;
 
     /**
      * End date of the package's validity in the format 'yyyy-MM-dd'. End date can be maximum 90 days after Start date.
      */
     #[SerializedName('endDate')]
-    public string $endDate;
+    public ?string $endDate;
+
+    /**
+     * Duration of the package in days. Available values are 1, 2, 7, 14, 30, or 90. Either provide startDate/endDate or duration.
+     */
+    #[SerializedName('duration')]
+    public ?float $duration;
 
     /**
      * Email address where the purchase confirmation email will be sent (excluding QR Code & activation steps).
@@ -63,8 +69,9 @@ class TopUpEsimRequest
     public function __construct(
         string $iccid,
         float $dataLimitInGb,
-        string $startDate,
-        string $endDate,
+        ?string $startDate = null,
+        ?string $endDate = null,
+        ?float $duration = null,
         ?string $email = null,
         ?string $referenceId = null,
         ?string $emailBrand = null,
@@ -75,10 +82,51 @@ class TopUpEsimRequest
         $this->dataLimitInGb = $dataLimitInGb;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+        $this->duration = $duration;
         $this->email = $email;
         $this->referenceId = $referenceId;
         $this->emailBrand = $emailBrand;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            iccid: $data['iccid'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            startDate: $data['startDate'] ?? null,
+            endDate: $data['endDate'] ?? null,
+            duration: $data['duration'] ?? null,
+            email: $data['email'] ?? null,
+            referenceId: $data['referenceId'] ?? null,
+            emailBrand: $data['emailBrand'] ?? null,
+            startTime: $data['startTime'] ?? null,
+            endTime: $data['endTime'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'iccid' => $this->iccid,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'duration' => $this->duration,
+            'email' => $this->email,
+            'referenceId' => $this->referenceId,
+            'emailBrand' => $this->emailBrand,
+            'startTime' => $this->startTime,
+            'endTime' => $this->endTime,
+        ];
     }
 }

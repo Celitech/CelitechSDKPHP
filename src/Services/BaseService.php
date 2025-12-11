@@ -46,14 +46,26 @@ class BaseService
         ]);
     }
 
-    protected function sendRequest($method, $uri, array $options = [])
-    {
-        $response = $this->client->request(
+    protected function sendRequest(
+        string $method,
+        string $uri,
+        array $options = []
+    ): \Psr\Http\Message\ResponseInterface {
+        return $this->client->request(
             $method,
             $this->baseUrl . $uri,
             array_replace_recursive($this->options, $options)
         );
-        return $response->getBody()->getContents();
+    }
+
+    protected function parseHeaders(array $headers): array
+    {
+        $parsed = [];
+        foreach ($headers as $name => $values) {
+            // Flatten single-value arrays, keep multi-value as array
+            $parsed[$name] = count($values) === 1 ? $values[0] : $values;
+        }
+        return $parsed;
     }
 
     public function setBaseUrl(string $url): void
