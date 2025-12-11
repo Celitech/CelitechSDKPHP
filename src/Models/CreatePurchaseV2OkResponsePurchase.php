@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseV2OkResponsePurchase
+class CreatePurchaseV2OkResponsePurchase implements \JsonSerializable
 {
     /**
      * ID of the purchase
@@ -29,5 +29,31 @@ class CreatePurchaseV2OkResponsePurchase
         $this->id = $id;
         $this->packageId = $packageId;
         $this->createdDate = $createdDate;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            id: $data['id'] ?? null,
+            packageId: $data['packageId'] ?? null,
+            createdDate: $data['createdDate'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'packageId' => $this->packageId,
+            'createdDate' => $this->createdDate,
+        ];
     }
 }
