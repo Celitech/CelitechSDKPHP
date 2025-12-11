@@ -6,8 +6,8 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | purchase | model | ✅ |  |
-    | profile | model | ✅ |  |
+    | purchase | CreatePurchaseV2OkResponsePurchase | ✅ |  |
+    | profile | CreatePurchaseV2OkResponseProfile | ✅ |  |
 
 # CreatePurchaseV2OkResponsePurchase
 
