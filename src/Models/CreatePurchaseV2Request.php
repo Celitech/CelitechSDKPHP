@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseV2Request
+class CreatePurchaseV2Request implements \JsonSerializable
 {
     /**
      * ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
@@ -22,13 +22,19 @@ class CreatePurchaseV2Request
      * Start date of the package's validity in the format 'yyyy-MM-dd'. This date can be set to the current day or any day within the next 12 months.
      */
     #[SerializedName('startDate')]
-    public string $startDate;
+    public ?string $startDate;
 
     /**
      * End date of the package's validity in the format 'yyyy-MM-dd'. End date can be maximum 90 days after Start date.
      */
     #[SerializedName('endDate')]
-    public string $endDate;
+    public ?string $endDate;
+
+    /**
+     * Duration of the package in days. Available values are 1, 2, 7, 14, 30, or 90. Either provide startDate/endDate or duration.
+     */
+    #[SerializedName('duration')]
+    public ?float $duration;
 
     /**
      * Number of eSIMs to purchase.
@@ -49,7 +55,7 @@ class CreatePurchaseV2Request
     public ?string $referenceId;
 
     /**
-     * Customize the network brand of the issued eSIM. The `networkBrand` parameter cannot exceed 15 characters in length and must contain only letters and numbers. This feature is available to platforms with Diamond tier only.
+     * Customize the network brand of the issued eSIM. The `networkBrand` parameter cannot exceed 15 characters in length and must contain only letters, numbers, dots (.), ampersands (&), and spaces. This feature is available to platforms with Diamond tier only.
      */
     #[SerializedName('networkBrand')]
     public ?string $networkBrand;
@@ -63,8 +69,9 @@ class CreatePurchaseV2Request
     public function __construct(
         string $destination,
         float $dataLimitInGb,
-        string $startDate,
-        string $endDate,
+        ?string $startDate = null,
+        ?string $endDate = null,
+        ?float $duration = null,
         float $quantity,
         ?string $email = null,
         ?string $referenceId = null,
@@ -75,10 +82,51 @@ class CreatePurchaseV2Request
         $this->dataLimitInGb = $dataLimitInGb;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+        $this->duration = $duration;
         $this->quantity = $quantity;
         $this->email = $email;
         $this->referenceId = $referenceId;
         $this->networkBrand = $networkBrand;
         $this->emailBrand = $emailBrand;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            destination: $data['destination'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            startDate: $data['startDate'] ?? null,
+            endDate: $data['endDate'] ?? null,
+            duration: $data['duration'] ?? null,
+            quantity: $data['quantity'] ?? null,
+            email: $data['email'] ?? null,
+            referenceId: $data['referenceId'] ?? null,
+            networkBrand: $data['networkBrand'] ?? null,
+            emailBrand: $data['emailBrand'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'destination' => $this->destination,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'duration' => $this->duration,
+            'quantity' => $this->quantity,
+            'email' => $this->email,
+            'referenceId' => $this->referenceId,
+            'networkBrand' => $this->networkBrand,
+            'emailBrand' => $this->emailBrand,
+        ];
     }
 }

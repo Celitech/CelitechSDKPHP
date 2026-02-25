@@ -25,7 +25,6 @@ List Packages
 | $limit | float | ❌ | Maximum number of packages to be returned in the response. The value must be greater than 0 and less than or equal to 160. If not provided, the default value is 20 |
 | $startTime | int | ❌ | Epoch value representing the start time of the package's validity. This timestamp can be set to the current time or any time within the next 12 months |
 | $endTime | int | ❌ | Epoch value representing the end time of the package's validity. End time can be maximum 90 days after Start time |
-| $duration | float | ❌ | Duration in seconds for the package's validity. If this parameter is present, it will override the startTime and endTime parameters. The maximum duration for a package's validity period is 90 days |
 
 **Return Type**
 

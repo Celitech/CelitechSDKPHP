@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseV2OkResponseProfile
+class CreatePurchaseV2OkResponseProfile implements \JsonSerializable
 {
     /**
      * ID of the eSIM
@@ -29,5 +29,31 @@ class CreatePurchaseV2OkResponseProfile
         $this->iccid = $iccid;
         $this->activationCode = $activationCode;
         $this->manualActivationCode = $manualActivationCode;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            iccid: $data['iccid'] ?? null,
+            activationCode: $data['activationCode'] ?? null,
+            manualActivationCode: $data['manualActivationCode'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'iccid' => $this->iccid,
+            'activationCode' => $this->activationCode,
+            'manualActivationCode' => $this->manualActivationCode,
+        ];
     }
 }

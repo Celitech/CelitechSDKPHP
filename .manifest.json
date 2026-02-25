@@ -1,10 +1,10 @@
 {
-  "liblabVersion": "2.25.48",
-  "date": "2025-10-16T14:33:55.661Z",
+  "liblabVersion": "2.25.53",
+  "date": "2026-02-25T14:33:18.360Z",
   "config": {
-    "apiId": 2843,
+    "apiId": 2996,
     "sdkName": "Celitech",
-    "sdkVersion": "1.3.60",
+    "sdkVersion": "1.3.61",
     "languages": ["php"],
     "auth": ["oauth"],
     "docs": ["snippets", "enhancedApiSpec"],
@@ -13,7 +13,7 @@
     "rawConfig": {
       "sdkName": "Celitech",
       "apiName": "Celitech",
-      "apiVersion": "1.3.60",
+      "apiVersion": "1.3.61",
       "specFilePath": "swagger.yaml",
       "languages": ["typescript", "python", "php", "java", "go", "csharp"],
       "docs": ["snippets", "enhancedApiSpec"],
@@ -56,25 +56,25 @@
       "languageOptions": {
         "typescript": {
           "githubRepoName": "CelitechSDKTypeScript",
-          "sdkVersion": "1.3.60",
+          "sdkVersion": "1.3.61",
           "liblabVersion": "2",
           "npmName": "celitech-sdk"
         },
         "python": {
           "githubRepoName": "CelitechSDKPython",
-          "sdkVersion": "1.3.60",
+          "sdkVersion": "1.3.61",
           "liblabVersion": "2",
           "pypiPackageName": "celitech-sdk"
         },
         "php": {
           "githubRepoName": "CelitechSDKPHP",
-          "sdkVersion": "1.3.60",
+          "sdkVersion": "1.3.61",
           "liblabVersion": "2",
           "packageName": "celitech-sdk/sdk"
         },
         "java": {
           "githubRepoName": "CelitechSDKJava",
-          "sdkVersion": "1.3.60",
+          "sdkVersion": "1.3.61",
           "liblabVersion": "2",
           "groupId": "io.github.celitech",
           "artifactId": "celitech-sdk",
@@ -90,13 +90,13 @@
         },
         "go": {
           "githubRepoName": "CelitechSDKGo",
-          "sdkVersion": "1.3.60",
+          "sdkVersion": "1.3.61",
           "liblabVersion": "2",
           "goModuleName": "github.com/Celitech/CelitechSDKGo"
         },
         "csharp": {
           "githubRepoName": "CelitechSDKCSharp",
-          "sdkVersion": "1.3.60",
+          "sdkVersion": "1.3.61",
           "liblabVersion": "2",
           "packageId": "Celitech.SDK"
         }
@@ -115,7 +115,7 @@
       }
     },
     "liblabConfigVersion": "1.0.0",
-    "apiVersion": "1.3.60",
+    "apiVersion": "1.3.61",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "createDocs": false,
@@ -125,7 +125,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.60",
+        "sdkVersion": "1.3.61",
         "packageId": "Celitech.SDK",
         "useOptionalWrapper": false,
         "validateResponses": false
@@ -135,7 +135,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.60",
+        "sdkVersion": "1.3.61",
         "goModuleName": "github.com/Celitech/CelitechSDKGo"
       },
       "java": {
@@ -144,7 +144,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.60",
+        "sdkVersion": "1.3.61",
         "groupId": "io.github.celitech",
         "artifactId": "celitech-sdk",
         "includeKotlinSnippets": false,
@@ -162,7 +162,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.60",
+        "sdkVersion": "1.3.61",
         "alwaysInitializeOptionals": true,
         "pypiPackageName": "celitech-sdk"
       },
@@ -171,7 +171,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.60",
+        "sdkVersion": "1.3.61",
         "packageName": "celitech-sdk/sdk"
       },
       "typescript": {
@@ -179,7 +179,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.60",
+        "sdkVersion": "1.3.61",
         "bundle": true,
         "denoteCommon": false,
         "exportClassDefault": false,
@@ -266,7 +266,7 @@
     "httpLibrary": {
       "name": "axios",
       "packages": {
-        "axios": "^1.12.2"
+        "axios": "^1.13.2"
       },
       "languages": ["typescript"]
     },
@@ -276,7 +276,10 @@
       "queriesData": []
     },
     "ai": false,
-    "specType": "openapi"
+    "specType": "openapi",
+    "multipleResponses": {
+      "enabled": false
+    }
   },
   "files": [
     ".gitignore",
@@ -329,6 +332,7 @@
     "src/Models/GetEsimHistoryOkResponseEsim.php",
     "src/Models/History.php",
     "src/Utils/Serializer.php",
+    "src/Utils/LineDecoder.php",
     "documentation/snippets/destinations-get.md",
     "documentation/snippets/packages-get.md",
     "documentation/snippets/purchases-v2-post.md",
