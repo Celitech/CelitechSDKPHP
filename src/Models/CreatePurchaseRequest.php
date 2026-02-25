@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseRequest
+class CreatePurchaseRequest implements \JsonSerializable
 {
     /**
      * ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
@@ -43,7 +43,7 @@ class CreatePurchaseRequest
     public ?string $referenceId;
 
     /**
-     * Customize the network brand of the issued eSIM. The `networkBrand` parameter cannot exceed 15 characters in length and must contain only letters and numbers. This feature is available to platforms with Diamond tier only.
+     * Customize the network brand of the issued eSIM. The `networkBrand` parameter cannot exceed 15 characters in length and must contain only letters, numbers, dots (.), ampersands (&), and spaces. This feature is available to platforms with Diamond tier only.
      */
     #[SerializedName('networkBrand')]
     public ?string $networkBrand;
@@ -88,5 +88,45 @@ class CreatePurchaseRequest
         $this->emailBrand = $emailBrand;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            destination: $data['destination'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            startDate: $data['startDate'] ?? null,
+            endDate: $data['endDate'] ?? null,
+            email: $data['email'] ?? null,
+            referenceId: $data['referenceId'] ?? null,
+            networkBrand: $data['networkBrand'] ?? null,
+            emailBrand: $data['emailBrand'] ?? null,
+            startTime: $data['startTime'] ?? null,
+            endTime: $data['endTime'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'destination' => $this->destination,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'email' => $this->email,
+            'referenceId' => $this->referenceId,
+            'networkBrand' => $this->networkBrand,
+            'emailBrand' => $this->emailBrand,
+            'startTime' => $this->startTime,
+            'endTime' => $this->endTime,
+        ];
     }
 }
