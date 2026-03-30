@@ -9,6 +9,13 @@ use Celitech\Services\OAuth;
 use Celitech\Models\GetAccessTokenRequest;
 use Celitech\Models\GrantType;
 
+/**
+ * Manages OAuth 2.0 access tokens with automatic refresh and scope validation.
+ *
+ * This class handles token retrieval, caching, expiration checking, and automatic
+ * refreshing. It ensures that a valid token with the required scopes is always
+ * available before making authenticated API requests.
+ */
 class TokenManager
 {
     private ?OauthToken $token = null;
@@ -41,6 +48,16 @@ class TokenManager
         return $this;
     }
 
+    /**
+     * Get a valid OAuth access token with the required scopes.
+     *
+     * This method returns a cached token if it's valid and has all required scopes.
+     * Otherwise, it fetches a new token from the OAuth endpoint. Tokens are automatically
+     * refreshed before they expire based on the configured refresh buffer.
+     *
+     * @param array<string> $scopes The OAuth scopes required for the request
+     * @return OauthToken A valid OAuth token with the required scopes
+     */
     public function getToken(array $scopes): OauthToken
     {
         $timestamp = (new DateTime('now', new DateTimeZone('UTC')))->getTimestamp();
@@ -61,11 +78,28 @@ class TokenManager
         return $this->token;
     }
 
+    /**
+     * Clear the cached OAuth token.
+     *
+     * Forces the next token request to fetch a new token from the OAuth endpoint
+     * instead of using a cached token.
+     *
+     * @return void
+     */
     public function clean(): void
     {
         $this->token = null;
     }
 
+    /**
+     * Fetch a new access token from the OAuth endpoint.
+     *
+     * Makes an OAuth token request with the specified scopes and returns
+     * the token response data.
+     *
+     * @param array<string> $scopes The OAuth scopes to request
+     * @return array{access_token: string, expires_in: int} Token response data
+     */
     private function getAccessToken(array $scopes): array
     {
         $service = new OAuth(environment: $this->baseOAuthUrl);
