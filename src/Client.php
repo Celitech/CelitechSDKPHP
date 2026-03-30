@@ -7,6 +7,13 @@ namespace Celitech;
 use Celitech\Services;
 use Celitech\OAuth\TokenManager;
 
+/**
+ * Main SDK client providing access to all API service endpoints.
+ *
+ * This client acts as the central entry point for interacting with the API,
+ * managing service instances, authentication, and base URL configuration.
+ * Each service property provides access to a specific group of API endpoints.
+ */
 class Client
 {
     public $destinations;
@@ -36,6 +43,15 @@ class Client
         $this->iFrame = new Services\IFrame($environment, $timeout, $this->tokenManager);
     }
 
+    /**
+     * Set the base URL for all API requests.
+     *
+     * This method updates the base URL for all service instances managed by this client.
+     * Useful for switching between different environments or API versions at runtime.
+     *
+     * @param string $url The new base URL (e.g., 'https://api.example.com/v2')
+     * @return void
+     */
     public function setBaseUrl(string $url)
     {
         $this->destinations->setBaseUrl($url);
