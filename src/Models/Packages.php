@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class Packages
+class Packages implements \JsonSerializable
 {
     /**
      * ID of the package
@@ -31,6 +31,12 @@ class Packages
     public float $dataLimitInBytes;
 
     /**
+     * Size of the package in GB
+     */
+    #[SerializedName('dataLimitInGB')]
+    public float $dataLimitInGb;
+
+    /**
      * Min number of days for the package
      */
     #[SerializedName('minDays')]
@@ -53,6 +59,7 @@ class Packages
         string $destination,
         string $destinationIso2,
         float $dataLimitInBytes,
+        float $dataLimitInGb,
         float $minDays,
         float $maxDays,
         float $priceInCents
@@ -61,8 +68,45 @@ class Packages
         $this->destination = $destination;
         $this->destinationIso2 = $destinationIso2;
         $this->dataLimitInBytes = $dataLimitInBytes;
+        $this->dataLimitInGb = $dataLimitInGb;
         $this->minDays = $minDays;
         $this->maxDays = $maxDays;
         $this->priceInCents = $priceInCents;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            id: $data['id'] ?? null,
+            destination: $data['destination'] ?? null,
+            destinationIso2: $data['destinationISO2'] ?? null,
+            dataLimitInBytes: $data['dataLimitInBytes'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            minDays: $data['minDays'] ?? null,
+            maxDays: $data['maxDays'] ?? null,
+            priceInCents: $data['priceInCents'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'destination' => $this->destination,
+            'destinationISO2' => $this->destinationIso2,
+            'dataLimitInBytes' => $this->dataLimitInBytes,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'minDays' => $this->minDays,
+            'maxDays' => $this->maxDays,
+            'priceInCents' => $this->priceInCents,
+        ];
     }
 }

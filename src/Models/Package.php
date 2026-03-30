@@ -4,7 +4,7 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class Package
+class Package implements \JsonSerializable
 {
     /**
      * ID of the package
@@ -17,6 +17,12 @@ class Package
      */
     #[SerializedName('dataLimitInBytes')]
     public float $dataLimitInBytes;
+
+    /**
+     * Size of the package in GB
+     */
+    #[SerializedName('dataLimitInGB')]
+    public float $dataLimitInGb;
 
     /**
      * ISO3 representation of the package's destination.
@@ -45,6 +51,7 @@ class Package
     public function __construct(
         string $id,
         float $dataLimitInBytes,
+        float $dataLimitInGb,
         string $destination,
         string $destinationIso2,
         string $destinationName,
@@ -52,9 +59,44 @@ class Package
     ) {
         $this->id = $id;
         $this->dataLimitInBytes = $dataLimitInBytes;
+        $this->dataLimitInGb = $dataLimitInGb;
         $this->destination = $destination;
         $this->destinationIso2 = $destinationIso2;
         $this->destinationName = $destinationName;
         $this->priceInCents = $priceInCents;
+    }
+
+    /**
+     * Deserialize from array
+     * @param array<string, mixed> $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            id: $data['id'] ?? null,
+            dataLimitInBytes: $data['dataLimitInBytes'] ?? null,
+            dataLimitInGb: $data['dataLimitInGB'] ?? null,
+            destination: $data['destination'] ?? null,
+            destinationIso2: $data['destinationISO2'] ?? null,
+            destinationName: $data['destinationName'] ?? null,
+            priceInCents: $data['priceInCents'] ?? null
+        );
+    }
+
+    /**
+     * Serialize to JSON
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'dataLimitInBytes' => $this->dataLimitInBytes,
+            'dataLimitInGB' => $this->dataLimitInGb,
+            'destination' => $this->destination,
+            'destinationISO2' => $this->destinationIso2,
+            'destinationName' => $this->destinationName,
+            'priceInCents' => $this->priceInCents,
+        ];
     }
 }
