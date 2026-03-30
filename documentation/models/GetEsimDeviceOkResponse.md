@@ -6,7 +6,7 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | device | model | ✅ |  |
+    | device | Device | ✅ |  |
 
 # Device
 
