@@ -6,8 +6,8 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | purchase | model | ✅ |  |
-    | profile | model | ✅ |  |
+    | purchase | CreatePurchaseV2OkResponsePurchase | ✅ |  |
+    | profile | CreatePurchaseV2OkResponseProfile | ✅ |  |
 
 # CreatePurchaseV2OkResponsePurchase
 
@@ -33,6 +33,8 @@
     | iccid | string | ✅ | ID of the eSIM |
     | activationCode | string | ✅ | QR Code of the eSIM as base64 |
     | manualActivationCode | string | ✅ | Manual Activation Code of the eSIM |
+    | iosActivationLink | string | ✅ | iOS Activation Link of the eSIM |
+    | androidActivationLink | string | ✅ | Android Activation Link of the eSIM |
 
 
 

@@ -5,10 +5,18 @@ namespace Celitech\Services;
 use Celitech\Utils\Serializer;
 use Celitech\Models;
 
+/**
+ * Service class containing API endpoint methods.
+ *
+ * This class extends the base service to provide typed methods for specific API operations.
+ * Each method corresponds to an API endpoint and handles request serialization,
+ * execution, and response deserialization.
+ */
 class Packages extends BaseService
 {
     /**
      * List Packages
+     * @return Models\ListPackagesOkResponse
      */
     public function listPackages(
         string $destination = null,
@@ -17,10 +25,9 @@ class Packages extends BaseService
         string $afterCursor = null,
         float $limit = null,
         int $startTime = null,
-        int $endTime = null,
-        float $duration = null
+        int $endTime = null
     ): Models\ListPackagesOkResponse {
-        $data = $this->sendRequest('get', '/packages', [
+        $response = $this->sendRequest('get', '/packages', [
             'query' => [
                 'destination' => $destination,
                 'startDate' => $startDate,
@@ -29,10 +36,10 @@ class Packages extends BaseService
                 'limit' => $limit,
                 'startTime' => $startTime,
                 'endTime' => $endTime,
-                'duration' => $duration,
             ],
             'scopes' => [],
         ]);
+        $data = $response->getBody()->getContents();
 
         return Serializer::deserialize($data, Models\ListPackagesOkResponse::class);
     }
