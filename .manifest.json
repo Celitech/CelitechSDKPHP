@@ -1,153 +1,15 @@
 {
-  "liblabVersion": "2.25.53",
-  "date": "2026-03-30T12:42:00.025Z",
+  "liblabVersion": "2.25.51",
+  "date": "2026-04-08T12:28:28.653Z",
   "config": {
-    "apiId": 3114,
-    "sdkName": "Celitech",
-    "sdkVersion": "1.3.63",
     "languages": ["php"],
-    "auth": ["oauth"],
-    "docs": ["snippets", "enhancedApiSpec"],
-    "liblabVersion": "2",
     "deliveryMethods": ["zip"],
-    "rawConfig": {
-      "sdkName": "Celitech",
-      "apiName": "Celitech",
-      "apiVersion": "1.3.63",
-      "specFilePath": "swagger.yaml",
-      "languages": ["typescript", "python", "php", "java", "go", "csharp"],
-      "docs": ["snippets", "enhancedApiSpec"],
-      "auth": ["oauth"],
-      "customizations": {
-        "devContainer": true,
-        "generateEnv": true,
-        "inferServiceNames": false,
-        "includeOptionalSnippetParameters": false,
-        "deprecatedOperations": {
-          "include": true
-        },
-        "injectedModels": [],
-        "license": {
-          "type": "MIT"
-        },
-        "authentication": {
-          "oauth": {
-            "enabled": true,
-            "refreshBuffer": 5000
-          }
-        },
-        "responseHeaders": false,
-        "retry": {
-          "enabled": true,
-          "maxAttempts": 3,
-          "retryDelay": 150
-        },
-        "environmentVariables": [
-          {
-            "name": "CLIENT_ID",
-            "description": "Client ID parameter"
-          },
-          {
-            "name": "CLIENT_SECRET",
-            "description": "Client Secret parameter"
-          }
-        ]
-      },
-      "languageOptions": {
-        "typescript": {
-          "githubRepoName": "CelitechSDKTypeScript",
-          "sdkVersion": "1.3.63",
-          "liblabVersion": "2",
-          "npmName": "celitech-sdk"
-        },
-        "python": {
-          "githubRepoName": "CelitechSDKPython",
-          "sdkVersion": "1.3.63",
-          "liblabVersion": "2",
-          "pypiPackageName": "celitech-sdk"
-        },
-        "php": {
-          "githubRepoName": "CelitechSDKPHP",
-          "sdkVersion": "1.3.63",
-          "liblabVersion": "2",
-          "packageName": "celitech-sdk/sdk"
-        },
-        "java": {
-          "githubRepoName": "CelitechSDKJava",
-          "sdkVersion": "1.3.63",
-          "liblabVersion": "2",
-          "groupId": "io.github.celitech",
-          "artifactId": "celitech-sdk",
-          "developers": [
-            {
-              "name": "CELITECH",
-              "email": "info@celitech.com",
-              "organization": "Celitech",
-              "organizationUrl": "https://www.celitech.com"
-            }
-          ],
-          "homepage": "https://docs.celitech.com/"
-        },
-        "go": {
-          "githubRepoName": "CelitechSDKGo",
-          "sdkVersion": "1.3.63",
-          "liblabVersion": "2",
-          "goModuleName": "github.com/Celitech/CelitechSDKGo"
-        },
-        "csharp": {
-          "githubRepoName": "CelitechSDKCSharp",
-          "sdkVersion": "1.3.63",
-          "liblabVersion": "2",
-          "packageId": "Celitech.SDK"
-        }
-      },
-      "integrations": {
-        "enhancedApiSpec": {
-          "provider": "redocly",
-          "githubRepoName": "CelitechAPIReference",
-          "redocly": {
-            "openapiPath": "swagger.yaml"
-          }
-        }
-      },
-      "publishing": {
-        "githubOrg": "Celitech"
-      }
-    },
-    "liblabConfigVersion": "1.0.0",
-    "apiVersion": "1.3.63",
-    "apiName": "Celitech",
-    "specFilePath": "swagger.yaml",
-    "createDocs": false,
     "languageOptions": {
-      "csharp": {
-        "githubRepoName": "CelitechSDKCSharp",
-        "ignoreFiles": [],
-        "liblabVersion": "2",
-        "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
-        "packageId": "Celitech.SDK",
-        "useOptionalWrapper": false,
-        "validateResponses": false
-      },
-      "go": {
-        "githubRepoName": "CelitechSDKGo",
-        "ignoreFiles": [],
-        "liblabVersion": "2",
-        "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
-        "goModuleName": "github.com/Celitech/CelitechSDKGo"
-      },
       "java": {
-        "githubRepoName": "CelitechSDKJava",
-        "homepage": "https://docs.celitech.com/",
-        "ignoreFiles": [],
-        "liblabVersion": "2",
-        "renameIllegalModelProperties": true,
         "sdkVersion": "1.3.63",
-        "groupId": "io.github.celitech",
+        "githubRepoName": "CelitechSDKJava",
         "artifactId": "celitech-sdk",
-        "includeKotlinSnippets": false,
+        "homepage": "https://docs.celitech.com/",
         "developers": [
           {
             "name": "CELITECH",
@@ -157,110 +19,33 @@
           }
         ]
       },
-      "python": {
-        "githubRepoName": "CelitechSDKPython",
-        "ignoreFiles": [],
-        "liblabVersion": "2",
-        "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
-        "alwaysInitializeOptionals": true,
-        "pypiPackageName": "celitech-sdk"
-      },
-      "php": {
-        "githubRepoName": "CelitechSDKPHP",
-        "ignoreFiles": [],
-        "liblabVersion": "2",
-        "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
-        "packageName": "celitech-sdk/sdk"
-      },
       "typescript": {
-        "githubRepoName": "CelitechSDKTypeScript",
-        "ignoreFiles": [],
-        "liblabVersion": "2",
-        "renameIllegalModelProperties": true,
         "sdkVersion": "1.3.63",
-        "bundle": true,
-        "denoteCommon": false,
-        "exportClassDefault": false,
-        "generateEnumAs": "enum",
-        "httpClient": "fetch",
+        "githubRepoName": "CelitechSDKTypeScript",
         "npmName": "celitech-sdk"
-      }
-    },
-    "validationsToIgnore": [],
-    "publishing": {
-      "githubOrg": "Celitech",
-      "platform": "github"
-    },
-    "integrations": {
-      "enhancedApiSpec": {
-        "githubRepoName": "CelitechAPIReference",
-        "targetBranch": "main",
-        "provider": "redocly",
-        "redocly": {
-          "openapiPath": "swagger.yaml"
-        }
-      }
-    },
-    "analytics": {
-      "streaming": false,
-      "pagination": false
-    },
-    "authentication": {
-      "oauth": {
-        "enabled": true,
-        "basic": false,
-        "refreshBuffer": 5000
-      }
-    },
-    "devContainer": true,
-    "environmentVariables": [
-      {
-        "description": "Client ID parameter",
-        "name": "CLIENT_ID"
       },
-      {
-        "description": "Client Secret parameter",
-        "name": "CLIENT_SECRET"
+      "python": {
+        "sdkVersion": "1.3.63",
+        "githubRepoName": "CelitechSDKPython",
+        "pypiPackageName": "celitech-sdk"
       }
-    ],
-    "generateEnv": true,
-    "includeOptionalSnippetParameters": false,
-    "license": {
-      "type": "MIT",
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT",
-      "path": "MIT.ejs"
     },
-    "responseHeaders": false,
-    "buildAllModels": false,
-    "retry": {
-      "enabled": true,
-      "maxAttempts": 3,
-      "retryDelay": 150,
-      "maxDelay": 5000,
-      "retryDelayJitter": 50,
-      "backOffFactor": 2,
-      "httpCodesToRetry": [408, 429, 500, 502, 503, 504],
-      "httpMethodsToRetry": ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
-    },
-    "deprecatedOperations": {
-      "include": true
-    },
-    "multiTenant": true,
     "includeWatermark": false,
-    "githubRepoName": "CelitechSDKPHP",
-    "ignoreFiles": [],
-    "renameIllegalModelProperties": true,
-    "packageName": "celitech-sdk/sdk",
+    "responseHeaders": false,
+    "sdkName": "Celitech",
+    "sdkVersion": "1.3.63",
+    "auth": ["oauth"],
+    "apiVersion": "1.3.63",
     "language": "php",
     "deliveryMethod": "zip",
     "hooks": {
       "enabled": false,
       "sourceDir": ""
     },
+    "packageName": "sdk/celitech",
     "usesFormData": false,
+    "authentication": {},
+    "environmentVariables": [],
     "fileOutput": "/tmp",
     "inferServiceNames": false,
     "httpLibrary": {
@@ -270,13 +55,28 @@
       },
       "languages": ["typescript"]
     },
+    "retry": {
+      "enabled": true,
+      "maxAttempts": 3,
+      "retryDelay": 150,
+      "maxDelay": 5000,
+      "retryDelayJitter": 50,
+      "backOffFactor": 2,
+      "httpMethodsToRetry": ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
+    },
+    "multiTenant": false,
     "customQueries": {
       "paths": [],
       "rawQueries": [],
       "queriesData": []
     },
+    "devContainer": false,
     "ai": false,
+    "includeOptionalSnippetParameters": true,
     "specType": "openapi",
+    "deprecatedOperations": {
+      "include": true
+    },
     "multipleResponses": {
       "enabled": false
     }
@@ -294,9 +94,7 @@
     "src/Services/ESim.php",
     "src/Services/IFrame.php",
     "src/Environment.php",
-    "LICENSE",
     "src/Retry.php",
-    ".devcontainer/devcontainer.json",
     "src/Models/GetAccessTokenRequest.php",
     "src/Models/GetAccessTokenOkResponse.php",
     "src/Models/ListDestinationsOkResponse.php",
@@ -333,18 +131,7 @@
     "src/Models/History.php",
     "src/Utils/Serializer.php",
     "src/Utils/LineDecoder.php",
-    "documentation/snippets/destinations-get.md",
-    "documentation/snippets/packages-get.md",
-    "documentation/snippets/purchases-v2-post.md",
-    "documentation/snippets/purchases-get.md",
-    "documentation/snippets/purchases-post.md",
-    "documentation/snippets/purchases-topup-post.md",
-    "documentation/snippets/purchases-edit-post.md",
-    "documentation/snippets/purchases-{purchaseId}-consumption-get.md",
-    "documentation/snippets/esim-get.md",
-    "documentation/snippets/esim-{iccid}-device-get.md",
-    "documentation/snippets/esim-{iccid}-history-get.md",
-    "documentation/snippets/iframe-token-post.md",
+    "documentation/snippets/snippets.json",
     "documentation/models/CreatePurchaseV2Request.md",
     "documentation/models/CreatePurchaseRequest.md",
     "documentation/models/TopUpEsimRequest.md",
@@ -369,6 +156,7 @@
     "src/OAuth/OAuthToken.php",
     "src/OAuth/TokenManager.php",
     ".env.example",
+    "src/Exceptions/ApiException.php",
     "documentation/models/ListDestinationsOkResponse.md",
     "documentation/models/ListPackagesOkResponse.md",
     "documentation/models/GetEsimOkResponse.md",

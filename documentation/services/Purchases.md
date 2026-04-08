@@ -42,7 +42,14 @@ $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 $input = new Models\CreatePurchaseV2Request(
   destination: "FRA",
   dataLimitInGb: 1,
-  quantity: 1
+  startDate: "2023-11-01",
+  endDate: "2023-11-20",
+  duration: 30,
+  quantity: 1,
+  email: "example@domain.com",
+  referenceId: "abc111222333444",
+  networkBrand: "CELITECH",
+  emailBrand: "CELITECH"
 );
 
 $response = $sdk->purchases->createPurchaseV2(
@@ -87,7 +94,18 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->purchases->listPurchases();
+$response = $sdk->purchases->listPurchases(
+  purchaseId: "4973fa15-6979-4daa-9cf3-672620df819c",
+  iccid: "1111222233334444555000",
+  afterDate: "2023-11-01",
+  beforeDate: "2023-11-20",
+  email: "example@gmail.com",
+  referenceId: "abc111222333444",
+  afterCursor: "Y3JlYXRlZEF0OjE1OTk0OTMwOTgsZGVzdGluYXRpb246QVVTLG1pbkRheXM6MCxkYXRhTGltaXRJbkJ5dGVzOjUzNjg3MDkxMjA",
+  limit: 20,
+  after: 0.75,
+  before: 0.4
+);
 
 print_r($response);
 ```
@@ -124,7 +142,13 @@ $input = new Models\CreatePurchaseRequest(
   destination: "FRA",
   dataLimitInGb: 1,
   startDate: "2023-11-01",
-  endDate: "2023-11-20"
+  endDate: "2023-11-20",
+  email: "example@domain.com",
+  referenceId: "abc111222333444",
+  networkBrand: "CELITECH",
+  emailBrand: "CELITECH",
+  startTime: 1.15,
+  endTime: 5.74
 );
 
 $response = $sdk->purchases->createPurchase(
@@ -164,7 +188,15 @@ $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
 $input = new Models\TopUpEsimRequest(
   iccid: "1111222233334444555000",
-  dataLimitInGb: 1
+  dataLimitInGb: 1,
+  startDate: "2023-11-01",
+  endDate: "2023-11-20",
+  duration: 30,
+  email: "example@domain.com",
+  referenceId: "abc111222333444",
+  emailBrand: "CELITECH",
+  startTime: 2.83,
+  endTime: 1.27
 );
 
 $response = $sdk->purchases->topUpEsim(
@@ -205,7 +237,9 @@ $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 $input = new Models\EditPurchaseRequest(
   purchaseId: "ae471106-c8b4-42cf-b83a-b061291f2922",
   startDate: "2023-11-01",
-  endDate: "2023-11-20"
+  endDate: "2023-11-20",
+  startTime: 2.17,
+  endTime: 2.25
 );
 
 $response = $sdk->purchases->editPurchase(

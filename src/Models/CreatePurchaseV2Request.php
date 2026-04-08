@@ -1,132 +1,144 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 class CreatePurchaseV2Request implements \JsonSerializable
 {
-    /**
-     * ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
-     */
-    #[SerializedName('destination')]
-    public string $destination;
+  /**
+   * ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
+   */
+  #[SerializedName('destination')]
+  public string $destination;
 
-    /**
-     * Size of the package in GB. The available options are 0.5, 1, 2, 3, 5, 8, 20, 50GB
-     */
-    #[SerializedName('dataLimitInGB')]
-    public float $dataLimitInGb;
+  /**
+   * Size of the package in GB. The available options are 0.5, 1, 2, 3, 5, 8, 20, 50GB
+   */
+  #[SerializedName('dataLimitInGB')]
+  public float $dataLimitInGb;
 
-    /**
-     * Start date of the package's validity in the format 'yyyy-MM-dd'. This date can be set to the current day or any day within the next 12 months.
-     */
-    #[SerializedName('startDate')]
-    public ?string $startDate;
+  /**
+   * Start date of the package's validity in the format 'yyyy-MM-dd'. This date can be set to the current day or any day within the next 12 months.
+   */
+  #[SerializedName('startDate')]
+  public ?string $startDate;
 
-    /**
-     * End date of the package's validity in the format 'yyyy-MM-dd'. End date can be maximum 90 days after Start date.
-     */
-    #[SerializedName('endDate')]
-    public ?string $endDate;
+  /**
+   * End date of the package's validity in the format 'yyyy-MM-dd'. End date can be maximum 90 days after Start date.
+   */
+  #[SerializedName('endDate')]
+  public ?string $endDate;
 
-    /**
-     * Duration of the package in days. Available values are 1, 2, 7, 14, 30, or 90. Either provide startDate/endDate or duration.
-     */
-    #[SerializedName('duration')]
-    public ?float $duration;
+  /**
+   * Duration of the package in days. Available values are 1, 2, 7, 14, 30, or 90. Either provide startDate/endDate or duration.
+   */
+  #[SerializedName('duration')]
+  public ?float $duration;
 
-    /**
-     * Number of eSIMs to purchase.
-     */
-    #[SerializedName('quantity')]
-    public float $quantity;
+  /**
+   * Number of eSIMs to purchase.
+   */
+  #[SerializedName('quantity')]
+  public float $quantity;
 
-    /**
-     * Email address where the purchase confirmation email will be sent (including QR Code & activation steps)
-     */
-    #[SerializedName('email')]
-    public ?string $email;
+  /**
+   * Email address where the purchase confirmation email will be sent (including QR Code & activation steps)
+   */
+  #[SerializedName('email')]
+  public ?string $email;
 
-    /**
-     * An identifier provided by the partner to link this purchase to their booking or transaction for analytics and debugging purposes.
-     */
-    #[SerializedName('referenceId')]
-    public ?string $referenceId;
+  /**
+   * An identifier provided by the partner to link this purchase to their booking or transaction for analytics and debugging purposes.
+   */
+  #[SerializedName('referenceId')]
+  public ?string $referenceId;
 
-    /**
-     * Customize the network brand of the issued eSIM. The `networkBrand` parameter cannot exceed 15 characters in length and must contain only letters, numbers, dots (.), ampersands (&), and spaces. This feature is available to platforms with Diamond tier only.
-     */
-    #[SerializedName('networkBrand')]
-    public ?string $networkBrand;
+  /**
+   * Customize the network brand of the issued eSIM. The `networkBrand` parameter cannot exceed 15 characters in length and must contain only letters, numbers, dots (.), ampersands (&), and spaces. This feature is available to platforms with Diamond tier only.
+   */
+  #[SerializedName('networkBrand')]
+  public ?string $networkBrand;
 
-    /**
-     * Customize the email subject brand. The `emailBrand` parameter cannot exceed 25 characters in length and must contain only letters, numbers, and spaces. This feature is available to platforms with Diamond tier only.
-     */
-    #[SerializedName('emailBrand')]
-    public ?string $emailBrand;
+  /**
+   * Customize the email subject brand. The `emailBrand` parameter cannot exceed 25 characters in length and must contain only letters, numbers, and spaces. This feature is available to platforms with Diamond tier only.
+   */
+  #[SerializedName('emailBrand')]
+  public ?string $emailBrand;
 
-    public function __construct(
-        string $destination,
-        float $dataLimitInGb,
-        ?string $startDate = null,
-        ?string $endDate = null,
-        ?float $duration = null,
-        float $quantity,
-        ?string $email = null,
-        ?string $referenceId = null,
-        ?string $networkBrand = null,
-        ?string $emailBrand = null
+  public function __construct(
+    string $destination,
+    float $dataLimitInGb,
+    float $quantity,
+    ?string $startDate = null,
+    ?string $endDate = null,
+    ?float $duration = null,
+    ?string $email = null,
+    ?string $referenceId = null,
+    ?string $networkBrand = null,
+    ?string $emailBrand = null
+  ) {
+    $this->destination = $destination;
+    $this->dataLimitInGb = $dataLimitInGb;
+    $this->startDate = $startDate;
+    $this->endDate = $endDate;
+    $this->duration = $duration;
+    $this->quantity = $quantity;
+    $this->email = $email;
+    $this->referenceId = $referenceId;
+    $this->networkBrand = $networkBrand;
+    $this->emailBrand = $emailBrand;
+  }
+
+  /**
+   * @param array<string, mixed> $data
+   * @return self
+   */
+  public static function fromArray(array $data): self
+  {
+    return new self(
+      destination: $data['destination'] ?? null,
+      dataLimitInGb: $data['dataLimitInGB'] ?? null,
+      startDate: $data['startDate'] ?? null,
+      endDate: $data['endDate'] ?? null,
+      duration: $data['duration'] ?? null,
+      quantity: $data['quantity'] ?? null,
+      email: $data['email'] ?? null,
+      referenceId: $data['referenceId'] ?? null,
+      networkBrand: $data['networkBrand'] ?? null,
+      emailBrand: $data['emailBrand'] ?? null
+    );
+  }
+
+  /**
+   * @return array<string, mixed>
+   */
+  public function jsonSerialize(): array
+  {
+    $result = [
+      'destination' => $this->destination,
+      'dataLimitInGB' => $this->dataLimitInGb,
+      'startDate' => $this->startDate,
+      'endDate' => $this->endDate,
+      'duration' => $this->duration,
+      'quantity' => $this->quantity,
+      'email' => $this->email,
+      'referenceId' => $this->referenceId,
+      'networkBrand' => $this->networkBrand,
+      'emailBrand' => $this->emailBrand
+    ];
+
+    foreach (
+      ['startDate', 'endDate', 'duration', 'email', 'referenceId', 'networkBrand', 'emailBrand']
+      as $optionalKey
     ) {
-        $this->destination = $destination;
-        $this->dataLimitInGb = $dataLimitInGb;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
-        $this->duration = $duration;
-        $this->quantity = $quantity;
-        $this->email = $email;
-        $this->referenceId = $referenceId;
-        $this->networkBrand = $networkBrand;
-        $this->emailBrand = $emailBrand;
+      if ($result[$optionalKey] === null) {
+        unset($result[$optionalKey]);
+      }
     }
 
-    /**
-     * Deserialize from array
-     * @param array<string, mixed> $data
-     * @return self
-     */
-    public static function fromArray(array $data): self
-    {
-        return new self(
-            destination: $data['destination'] ?? null,
-            dataLimitInGb: $data['dataLimitInGB'] ?? null,
-            startDate: $data['startDate'] ?? null,
-            endDate: $data['endDate'] ?? null,
-            duration: $data['duration'] ?? null,
-            quantity: $data['quantity'] ?? null,
-            email: $data['email'] ?? null,
-            referenceId: $data['referenceId'] ?? null,
-            networkBrand: $data['networkBrand'] ?? null,
-            emailBrand: $data['emailBrand'] ?? null
-        );
-    }
-
-    /**
-     * Serialize to JSON
-     */
-    public function jsonSerialize(): array
-    {
-        return [
-            'destination' => $this->destination,
-            'dataLimitInGB' => $this->dataLimitInGb,
-            'startDate' => $this->startDate,
-            'endDate' => $this->endDate,
-            'duration' => $this->duration,
-            'quantity' => $this->quantity,
-            'email' => $this->email,
-            'referenceId' => $this->referenceId,
-            'networkBrand' => $this->networkBrand,
-            'emailBrand' => $this->emailBrand,
-        ];
-    }
+    return $result;
+  }
 }
