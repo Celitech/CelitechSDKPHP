@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Celitech\Services;
 
 use Celitech\Utils\Serializer;
@@ -14,44 +16,111 @@ use Celitech\Models;
  */
 class ESim extends BaseService
 {
-    /**
-     * Get eSIM
-     * @return Models\GetEsimOkResponse
-     */
-    public function getEsim(string $iccid): Models\GetEsimOkResponse
-    {
-        $response = $this->sendRequest('get', '/esim', [
-            'query' => [
-                'iccid' => $iccid,
-            ],
-            'scopes' => [],
-        ]);
-        $data = $response->getBody()->getContents();
+  /** @var array|null Method-level configuration for getEsim */
+  protected ?array $getEsimConfig = null;
 
-        return Serializer::deserialize($data, Models\GetEsimOkResponse::class);
-    }
+  /** @var array|null Method-level configuration for getEsimDevice */
+  protected ?array $getEsimDeviceConfig = null;
 
-    /**
-     * Get eSIM Device
-     * @return Models\GetEsimDeviceOkResponse
-     */
-    public function getEsimDevice(string $iccid): Models\GetEsimDeviceOkResponse
-    {
-        $response = $this->sendRequest('get', "/esim/{$iccid}/device", ['scopes' => []]);
-        $data = $response->getBody()->getContents();
+  /** @var array|null Method-level configuration for getEsimHistory */
+  protected ?array $getEsimHistoryConfig = null;
 
-        return Serializer::deserialize($data, Models\GetEsimDeviceOkResponse::class);
-    }
+  /**
+   * Set method-level configuration for getEsim.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setGetEsimConfig(array $config): static
+  {
+    $this->getEsimConfig = $config;
+    return $this;
+  }
 
-    /**
-     * Get eSIM History
-     * @return Models\GetEsimHistoryOkResponse
-     */
-    public function getEsimHistory(string $iccid): Models\GetEsimHistoryOkResponse
-    {
-        $response = $this->sendRequest('get', "/esim/{$iccid}/history", ['scopes' => []]);
-        $data = $response->getBody()->getContents();
+  /**
+   * Set method-level configuration for getEsimDevice.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setGetEsimDeviceConfig(array $config): static
+  {
+    $this->getEsimDeviceConfig = $config;
+    return $this;
+  }
 
-        return Serializer::deserialize($data, Models\GetEsimHistoryOkResponse::class);
-    }
+  /**
+   * Set method-level configuration for getEsimHistory.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setGetEsimHistoryConfig(array $config): static
+  {
+    $this->getEsimHistoryConfig = $config;
+    return $this;
+  }
+
+  /**
+   * Get eSIM
+   * @return Models\GetEsimOkResponse
+   */
+  public function getEsim(string $iccid, array $requestConfig = []): Models\GetEsimOkResponse
+  {
+    $resolvedConfig = $this->getResolvedConfig($this->getEsimConfig, $requestConfig);
+    $response = $this->sendRequest(
+      'get',
+      '/esim',
+      [
+        'query' => [
+          'iccid' => $iccid
+        ],
+        'scopes' => []
+      ],
+      $resolvedConfig
+    );
+    $data = $response->getBody()->getContents();
+
+    return Serializer::deserialize($data, Models\GetEsimOkResponse::class);
+  }
+
+  /**
+   * Get eSIM Device
+   * @return Models\GetEsimDeviceOkResponse
+   */
+  public function getEsimDevice(
+    string $iccid,
+    array $requestConfig = []
+  ): Models\GetEsimDeviceOkResponse {
+    $resolvedConfig = $this->getResolvedConfig($this->getEsimDeviceConfig, $requestConfig);
+    $response = $this->sendRequest(
+      'get',
+      "/esim/{$iccid}/device",
+      ['scopes' => []],
+      $resolvedConfig
+    );
+    $data = $response->getBody()->getContents();
+
+    return Serializer::deserialize($data, Models\GetEsimDeviceOkResponse::class);
+  }
+
+  /**
+   * Get eSIM History
+   * @return Models\GetEsimHistoryOkResponse
+   */
+  public function getEsimHistory(
+    string $iccid,
+    array $requestConfig = []
+  ): Models\GetEsimHistoryOkResponse {
+    $resolvedConfig = $this->getResolvedConfig($this->getEsimHistoryConfig, $requestConfig);
+    $response = $this->sendRequest(
+      'get',
+      "/esim/{$iccid}/history",
+      ['scopes' => []],
+      $resolvedConfig
+    );
+    $data = $response->getBody()->getContents();
+
+    return Serializer::deserialize($data, Models\GetEsimHistoryOkResponse::class);
+  }
 }

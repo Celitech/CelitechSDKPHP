@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Celitech\Services;
 
 use Celitech\Utils\Serializer;
@@ -14,33 +16,55 @@ use Celitech\Models;
  */
 class Packages extends BaseService
 {
-    /**
-     * List Packages
-     * @return Models\ListPackagesOkResponse
-     */
-    public function listPackages(
-        string $destination = null,
-        string $startDate = null,
-        string $endDate = null,
-        string $afterCursor = null,
-        float $limit = null,
-        int $startTime = null,
-        int $endTime = null
-    ): Models\ListPackagesOkResponse {
-        $response = $this->sendRequest('get', '/packages', [
-            'query' => [
-                'destination' => $destination,
-                'startDate' => $startDate,
-                'endDate' => $endDate,
-                'afterCursor' => $afterCursor,
-                'limit' => $limit,
-                'startTime' => $startTime,
-                'endTime' => $endTime,
-            ],
-            'scopes' => [],
-        ]);
-        $data = $response->getBody()->getContents();
+  /** @var array|null Method-level configuration for listPackages */
+  protected ?array $listPackagesConfig = null;
 
-        return Serializer::deserialize($data, Models\ListPackagesOkResponse::class);
-    }
+  /**
+   * Set method-level configuration for listPackages.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setListPackagesConfig(array $config): static
+  {
+    $this->listPackagesConfig = $config;
+    return $this;
+  }
+
+  /**
+   * List Packages
+   * @return Models\ListPackagesOkResponse
+   */
+  public function listPackages(
+    ?string $destination = null,
+    ?string $startDate = null,
+    ?string $endDate = null,
+    ?string $afterCursor = null,
+    ?float $limit = null,
+    ?int $startTime = null,
+    ?int $endTime = null,
+    array $requestConfig = []
+  ): Models\ListPackagesOkResponse {
+    $resolvedConfig = $this->getResolvedConfig($this->listPackagesConfig, $requestConfig);
+    $response = $this->sendRequest(
+      'get',
+      '/packages',
+      [
+        'query' => [
+          'destination' => $destination,
+          'startDate' => $startDate,
+          'endDate' => $endDate,
+          'afterCursor' => $afterCursor,
+          'limit' => $limit,
+          'startTime' => $startTime,
+          'endTime' => $endTime
+        ],
+        'scopes' => []
+      ],
+      $resolvedConfig
+    );
+    $data = $response->getBody()->getContents();
+
+    return Serializer::deserialize($data, Models\ListPackagesOkResponse::class);
+  }
 }

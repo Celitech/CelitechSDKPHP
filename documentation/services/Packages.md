@@ -38,7 +38,15 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->packages->listPackages();
+$response = $sdk->packages->listPackages(
+  destination: "FRA",
+  startDate: "2023-11-01",
+  endDate: "2023-11-20",
+  afterCursor: "Y3JlYXRlZEF0OjE1OTk0OTMwOTgsZGVzdGluYXRpb246QVVTLG1pbkRheXM6MCxkYXRhTGltaXRJbkJ5dGVzOjUzNjg3MDkxMjA",
+  limit: 20,
+  startTime: 3,
+  endTime: 9
+);
 
 print_r($response);
 ```
