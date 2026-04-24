@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Celitech\Services;
 
 use Celitech\Utils\Serializer;
@@ -14,15 +16,31 @@ use Celitech\Models;
  */
 class Destinations extends BaseService
 {
-    /**
-     * List Destinations
-     * @return Models\ListDestinationsOkResponse
-     */
-    public function listDestinations(): Models\ListDestinationsOkResponse
-    {
-        $response = $this->sendRequest('get', '/destinations', ['scopes' => []]);
-        $data = $response->getBody()->getContents();
+  /** @var array|null Method-level configuration for listDestinations */
+  protected ?array $listDestinationsConfig = null;
 
-        return Serializer::deserialize($data, Models\ListDestinationsOkResponse::class);
-    }
+  /**
+   * Set method-level configuration for listDestinations.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setListDestinationsConfig(array $config): static
+  {
+    $this->listDestinationsConfig = $config;
+    return $this;
+  }
+
+  /**
+   * List Destinations
+   * @return Models\ListDestinationsOkResponse
+   */
+  public function listDestinations(array $requestConfig = []): Models\ListDestinationsOkResponse
+  {
+    $resolvedConfig = $this->getResolvedConfig($this->listDestinationsConfig, $requestConfig);
+    $response = $this->sendRequest('get', '/destinations', ['scopes' => []], $resolvedConfig);
+    $data = $response->getBody()->getContents();
+
+    return Serializer::deserialize($data, Models\ListDestinationsOkResponse::class);
+  }
 }
