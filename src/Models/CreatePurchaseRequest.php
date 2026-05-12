@@ -55,6 +55,12 @@ class CreatePurchaseRequest implements \JsonSerializable
     public ?string $emailBrand;
 
     /**
+     * Language of the confirmation email sent to the customer.
+     */
+    #[SerializedName('language')]
+    public ?CreatePurchaseRequestLanguage $language;
+
+    /**
      * Epoch value representing the start time of the package's validity. This timestamp can be set to the current time or any time within the next 12 months.
      */
     #[SerializedName('startTime')]
@@ -75,6 +81,7 @@ class CreatePurchaseRequest implements \JsonSerializable
         ?string $referenceId = null,
         ?string $networkBrand = null,
         ?string $emailBrand = null,
+        ?CreatePurchaseRequestLanguage $language = null,
         ?float $startTime = null,
         ?float $endTime = null
     ) {
@@ -86,6 +93,7 @@ class CreatePurchaseRequest implements \JsonSerializable
         $this->referenceId = $referenceId;
         $this->networkBrand = $networkBrand;
         $this->emailBrand = $emailBrand;
+        $this->language = $language;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
     }
@@ -106,6 +114,9 @@ class CreatePurchaseRequest implements \JsonSerializable
             referenceId: $data['referenceId'] ?? null,
             networkBrand: $data['networkBrand'] ?? null,
             emailBrand: $data['emailBrand'] ?? null,
+            language: isset($data['language']) && is_string($data['language'])
+                ? CreatePurchaseRequestLanguage::from($data['language'])
+                : null,
             startTime: $data['startTime'] ?? null,
             endTime: $data['endTime'] ?? null
         );
@@ -125,6 +136,7 @@ class CreatePurchaseRequest implements \JsonSerializable
             'referenceId' => $this->referenceId,
             'networkBrand' => $this->networkBrand,
             'emailBrand' => $this->emailBrand,
+            'language' => $this->language,
             'startTime' => $this->startTime,
             'endTime' => $this->endTime,
         ];
