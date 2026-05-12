@@ -16,5 +16,21 @@
     | referenceId | string | ❌ | An identifier provided by the partner to link this purchase to their booking or transaction for analytics and debugging purposes. |
     | networkBrand | string | ❌ | Customize the network brand of the issued eSIM. The `networkBrand` parameter cannot exceed 15 characters in length and must contain only letters, numbers, dots (.), ampersands (&), and spaces. This feature is available to platforms with Diamond tier only. |
     | emailBrand | string | ❌ | Customize the email subject brand. The `emailBrand` parameter cannot exceed 25 characters in length and must contain only letters, numbers, and spaces. This feature is available to platforms with Diamond tier only. |
+    | language | CreatePurchaseV2RequestLanguage | ❌ | Language of the confirmation email sent to the customer. |
+
+# CreatePurchaseV2RequestLanguage
+
+Language of the confirmation email sent to the customer.
+
+**Properties**
+
+| Name | Type | Required | Description |
+| :-------- | :----------| :----------| :----------|
+    | En | string |  | en |
+    | Es | string |  | es |
+    | Fr | string |  | fr |
+    | De | string |  | de |
+    | PtBr | string |  | pt-br |
+
 
 

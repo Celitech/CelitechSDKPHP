@@ -1,10 +1,10 @@
 {
   "liblabVersion": "2.25.53",
-  "date": "2026-03-30T12:42:00.025Z",
+  "date": "2026-05-12T12:42:42.359Z",
   "config": {
-    "apiId": 3114,
+    "apiId": 3121,
     "sdkName": "Celitech",
-    "sdkVersion": "1.3.63",
+    "sdkVersion": "1.3.64",
     "languages": ["php"],
     "auth": ["oauth"],
     "docs": ["snippets", "enhancedApiSpec"],
@@ -13,7 +13,7 @@
     "rawConfig": {
       "sdkName": "Celitech",
       "apiName": "Celitech",
-      "apiVersion": "1.3.63",
+      "apiVersion": "1.3.64",
       "specFilePath": "swagger.yaml",
       "languages": ["typescript", "python", "php", "java", "go", "csharp"],
       "docs": ["snippets", "enhancedApiSpec"],
@@ -56,25 +56,25 @@
       "languageOptions": {
         "typescript": {
           "githubRepoName": "CelitechSDKTypeScript",
-          "sdkVersion": "1.3.63",
+          "sdkVersion": "1.3.64",
           "liblabVersion": "2",
           "npmName": "celitech-sdk"
         },
         "python": {
           "githubRepoName": "CelitechSDKPython",
-          "sdkVersion": "1.3.63",
+          "sdkVersion": "1.3.64",
           "liblabVersion": "2",
           "pypiPackageName": "celitech-sdk"
         },
         "php": {
           "githubRepoName": "CelitechSDKPHP",
-          "sdkVersion": "1.3.63",
+          "sdkVersion": "1.3.64",
           "liblabVersion": "2",
           "packageName": "celitech-sdk/sdk"
         },
         "java": {
           "githubRepoName": "CelitechSDKJava",
-          "sdkVersion": "1.3.63",
+          "sdkVersion": "1.3.64",
           "liblabVersion": "2",
           "groupId": "io.github.celitech",
           "artifactId": "celitech-sdk",
@@ -90,13 +90,13 @@
         },
         "go": {
           "githubRepoName": "CelitechSDKGo",
-          "sdkVersion": "1.3.63",
+          "sdkVersion": "1.3.64",
           "liblabVersion": "2",
           "goModuleName": "github.com/Celitech/CelitechSDKGo"
         },
         "csharp": {
           "githubRepoName": "CelitechSDKCSharp",
-          "sdkVersion": "1.3.63",
+          "sdkVersion": "1.3.64",
           "liblabVersion": "2",
           "packageId": "Celitech.SDK"
         }
@@ -115,7 +115,7 @@
       }
     },
     "liblabConfigVersion": "1.0.0",
-    "apiVersion": "1.3.63",
+    "apiVersion": "1.3.64",
     "apiName": "Celitech",
     "specFilePath": "swagger.yaml",
     "createDocs": false,
@@ -125,7 +125,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
+        "sdkVersion": "1.3.64",
         "packageId": "Celitech.SDK",
         "useOptionalWrapper": false,
         "validateResponses": false
@@ -135,7 +135,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
+        "sdkVersion": "1.3.64",
         "goModuleName": "github.com/Celitech/CelitechSDKGo"
       },
       "java": {
@@ -144,7 +144,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
+        "sdkVersion": "1.3.64",
         "groupId": "io.github.celitech",
         "artifactId": "celitech-sdk",
         "includeKotlinSnippets": false,
@@ -162,7 +162,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
+        "sdkVersion": "1.3.64",
         "alwaysInitializeOptionals": true,
         "pypiPackageName": "celitech-sdk"
       },
@@ -171,7 +171,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
+        "sdkVersion": "1.3.64",
         "packageName": "celitech-sdk/sdk"
       },
       "typescript": {
@@ -179,7 +179,7 @@
         "ignoreFiles": [],
         "liblabVersion": "2",
         "renameIllegalModelProperties": true,
-        "sdkVersion": "1.3.63",
+        "sdkVersion": "1.3.64",
         "bundle": true,
         "denoteCommon": false,
         "exportClassDefault": false,
@@ -318,11 +318,13 @@
     "src/Models/GrantType.php",
     "src/Models/Destinations.php",
     "src/Models/Packages.php",
+    "src/Models/CreatePurchaseV2RequestLanguage.php",
     "src/Models/CreatePurchaseV2OkResponsePurchase.php",
     "src/Models/CreatePurchaseV2OkResponseProfile.php",
     "src/Models/Purchases.php",
     "src/Models/Package.php",
     "src/Models/PurchasesEsim.php",
+    "src/Models/CreatePurchaseRequestLanguage.php",
     "src/Models/CreatePurchaseOkResponsePurchase.php",
     "src/Models/CreatePurchaseOkResponseProfile.php",
     "src/Models/TopUpEsimOkResponsePurchase.php",
@@ -345,8 +347,6 @@
     "documentation/snippets/esim-{iccid}-device-get.md",
     "documentation/snippets/esim-{iccid}-history-get.md",
     "documentation/snippets/iframe-token-post.md",
-    "documentation/models/CreatePurchaseV2Request.md",
-    "documentation/models/CreatePurchaseRequest.md",
     "documentation/models/TopUpEsimRequest.md",
     "documentation/models/EditPurchaseRequest.md",
     "documentation/models/EditPurchaseOkResponse.md",
@@ -355,10 +355,12 @@
     "documentation/models/GrantType.md",
     "documentation/models/Destinations.md",
     "documentation/models/Packages.md",
+    "documentation/models/CreatePurchaseV2RequestLanguage.md",
     "documentation/models/CreatePurchaseV2OkResponsePurchase.md",
     "documentation/models/CreatePurchaseV2OkResponseProfile.md",
     "documentation/models/Package.md",
     "documentation/models/PurchasesEsim.md",
+    "documentation/models/CreatePurchaseRequestLanguage.md",
     "documentation/models/CreatePurchaseOkResponsePurchase.md",
     "documentation/models/CreatePurchaseOkResponseProfile.md",
     "documentation/models/TopUpEsimOkResponsePurchase.md",
@@ -371,6 +373,8 @@
     ".env.example",
     "documentation/models/ListDestinationsOkResponse.md",
     "documentation/models/ListPackagesOkResponse.md",
+    "documentation/models/CreatePurchaseV2Request.md",
+    "documentation/models/CreatePurchaseRequest.md",
     "documentation/models/GetEsimOkResponse.md",
     "documentation/models/GetEsimDeviceOkResponse.md",
     "documentation/models/GetEsimHistoryOkResponseEsim.md",

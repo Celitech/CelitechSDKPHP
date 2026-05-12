@@ -66,6 +66,12 @@ class CreatePurchaseV2Request implements \JsonSerializable
     #[SerializedName('emailBrand')]
     public ?string $emailBrand;
 
+    /**
+     * Language of the confirmation email sent to the customer.
+     */
+    #[SerializedName('language')]
+    public ?CreatePurchaseV2RequestLanguage $language;
+
     public function __construct(
         string $destination,
         float $dataLimitInGb,
@@ -76,7 +82,8 @@ class CreatePurchaseV2Request implements \JsonSerializable
         ?string $email = null,
         ?string $referenceId = null,
         ?string $networkBrand = null,
-        ?string $emailBrand = null
+        ?string $emailBrand = null,
+        ?CreatePurchaseV2RequestLanguage $language = null
     ) {
         $this->destination = $destination;
         $this->dataLimitInGb = $dataLimitInGb;
@@ -88,6 +95,7 @@ class CreatePurchaseV2Request implements \JsonSerializable
         $this->referenceId = $referenceId;
         $this->networkBrand = $networkBrand;
         $this->emailBrand = $emailBrand;
+        $this->language = $language;
     }
 
     /**
@@ -107,7 +115,10 @@ class CreatePurchaseV2Request implements \JsonSerializable
             email: $data['email'] ?? null,
             referenceId: $data['referenceId'] ?? null,
             networkBrand: $data['networkBrand'] ?? null,
-            emailBrand: $data['emailBrand'] ?? null
+            emailBrand: $data['emailBrand'] ?? null,
+            language: isset($data['language']) && is_string($data['language'])
+                ? CreatePurchaseV2RequestLanguage::from($data['language'])
+                : null
         );
     }
 
@@ -127,6 +138,7 @@ class CreatePurchaseV2Request implements \JsonSerializable
             'referenceId' => $this->referenceId,
             'networkBrand' => $this->networkBrand,
             'emailBrand' => $this->emailBrand,
+            'language' => $this->language,
         ];
     }
 }
