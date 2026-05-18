@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Celitech\Services;
 
 use Celitech\Utils\Serializer;
@@ -14,15 +16,36 @@ use Celitech\Models;
  */
 class IFrame extends BaseService
 {
-    /**
-     * Generate a new token to be used in the iFrame
-     * @return Models\TokenOkResponse
-     */
-    public function token(): Models\TokenOkResponse
-    {
-        $response = $this->sendRequest('post', '/iframe/token', ['scopes' => []]);
-        $data = $response->getBody()->getContents();
+  /** @var array|null Method-level configuration for token */
+  protected ?array $tokenConfig = null;
 
-        return Serializer::deserialize($data, Models\TokenOkResponse::class);
+  /**
+   * Set method-level configuration for token.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setTokenConfig(array $config): static
+  {
+    $this->tokenConfig = $config;
+    return $this;
+  }
+
+  /**
+   * Generate a new token to be used in the iFrame
+   * @return Models\TokenOkResponse
+   */
+  public function token(array $requestConfig = []): Models\TokenOkResponse
+  {
+    $resolvedConfig = $this->getResolvedConfig($this->tokenConfig, $requestConfig);
+    $response = $this->sendRequest('post', '/iframe/token', ['scopes' => []], $resolvedConfig);
+    $data = $response->getBody()->getContents();
+
+    $result = Serializer::deserialize($data, Models\TokenOkResponse::class);
+
+    if ($resolvedConfig['enableResponseValidation'] ?? false) {
+      $result?->validate();
     }
+    return $result;
+  }
 }
