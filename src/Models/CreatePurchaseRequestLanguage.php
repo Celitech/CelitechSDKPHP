@@ -1,17 +1,17 @@
 <?php
 
-namespace Celitech\Models;
+declare(strict_types=1);
 
-use Symfony\Component\Serializer\Annotation\SerializedName;
+namespace Celitech\Models;
 
 /**
  * Language of the confirmation email sent to the customer.
  */
 enum CreatePurchaseRequestLanguage: string
 {
-    case En = 'en';
-    case Es = 'es';
-    case Fr = 'fr';
-    case De = 'de';
-    case PtBr = 'pt-br';
+  case En = 'en';
+  case Es = 'es';
+  case Fr = 'fr';
+  case De = 'de';
+  case PtBr = 'pt-br';
 }

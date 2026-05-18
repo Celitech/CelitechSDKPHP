@@ -16,68 +16,84 @@ use Celitech\OAuth\TokenManager;
  */
 class Client
 {
-    public $destinations;
-    public $packages;
-    public $purchases;
-    public $eSim;
-    public $iFrame;
-    private TokenManager $tokenManager;
+  public Services\Destinations $destinations;
+  public Services\Packages $packages;
+  public Services\Purchases $purchases;
+  public Services\ESim $eSim;
+  public Services\IFrame $iFrame;
+  private TokenManager $tokenManager;
 
-    public function __construct(
-        string $environment = Environment::Default,
-        float $timeout = 0,
-        string $baseOAuthUrl = 'https://auth.celitech.net',
-        string $clientId = '',
-        string $clientSecret = ''
-    ) {
-        $this->tokenManager = new TokenManager(
-            baseOAuthUrl: $baseOAuthUrl,
-            clientId: $clientId,
-            clientSecret: $clientSecret
-        );
+  public function __construct(
+    string $environment = Environment::Default,
+    float $timeout = 10000,
+    array $retryConfig = [],
+    string $baseOAuthUrl = 'https://auth.celitech.net',
+    string $clientId = '',
+    string $clientSecret = ''
+  ) {
+    $this->tokenManager = new TokenManager(
+      baseOAuthUrl: $baseOAuthUrl,
+      clientId: $clientId,
+      clientSecret: $clientSecret
+    );
 
-        $this->destinations = new Services\Destinations($environment, $timeout, $this->tokenManager);
-        $this->packages = new Services\Packages($environment, $timeout, $this->tokenManager);
-        $this->purchases = new Services\Purchases($environment, $timeout, $this->tokenManager);
-        $this->eSim = new Services\ESim($environment, $timeout, $this->tokenManager);
-        $this->iFrame = new Services\IFrame($environment, $timeout, $this->tokenManager);
-    }
+    $this->destinations = new Services\Destinations(
+      $environment,
+      $timeout,
+      $retryConfig,
+      $this->tokenManager
+    );
+    $this->packages = new Services\Packages(
+      $environment,
+      $timeout,
+      $retryConfig,
+      $this->tokenManager
+    );
+    $this->purchases = new Services\Purchases(
+      $environment,
+      $timeout,
+      $retryConfig,
+      $this->tokenManager
+    );
+    $this->eSim = new Services\ESim($environment, $timeout, $retryConfig, $this->tokenManager);
+    $this->iFrame = new Services\IFrame($environment, $timeout, $retryConfig, $this->tokenManager);
+  }
 
-    /**
-     * Set the base URL for all API requests.
-     *
-     * This method updates the base URL for all service instances managed by this client.
-     * Useful for switching between different environments or API versions at runtime.
-     *
-     * @param string $url The new base URL (e.g., 'https://api.example.com/v2')
-     * @return void
-     */
-    public function setBaseUrl(string $url)
-    {
-        $this->destinations->setBaseUrl($url);
-        $this->packages->setBaseUrl($url);
-        $this->purchases->setBaseUrl($url);
-        $this->eSim->setBaseUrl($url);
-        $this->iFrame->setBaseUrl($url);
-    }
+  /**
+   * Set the base URL for all API requests.
+   *
+   * This method updates the base URL for all service instances managed by this client.
+   * Useful for switching between different environments or API versions at runtime.
+   *
+   * @param string $url The new base URL (e.g., 'https://api.example.com/v2')
+   * @return void
+   */
+  public function setBaseUrl(string $url): void
+  {
+    $this->destinations->setBaseUrl($url);
+    $this->packages->setBaseUrl($url);
+    $this->purchases->setBaseUrl($url);
+    $this->eSim->setBaseUrl($url);
+    $this->iFrame->setBaseUrl($url);
+  }
 
-    public function setBaseOAuthUrl(string $baseOAuthUrl): self
-    {
-        $this->tokenManager->setBaseOAuthUrl($baseOAuthUrl);
-        return $this;
-    }
+  public function setBaseOAuthUrl(string $baseOAuthUrl): self
+  {
+    $this->tokenManager->setBaseOAuthUrl($baseOAuthUrl);
+    return $this;
+  }
 
-    public function setClientId(string $clientId): self
-    {
-        $this->tokenManager->setClientId($clientId);
-        return $this;
-    }
+  public function setClientId(string $clientId): self
+  {
+    $this->tokenManager->setClientId($clientId);
+    return $this;
+  }
 
-    public function setClientSecret(string $clientSecret): self
-    {
-        $this->tokenManager->setClientSecret($clientSecret);
-        return $this;
-    }
+  public function setClientSecret(string $clientSecret): self
+  {
+    $this->tokenManager->setClientSecret($clientSecret);
+    return $this;
+  }
 }
 
 // c029837e0e474b76bc487506e8799df5e3335891efe4fb02bda7a1441840310c
