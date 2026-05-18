@@ -1,0 +1,40 @@
+{
+  "endpoints": {
+    "/destinations": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->destinations->listDestinations();\n\nprint_r($response);\n"
+    },
+    "/packages": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->packages->listPackages();\n\nprint_r($response);\n"
+    },
+    "/purchases/v2": {
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\CreatePurchaseV2Request;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\CreatePurchaseV2Request(\n  destination: \"FRA\",\n  dataLimitInGb: 1,\n  quantity: 1\n);\n\n$response = $sdk->purchases->createPurchaseV2(\n  input: $input\n);\n\nprint_r($response);\n"
+    },
+    "/purchases": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->purchases->listPurchases();\n\nprint_r($response);\n",
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\CreatePurchaseRequest;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\CreatePurchaseRequest(\n  destination: \"FRA\",\n  dataLimitInGb: 1,\n  startDate: \"2023-11-01\",\n  endDate: \"2023-11-20\"\n);\n\n$response = $sdk->purchases->createPurchase(\n  input: $input\n);\n\nprint_r($response);\n"
+    },
+    "/purchases/topup": {
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\TopUpEsimRequest;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\TopUpEsimRequest(\n  iccid: \"1111222233334444555000\",\n  dataLimitInGb: 1\n);\n\n$response = $sdk->purchases->topUpEsim(\n  input: $input\n);\n\nprint_r($response);\n"
+    },
+    "/purchases/edit": {
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\EditPurchaseRequest;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\EditPurchaseRequest(\n  purchaseId: \"ae471106-c8b4-42cf-b83a-b061291f2922\",\n  startDate: \"2023-11-01\",\n  endDate: \"2023-11-20\"\n);\n\n$response = $sdk->purchases->editPurchase(\n  input: $input\n);\n\nprint_r($response);\n"
+    },
+    "/purchases/{purchaseId}/consumption": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->purchases->getPurchaseConsumption(\n  purchaseId: \"4973fa15-6979-4daa-9cf3-672620df819c\"\n);\n\nprint_r($response);\n"
+    },
+    "/esim": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->eSim->getEsim(\n  iccid: \"1111222233334444555000\"\n);\n\nprint_r($response);\n"
+    },
+    "/esim/{iccid}/device": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->eSim->getEsimDevice(\n  iccid: \"1111222233334444555000\"\n);\n\nprint_r($response);\n"
+    },
+    "/esim/{iccid}/history": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->eSim->getEsimHistory(\n  iccid: \"1111222233334444555000\"\n);\n\nprint_r($response);\n"
+    },
+    "/iframe/token": {
+      "post": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->iFrame->token();\n\nprint_r($response);\n"
+    }
+  },
+  "example": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->destinations->listDestinations();\n\nprint_r($response);\n",
+  "authentication": {}
+}
