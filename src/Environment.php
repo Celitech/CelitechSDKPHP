@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Celitech;
 
 /**
@@ -10,5 +12,6 @@ namespace Celitech;
  */
 class Environment
 {
-    const Default = 'https://api.celitech.net/v1';
+  const Default = 'https://api.celitech.net/v1';
+  const Api = 'https://api.celitech.net/v1';
 }

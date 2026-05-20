@@ -14,35 +14,35 @@ use Celitech\Models;
  * Each method corresponds to an API endpoint and handles request serialization,
  * execution, and response deserialization.
  */
-class Destinations extends BaseService
+class Token extends BaseService
 {
-  /** @var array|null Method-level configuration for listDestinations */
-  protected ?array $listDestinationsConfig = null;
+  /** @var array|null Method-level configuration for generateToken */
+  protected ?array $generateTokenConfig = null;
 
   /**
-   * Set method-level configuration for listDestinations.
+   * Set method-level configuration for generateToken.
    *
    * @param array $config Configuration overrides for this method
    * @return $this
    */
-  public function setListDestinationsConfig(array $config): static
+  public function setGenerateTokenConfig(array $config): static
   {
-    $this->listDestinationsConfig = $config;
+    $this->generateTokenConfig = $config;
     return $this;
   }
 
   /**
-   * List Destinations
+   * Generate a new token to be used in the iFrame
    *
    * @param string $accept
    * @return mixed
    */
-  public function listDestinations(string $accept, array $requestConfig = []): mixed
+  public function generateToken(string $accept, array $requestConfig = []): mixed
   {
-    $resolvedConfig = $this->getResolvedConfig($this->listDestinationsConfig, $requestConfig);
+    $resolvedConfig = $this->getResolvedConfig($this->generateTokenConfig, $requestConfig);
     $response = $this->sendRequest(
-      'get',
-      '/destinations',
+      'post',
+      '/iframe/token',
       [
         'headers' => [
           'Accept' => $accept
