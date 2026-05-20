@@ -1,0 +1,40 @@
+{
+  "endpoints": {
+    "/destinations": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->destinations->listDestinations(\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    },
+    "/packages": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->packages->listPackages(\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    },
+    "/purchases/v2": {
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\CreatePurchaseV2Request;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\CreatePurchaseV2Request();\n\n$response = $sdk->v2->createPurchaseV2(\n  input: $input,\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    },
+    "/purchases/topup": {
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\TopUpESimRequest;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\TopUpESimRequest();\n\n$response = $sdk->topup->topUpESim(\n  input: $input,\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    },
+    "/purchases/edit": {
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\EditPurchaseRequest;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\EditPurchaseRequest();\n\n$response = $sdk->edit->editPurchase(\n  input: $input,\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    },
+    "/purchases/{purchaseId}/consumption": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->consumption->getPurchaseConsumption(\n  accept: \"application/json\",\n  purchaseId: \"purchaseId\"\n);\n\nprint_r($response);\n"
+    },
+    "/purchases": {
+      "post": "<?php\n\nuse Celitech\\Client;\nuse Celitech\\Models\\CreatePurchaseRequest;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n\n$input = new Models\\CreatePurchaseRequest();\n\n$response = $sdk->purchases->createPurchase(\n  input: $input,\n  accept: \"application/json\"\n);\n\nprint_r($response);\n",
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->purchases->listPurchases(\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    },
+    "/esim/{iccid}/device": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->device->getESimDevice(\n  accept: \"application/json\",\n  iccid: \"iccid\"\n);\n\nprint_r($response);\n"
+    },
+    "/esim/{iccid}/history": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->history->getESimHistory(\n  accept: \"application/json\",\n  iccid: \"iccid\"\n);\n\nprint_r($response);\n"
+    },
+    "/esim": {
+      "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->esim->getESim(\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    },
+    "/iframe/token": {
+      "post": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->token->generateToken(\n  accept: \"application/json\"\n);\n\nprint_r($response);\n"
+    }
+  },
+  "example": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->destinations->listDestinations(\n  accept: \"application/json\"\n);\n\nprint_r($response);\n",
+  "authentication": {}
+}

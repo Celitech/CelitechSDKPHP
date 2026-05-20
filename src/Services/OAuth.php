@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Celitech\Services;
 
 use Celitech\Utils\Serializer;
@@ -14,15 +16,39 @@ use Celitech\Models;
  */
 class OAuth extends BaseService
 {
-    /**
-     * This endpoint was added by liblab
-     * @return Models\GetAccessTokenOkResponse
-     */
-    public function getAccessToken(Models\GetAccessTokenRequest $input): Models\GetAccessTokenOkResponse
-    {
-        $response = $this->sendRequest('post', '/oauth2/token', ['form_params' => Serializer::serialize($input)]);
-        $data = $response->getBody()->getContents();
+  /** @var array|null Method-level configuration for getAccessToken */
+  protected ?array $getAccessTokenConfig = null;
 
-        return Serializer::deserialize($data, Models\GetAccessTokenOkResponse::class);
+  /**
+   * Set method-level configuration for getAccessToken.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setGetAccessTokenConfig(array $config): static
+  {
+    $this->getAccessTokenConfig = $config;
+    return $this;
+  }
+
+  public function getAccessToken(
+    Models\OAuthTokenRequest $input,
+    array $requestConfig = []
+  ): Models\OAuthTokenResponse {
+    $resolvedConfig = $this->getResolvedConfig($this->getAccessTokenConfig, $requestConfig);
+    $response = $this->sendRequest(
+      'post',
+      '/oauth2/token',
+      ['form_params' => Serializer::serialize($input)],
+      $resolvedConfig
+    );
+    $data = $response->getBody()->getContents();
+
+    $result = Serializer::deserialize($data, Models\OAuthTokenResponse::class);
+
+    if ($resolvedConfig['enableResponseValidation'] ?? false) {
+      $result?->validate();
     }
+    return $result;
+  }
 }
