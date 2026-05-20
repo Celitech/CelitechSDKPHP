@@ -14,35 +14,36 @@ use Celitech\Models;
  * Each method corresponds to an API endpoint and handles request serialization,
  * execution, and response deserialization.
  */
-class Destinations extends BaseService
+class History extends BaseService
 {
-  /** @var array|null Method-level configuration for listDestinations */
-  protected ?array $listDestinationsConfig = null;
+  /** @var array|null Method-level configuration for getESimHistory */
+  protected ?array $getESimHistoryConfig = null;
 
   /**
-   * Set method-level configuration for listDestinations.
+   * Set method-level configuration for getESimHistory.
    *
    * @param array $config Configuration overrides for this method
    * @return $this
    */
-  public function setListDestinationsConfig(array $config): static
+  public function setGetESimHistoryConfig(array $config): static
   {
-    $this->listDestinationsConfig = $config;
+    $this->getESimHistoryConfig = $config;
     return $this;
   }
 
   /**
-   * List Destinations
+   * Get eSIM History
    *
+   * @param string $iccid
    * @param string $accept
    * @return mixed
    */
-  public function listDestinations(string $accept, array $requestConfig = []): mixed
+  public function getESimHistory(string $iccid, string $accept, array $requestConfig = []): mixed
   {
-    $resolvedConfig = $this->getResolvedConfig($this->listDestinationsConfig, $requestConfig);
+    $resolvedConfig = $this->getResolvedConfig($this->getESimHistoryConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      '/destinations',
+      "/esim/{$iccid}/history",
       [
         'headers' => [
           'Accept' => $accept
