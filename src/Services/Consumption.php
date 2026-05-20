@@ -14,35 +14,39 @@ use Celitech\Models;
  * Each method corresponds to an API endpoint and handles request serialization,
  * execution, and response deserialization.
  */
-class Destinations extends BaseService
+class Consumption extends BaseService
 {
-  /** @var array|null Method-level configuration for listDestinations */
-  protected ?array $listDestinationsConfig = null;
+  /** @var array|null Method-level configuration for getPurchaseConsumption */
+  protected ?array $getPurchaseConsumptionConfig = null;
 
   /**
-   * Set method-level configuration for listDestinations.
+   * Set method-level configuration for getPurchaseConsumption.
    *
    * @param array $config Configuration overrides for this method
    * @return $this
    */
-  public function setListDestinationsConfig(array $config): static
+  public function setGetPurchaseConsumptionConfig(array $config): static
   {
-    $this->listDestinationsConfig = $config;
+    $this->getPurchaseConsumptionConfig = $config;
     return $this;
   }
 
   /**
-   * List Destinations
+   * This endpoint can be called for consumption notifications (e.g. every 1 hour or when the user clicks a button). It returns the data balance (consumption) of purchased packages.
    *
+   * @param string $purchaseId
    * @param string $accept
    * @return mixed
    */
-  public function listDestinations(string $accept, array $requestConfig = []): mixed
-  {
-    $resolvedConfig = $this->getResolvedConfig($this->listDestinationsConfig, $requestConfig);
+  public function getPurchaseConsumption(
+    string $purchaseId,
+    string $accept,
+    array $requestConfig = []
+  ): mixed {
+    $resolvedConfig = $this->getResolvedConfig($this->getPurchaseConsumptionConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      '/destinations',
+      "/purchases/{$purchaseId}/consumption",
       [
         'headers' => [
           'Accept' => $accept
