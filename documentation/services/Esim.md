@@ -1,24 +1,25 @@
-# Destinations
+# Esim
 
-A list of all methods in the `Destinations` service. Click on the method name to view detailed information about that method.
+A list of all methods in the `Esim` service. Click on the method name to view detailed information about that method.
 
 | Methods | Description |
 | :------ | :---------- |
-|[List_Destinations](#list_destinations)| List Destinations |
+|[Get_eSIM](#get_esim)| Get eSIM |
 
-## List_Destinations
+## Get_eSIM
 
-List Destinations
+Get eSIM
 
 
 - HTTP Method: `GET`
-- Endpoint: `/destinations`
+- Endpoint: `/esim`
 
 **Parameters**
 
 | Name    | Type| Required | Description |
 | :-------- | :----------| :----------| :----------|
 | $accept | string | ✅ |  |
+| $iccid | string | ❌ | ID of the eSIM |
 
 **Return Type**
 
@@ -32,7 +33,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->destinations->listDestinations(
+$response = $sdk->esim->getESim(
   accept: "application/json"
 );
 

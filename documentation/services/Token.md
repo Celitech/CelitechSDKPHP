@@ -1,18 +1,18 @@
-# Destinations
+# Token
 
-A list of all methods in the `Destinations` service. Click on the method name to view detailed information about that method.
+A list of all methods in the `Token` service. Click on the method name to view detailed information about that method.
 
 | Methods | Description |
 | :------ | :---------- |
-|[List_Destinations](#list_destinations)| List Destinations |
+|[Generate_Token](#generate_token)| Generate a new token to be used in the iFrame |
 
-## List_Destinations
+## Generate_Token
 
-List Destinations
+Generate a new token to be used in the iFrame
 
 
-- HTTP Method: `GET`
-- Endpoint: `/destinations`
+- HTTP Method: `POST`
+- Endpoint: `/iframe/token`
 
 **Parameters**
 
@@ -32,7 +32,7 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->destinations->listDestinations(
+$response = $sdk->token->generateToken(
   accept: "application/json"
 );
 
