@@ -1,4 +1,4 @@
-# CreatePurchaseRequest
+# TopUpESimRequest
 
 
 
@@ -6,15 +6,14 @@
 
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
-    | destination | string | ❌ |  |
+    | iccid | string | ❌ |  |
     | dataLimitInGB | float | ❌ |  |
     | startDate | string | ❌ |  |
     | endDate | string | ❌ |  |
+    | duration | float | ❌ |  |
     | email | string | ❌ |  |
     | referenceId | string | ❌ |  |
-    | networkBrand | string | ❌ |  |
     | emailBrand | string | ❌ |  |
-    | language | string | ❌ |  |
     | startTime | float | ❌ |  |
     | endTime | float | ❌ |  |
 

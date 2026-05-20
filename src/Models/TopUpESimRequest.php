@@ -6,16 +6,13 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class CreatePurchaseV2Request implements \JsonSerializable
+class TopUpESimRequest implements \JsonSerializable
 {
-  #[SerializedName('destination')]
-  public ?string $destination;
+  #[SerializedName('iccid')]
+  public ?string $iccid;
 
   #[SerializedName('dataLimitInGB')]
   public ?float $dataLimitInGb;
-
-  #[SerializedName('quantity')]
-  public ?float $quantity;
 
   #[SerializedName('startDate')]
   public ?string $startDate;
@@ -32,42 +29,40 @@ class CreatePurchaseV2Request implements \JsonSerializable
   #[SerializedName('referenceId')]
   public ?string $referenceId;
 
-  #[SerializedName('networkBrand')]
-  public ?string $networkBrand;
-
   #[SerializedName('emailBrand')]
   public ?string $emailBrand;
 
-  #[SerializedName('language')]
-  public ?string $language;
+  #[SerializedName('startTime')]
+  public ?float $startTime;
+
+  #[SerializedName('endTime')]
+  public ?float $endTime;
 
   /** @var array<string, true> Tracks which fields were explicitly set */
   private array $_dirtyFields = [];
 
   public function __construct(
-    ?string $destination = null,
+    ?string $iccid = null,
     ?float $dataLimitInGb = null,
-    ?float $quantity = null,
     ?string $startDate = null,
     ?string $endDate = null,
     ?float $duration = null,
     ?string $email = null,
     ?string $referenceId = null,
-    ?string $networkBrand = null,
     ?string $emailBrand = null,
-    ?string $language = null
+    ?float $startTime = null,
+    ?float $endTime = null
   ) {
-    $this->destination = $destination;
+    $this->iccid = $iccid;
     $this->dataLimitInGb = $dataLimitInGb;
-    $this->quantity = $quantity;
     $this->startDate = $startDate;
     $this->endDate = $endDate;
     $this->duration = $duration;
     $this->email = $email;
     $this->referenceId = $referenceId;
-    $this->networkBrand = $networkBrand;
     $this->emailBrand = $emailBrand;
-    $this->language = $language;
+    $this->startTime = $startTime;
+    $this->endTime = $endTime;
   }
 
   /**
@@ -102,32 +97,30 @@ class CreatePurchaseV2Request implements \JsonSerializable
   public static function fromArray(array $data): self
   {
     $instance = new self(
-      destination: $data['destination'] ?? null,
+      iccid: $data['iccid'] ?? null,
       dataLimitInGb: $data['dataLimitInGB'] ?? null,
-      quantity: $data['quantity'] ?? null,
       startDate: $data['startDate'] ?? null,
       endDate: $data['endDate'] ?? null,
       duration: $data['duration'] ?? null,
       email: $data['email'] ?? null,
       referenceId: $data['referenceId'] ?? null,
-      networkBrand: $data['networkBrand'] ?? null,
       emailBrand: $data['emailBrand'] ?? null,
-      language: $data['language'] ?? null
+      startTime: $data['startTime'] ?? null,
+      endTime: $data['endTime'] ?? null
     );
     $instance->_dirtyFields = [];
     foreach (
       [
-        'destination',
+        'iccid',
         'dataLimitInGB',
-        'quantity',
         'startDate',
         'endDate',
         'duration',
         'email',
         'referenceId',
-        'networkBrand',
         'emailBrand',
-        'language'
+        'startTime',
+        'endTime'
       ]
       as $field
     ) {
@@ -144,14 +137,11 @@ class CreatePurchaseV2Request implements \JsonSerializable
   public function jsonSerialize(): array
   {
     $result = [];
-    if (array_key_exists('destination', $this->_dirtyFields)) {
-      $result['destination'] = $this->destination;
+    if (array_key_exists('iccid', $this->_dirtyFields)) {
+      $result['iccid'] = $this->iccid;
     }
     if (array_key_exists('dataLimitInGB', $this->_dirtyFields)) {
       $result['dataLimitInGB'] = $this->dataLimitInGb;
-    }
-    if (array_key_exists('quantity', $this->_dirtyFields)) {
-      $result['quantity'] = $this->quantity;
     }
     if (array_key_exists('startDate', $this->_dirtyFields)) {
       $result['startDate'] = $this->startDate;
@@ -168,14 +158,14 @@ class CreatePurchaseV2Request implements \JsonSerializable
     if (array_key_exists('referenceId', $this->_dirtyFields)) {
       $result['referenceId'] = $this->referenceId;
     }
-    if (array_key_exists('networkBrand', $this->_dirtyFields)) {
-      $result['networkBrand'] = $this->networkBrand;
-    }
     if (array_key_exists('emailBrand', $this->_dirtyFields)) {
       $result['emailBrand'] = $this->emailBrand;
     }
-    if (array_key_exists('language', $this->_dirtyFields)) {
-      $result['language'] = $this->language;
+    if (array_key_exists('startTime', $this->_dirtyFields)) {
+      $result['startTime'] = $this->startTime;
+    }
+    if (array_key_exists('endTime', $this->_dirtyFields)) {
+      $result['endTime'] = $this->endTime;
     }
     return $result;
   }

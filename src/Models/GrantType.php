@@ -1,10 +1,10 @@
 <?php
 
-namespace Celitech\Models;
+declare(strict_types=1);
 
-use Symfony\Component\Serializer\Annotation\SerializedName;
+namespace Celitech\Models;
 
 enum GrantType: string
 {
-    case ClientCredentials = 'client_credentials';
+  case ClientCredentials = 'client_credentials';
 }

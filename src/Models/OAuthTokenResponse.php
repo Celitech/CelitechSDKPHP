@@ -6,38 +6,21 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class EditPurchaseRequest implements \JsonSerializable
+class OAuthTokenResponse implements \JsonSerializable
 {
-  #[SerializedName('purchaseId')]
-  public ?string $purchaseId;
+  #[SerializedName('access_token')]
+  public ?string $accessToken;
 
-  #[SerializedName('startDate')]
-  public ?string $startDate;
-
-  #[SerializedName('endDate')]
-  public ?string $endDate;
-
-  #[SerializedName('startTime')]
-  public ?float $startTime;
-
-  #[SerializedName('endTime')]
-  public ?float $endTime;
+  #[SerializedName('expires_in')]
+  public ?int $expiresIn;
 
   /** @var array<string, true> Tracks which fields were explicitly set */
   private array $_dirtyFields = [];
 
-  public function __construct(
-    ?string $purchaseId = null,
-    ?string $startDate = null,
-    ?string $endDate = null,
-    ?float $startTime = null,
-    ?float $endTime = null
-  ) {
-    $this->purchaseId = $purchaseId;
-    $this->startDate = $startDate;
-    $this->endDate = $endDate;
-    $this->startTime = $startTime;
-    $this->endTime = $endTime;
+  public function __construct(?string $accessToken = null, ?int $expiresIn = null)
+  {
+    $this->accessToken = $accessToken;
+    $this->expiresIn = $expiresIn;
   }
 
   /**
@@ -72,14 +55,11 @@ class EditPurchaseRequest implements \JsonSerializable
   public static function fromArray(array $data): self
   {
     $instance = new self(
-      purchaseId: $data['purchaseId'] ?? null,
-      startDate: $data['startDate'] ?? null,
-      endDate: $data['endDate'] ?? null,
-      startTime: $data['startTime'] ?? null,
-      endTime: $data['endTime'] ?? null
+      accessToken: $data['access_token'] ?? null,
+      expiresIn: $data['expires_in'] ?? null
     );
     $instance->_dirtyFields = [];
-    foreach (['purchaseId', 'startDate', 'endDate', 'startTime', 'endTime'] as $field) {
+    foreach (['access_token', 'expires_in'] as $field) {
       if (array_key_exists($field, $data)) {
         $instance->_dirtyFields[$field] = true;
       }
@@ -93,20 +73,11 @@ class EditPurchaseRequest implements \JsonSerializable
   public function jsonSerialize(): array
   {
     $result = [];
-    if (array_key_exists('purchaseId', $this->_dirtyFields)) {
-      $result['purchaseId'] = $this->purchaseId;
+    if (array_key_exists('access_token', $this->_dirtyFields)) {
+      $result['access_token'] = $this->accessToken;
     }
-    if (array_key_exists('startDate', $this->_dirtyFields)) {
-      $result['startDate'] = $this->startDate;
-    }
-    if (array_key_exists('endDate', $this->_dirtyFields)) {
-      $result['endDate'] = $this->endDate;
-    }
-    if (array_key_exists('startTime', $this->_dirtyFields)) {
-      $result['startTime'] = $this->startTime;
-    }
-    if (array_key_exists('endTime', $this->_dirtyFields)) {
-      $result['endTime'] = $this->endTime;
+    if (array_key_exists('expires_in', $this->_dirtyFields)) {
+      $result['expires_in'] = $this->expiresIn;
     }
     return $result;
   }
