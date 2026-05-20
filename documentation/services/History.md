@@ -1,23 +1,24 @@
-# Destinations
+# History
 
-A list of all methods in the `Destinations` service. Click on the method name to view detailed information about that method.
+A list of all methods in the `History` service. Click on the method name to view detailed information about that method.
 
 | Methods | Description |
 | :------ | :---------- |
-|[List_Destinations](#list_destinations)| List Destinations |
+|[Get_eSIM_History](#get_esim_history)| Get eSIM History |
 
-## List_Destinations
+## Get_eSIM_History
 
-List Destinations
+Get eSIM History
 
 
 - HTTP Method: `GET`
-- Endpoint: `/destinations`
+- Endpoint: `/esim/{iccid}/history`
 
 **Parameters**
 
 | Name    | Type| Required | Description |
 | :-------- | :----------| :----------| :----------|
+| $iccid | string | ✅ |  |
 | $accept | string | ✅ |  |
 
 **Return Type**
@@ -32,8 +33,9 @@ use Celitech\Client;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
-$response = $sdk->destinations->listDestinations(
-  accept: "application/json"
+$response = $sdk->history->getESimHistory(
+  accept: "application/json",
+  iccid: "iccid"
 );
 
 print_r($response);
