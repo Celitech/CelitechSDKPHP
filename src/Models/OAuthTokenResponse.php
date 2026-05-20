@@ -6,39 +6,21 @@ namespace Celitech\Models;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class History implements \JsonSerializable
+class OAuthTokenResponse implements \JsonSerializable
 {
-  /**
-   * The status of the eSIM at a given time, possible values are 'RELEASED', 'DOWNLOADED', 'INSTALLED', 'ENABLED', 'DELETED', or 'ERROR'
-   */
-  #[SerializedName('status')]
-  public string $status;
+  #[SerializedName('access_token')]
+  public ?string $accessToken;
 
-  /**
-   * The date when the eSIM status changed in the format 'yyyy-MM-ddThh:mm:ssZZ'
-   */
-  #[SerializedName('statusDate')]
-  public string $statusDate;
-
-  /**
-   * Epoch value representing the date when the eSIM status changed
-   */
-  #[SerializedName('date')]
-  public ?float $date;
+  #[SerializedName('expires_in')]
+  public ?int $expiresIn;
 
   /** @var array<string, true> Tracks which fields were explicitly set */
   private array $_dirtyFields = [];
 
-  public function __construct(string $status, string $statusDate, ?float $date = null)
+  public function __construct(?string $accessToken = null, ?int $expiresIn = null)
   {
-    $this->status = $status;
-    $this->statusDate = $statusDate;
-    $this->date = $date;
-
-    $this->_dirtyFields = [
-      'status' => true,
-      'statusDate' => true
-    ];
+    $this->accessToken = $accessToken;
+    $this->expiresIn = $expiresIn;
   }
 
   /**
@@ -73,12 +55,11 @@ class History implements \JsonSerializable
   public static function fromArray(array $data): self
   {
     $instance = new self(
-      status: $data['status'],
-      statusDate: $data['statusDate'],
-      date: $data['date'] ?? null
+      accessToken: $data['access_token'] ?? null,
+      expiresIn: $data['expires_in'] ?? null
     );
     $instance->_dirtyFields = [];
-    foreach (['status', 'statusDate', 'date'] as $field) {
+    foreach (['access_token', 'expires_in'] as $field) {
       if (array_key_exists($field, $data)) {
         $instance->_dirtyFields[$field] = true;
       }
@@ -92,10 +73,11 @@ class History implements \JsonSerializable
   public function jsonSerialize(): array
   {
     $result = [];
-    $result['status'] = $this->status;
-    $result['statusDate'] = $this->statusDate;
-    if (array_key_exists('date', $this->_dirtyFields)) {
-      $result['date'] = $this->date;
+    if (array_key_exists('access_token', $this->_dirtyFields)) {
+      $result['access_token'] = $this->accessToken;
+    }
+    if (array_key_exists('expires_in', $this->_dirtyFields)) {
+      $result['expires_in'] = $this->expiresIn;
     }
     return $result;
   }
