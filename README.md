@@ -1,12 +1,12 @@
-# Celitech PHP SDK 2.0.0
+# Celitech PHP SDK 2.0.1
 
 
 Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
 
 ## Versions
 
-- API version: `2.0.0`
-- SDK version: `2.0.0`
+- API version: `2.0.1`
+- SDK version: `2.0.1`
 
 ## About the API
 
