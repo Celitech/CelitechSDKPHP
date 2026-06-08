@@ -39,6 +39,9 @@ class History implements \JsonSerializable
       'status' => true,
       'statusDate' => true
     ];
+    if ($date !== null) {
+      $this->_dirtyFields['date'] = true;
+    }
   }
 
   /**

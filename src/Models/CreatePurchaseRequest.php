@@ -108,6 +108,27 @@ class CreatePurchaseRequest implements \JsonSerializable
       'startDate' => true,
       'endDate' => true
     ];
+    if ($email !== null) {
+      $this->_dirtyFields['email'] = true;
+    }
+    if ($referenceId !== null) {
+      $this->_dirtyFields['referenceId'] = true;
+    }
+    if ($networkBrand !== null) {
+      $this->_dirtyFields['networkBrand'] = true;
+    }
+    if ($emailBrand !== null) {
+      $this->_dirtyFields['emailBrand'] = true;
+    }
+    if ($language !== null) {
+      $this->_dirtyFields['language'] = true;
+    }
+    if ($startTime !== null) {
+      $this->_dirtyFields['startTime'] = true;
+    }
+    if ($endTime !== null) {
+      $this->_dirtyFields['endTime'] = true;
+    }
   }
 
   /**

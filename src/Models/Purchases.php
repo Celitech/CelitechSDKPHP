@@ -122,6 +122,21 @@ class Purchases implements \JsonSerializable
       'source' => true,
       'purchaseType' => true
     ];
+    if ($duration !== null) {
+      $this->_dirtyFields['duration'] = true;
+    }
+    if ($startTime !== null) {
+      $this->_dirtyFields['startTime'] = true;
+    }
+    if ($endTime !== null) {
+      $this->_dirtyFields['endTime'] = true;
+    }
+    if ($createdAt !== null) {
+      $this->_dirtyFields['createdAt'] = true;
+    }
+    if ($referenceId !== null) {
+      $this->_dirtyFields['referenceId'] = true;
+    }
   }
 
   /**

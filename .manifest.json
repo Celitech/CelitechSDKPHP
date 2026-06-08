@@ -1,6 +1,6 @@
 {
-  "sdkGenVersion": "1.3.3",
-  "date": "2026-06-01T09:18:28.030Z",
+  "sdkGenVersion": "1.4.0",
+  "date": "2026-06-08T09:39:30.433Z",
   "config": {
     "languages": [
       "php"
@@ -10,7 +10,7 @@
     ],
     "languageOptions": {
       "java": {
-        "sdkVersion": "2.0.1",
+        "sdkVersion": "2.0.2",
         "githubRepoName": "CelitechSDKJava",
         "retry": {
           "enabled": true,
@@ -58,7 +58,7 @@
         ]
       },
       "typescript": {
-        "sdkVersion": "2.0.1",
+        "sdkVersion": "2.0.2",
         "githubRepoName": "CelitechSDKTypeScript",
         "retry": {
           "enabled": true,
@@ -96,7 +96,7 @@
         "npmName": "celitech-sdk"
       },
       "python": {
-        "sdkVersion": "2.0.1",
+        "sdkVersion": "2.0.2",
         "githubRepoName": "CelitechSDKPython",
         "retry": {
           "enabled": true,
@@ -134,7 +134,7 @@
         "pypiPackageName": "celitech-sdk"
       },
       "go": {
-        "sdkVersion": "2.0.1",
+        "sdkVersion": "2.0.2",
         "githubRepoName": "CelitechSDKGo",
         "retry": {
           "enabled": true,
@@ -169,10 +169,10 @@
         "deprecatedOperations": {
           "include": true
         },
-        "goModuleName": "github.com/Celitech/CelitechSDKGo"
+        "goModuleName": "github.com/Celitech/CelitechSDKGo/v2"
       },
       "csharp": {
-        "sdkVersion": "2.0.1",
+        "sdkVersion": "2.0.2",
         "githubRepoName": "CelitechSDKCSharp",
         "retry": {
           "enabled": true,
@@ -211,7 +211,7 @@
         "useOptionalWrapper": false
       },
       "php": {
-        "sdkVersion": "2.0.1",
+        "sdkVersion": "2.0.2",
         "githubRepoName": "CelitechSDKPHP",
         "retry": {
           "enabled": true,
@@ -252,11 +252,11 @@
     "includeWatermark": false,
     "responseHeaders": false,
     "sdkName": "Celitech",
-    "sdkVersion": "2.0.1",
+    "sdkVersion": "2.0.2",
     "auth": [
       "oauth"
     ],
-    "apiVersion": "2.0.1",
+    "apiVersion": "2.0.2",
     "publishing": {
       "githubOrg": "Celitech"
     },
@@ -447,8 +447,8 @@
     ".env.example": "69a3ee82f15d8bcc221e9c34c99e5a851d8b318ac2ac7e78f97ef32b743b303e",
     ".gitignore": "3358880c0495623a0f5e69cb251a6dd46b4a1a977a1a3fbe5499a82309a0fca5",
     "LICENSE": "3ec558dc6e9c9355ab4b28c942caa92bf90b0b82c12d7838d2ef92467ad135c1",
-    "README.md": "ea9390874aef58c149ed9242a99e7dbac48af201bad1c91e88d1972ed8c44970",
-    "composer.json": "03cafb234403e9c5612ab505564035043e0a98fbf3723b3fbf7cf890aba6eb21",
+    "README.md": "0e5323e808198ddb831cbbbe2cdf842eeb414694bb53c80b14bdaeea8968b310",
+    "composer.json": "c55805030cc6ad402a55d17754f925c242b3357f000106a3e509bf6c87479a22",
     "documentation/models/CreatePurchaseOkResponse.md": "c0e03a213098fffa2043b1cf6b551923c2fd4bbbb969054c73f2b6b5e3f25ac5",
     "documentation/models/CreatePurchaseOkResponseProfile.md": "e965e1f8252973b84557e28c854054533395427674371259a361793eee4a7486",
     "documentation/models/CreatePurchaseOkResponsePurchase.md": "06565ba55465b1a3ff3709d0fa54d62f4e08c16b4b33050f930d4ecad3bcd6c9",
@@ -498,18 +498,18 @@
     "src/Exceptions/ValidationException.php": "e9686d773f93ded39f0c27d8c9d45cb82b260e1cd1f818cf566d6e77735e1f75",
     "src/Models/CreatePurchaseOkResponse.php": "f0f5d3d5bfe8cf5e91040d7910a521172b7fd057ab571986ff0b4a24caff5cc7",
     "src/Models/CreatePurchaseOkResponseProfile.php": "61bc2ba7557c5c1dcabe62d737cc687f2d9ea10dbe9082d4cdac43becb7e46e4",
-    "src/Models/CreatePurchaseOkResponsePurchase.php": "0143f28f653f54fb14e80b74883c714e95078c3cc397cb61a58d7d86073849b6",
-    "src/Models/CreatePurchaseRequest.php": "c5cca4ce5a7404e30b30824c72bfe3bbdc21b9900cc0345983a7afbeef3d1059",
+    "src/Models/CreatePurchaseOkResponsePurchase.php": "3016ef7d5efd5ac0cc9d9738102dcd17434f517654f68b079f5cae86a9e055cd",
+    "src/Models/CreatePurchaseRequest.php": "64a8cdb6baa82aab64132f8c68c9ac7fffe14c3479072d2baa83ca4734e40664",
     "src/Models/CreatePurchaseRequestLanguage.php": "83e596852208a10368f5841300053ee7887681e77ae337ed641ae994c596d2f4",
     "src/Models/CreatePurchaseV2OkResponse.php": "cbb97cd9cd689dba5739ae0e100f29d8cdd6fca0bf602e158dfb4b9d77994d9b",
     "src/Models/CreatePurchaseV2OkResponseProfile.php": "46e327d02e97ef6c61f62f8fabfeb50b2311ed8218f195bcea20d974e95b845a",
     "src/Models/CreatePurchaseV2OkResponsePurchase.php": "b8e03de0c2c790094db5ed8d056d17c6f16f5e521d71b9028f0f2c7b4ec6479b",
-    "src/Models/CreatePurchaseV2Request.php": "f5a4102db66c6535c5bcd1ebe342abd9a9e0c58bdaf65a967fb09acc19e54017",
+    "src/Models/CreatePurchaseV2Request.php": "2fcb752f05012ccea6e723ff14d6885177c4c0e84c62284033d3edddd2ddbf8c",
     "src/Models/CreatePurchaseV2RequestLanguage.php": "e2cfb59fb8c32a4d07eeff179df64fef321a813ceaafd371cb1849774838789f",
     "src/Models/Destinations.php": "466e0b6ed47aa7419022e7c1591e968a80849c20521af30441b11965bd7a905a",
     "src/Models/Device.php": "77f3b62f886e553da130fdb57185ccf44a9c228318d53ce26f2f57b3bd7ee614",
-    "src/Models/EditPurchaseOkResponse.php": "4d9040fdab9710d2220018383778886341d608efa4364dd1107e3c4249f0d6d3",
-    "src/Models/EditPurchaseRequest.php": "5217d6cd1f509fff4dc60e9f8db7f34528f0bf9fa2a33bc38e07224d5ab7ec98",
+    "src/Models/EditPurchaseOkResponse.php": "df6f8bdda0a83c3409caba5784ca612fe9d8ca56aeed0654b7c15ef595f9b0a5",
+    "src/Models/EditPurchaseRequest.php": "ccaf7340a24cc53040a8e673721542d932c7dd60bb17346cbaa8a28b0c532c14",
     "src/Models/GetEsimDeviceOkResponse.php": "b6be7c89fe39de2f50bf066589e5957da4a14676a5c24a51906a5e3b121588cf",
     "src/Models/GetEsimHistoryOkResponse.php": "4ba40881a6acf8c45ac4392c075a0b231dfcd18504139e140a56ef032d43ee82",
     "src/Models/GetEsimHistoryOkResponseEsim.php": "357c223dd273b85436564f928cb6aa887ce2ca22373862c56a3dfe48527bcb19",
@@ -517,25 +517,25 @@
     "src/Models/GetEsimOkResponseEsim.php": "3104c46cafbf98b81df6a254167da6ea251b5c9f5b00d09d8c6d27db7024077a",
     "src/Models/GetPurchaseConsumptionOkResponse.php": "95e720bae51dde0d3ba96804b8b6f10375ddd937c6f252a2a39f4d80d4e4cf45",
     "src/Models/GrantType.php": "5beaf0714a3b9875485579698d30a24efc9dde56bee2f55b02d70c9c88874b16",
-    "src/Models/History.php": "6e68f86ffe80286eb3ffe596cdc20c2ebf4bbc6f19b801fff60028574f780826",
+    "src/Models/History.php": "7291a8bf7a697b66c824e01a62f22c65501a08754c7aae0e4d8fef9ff0758190",
     "src/Models/ListDestinationsOkResponse.php": "261547742a7d506e07540e045325436dcc0009272ea765208d08f3a3f6036de1",
     "src/Models/ListPackagesOkResponse.php": "af7266cd66a0d141a40a8ed89dcb382b782bcc6400771749ee9636d40299f7c5",
     "src/Models/ListPurchasesOkResponse.php": "0f71241fd3111e3e2136eae711cc1b6818849c1bdcf3e495f476da3efbdd2eb9",
     "src/Models/OAuthTokenRequest.php": "048ff7f241c04c3d19d2dffea5d0d859140da401d8fbe8cd495963dfd44525f5",
-    "src/Models/OAuthTokenResponse.php": "69c62eaa2b3c4e5786e529af6c2b1c8e20710361f1529ecd413ae4d3d418ae6b",
+    "src/Models/OAuthTokenResponse.php": "17176477284528aaa5eeb35473e71a9a3054791c488a7bff21b5ce72df426b60",
     "src/Models/Package.php": "2ec2a63e7158de4b6a9d5e8e59ed661c74b58497942d8de7c488d68df80fe352",
     "src/Models/Packages.php": "15568e8355549a47b7c38497e841ba6f24775628bd5f5726ca5848fdbc72332e",
-    "src/Models/Purchases.php": "794774562dd5407f4454240c292d8ddd92a28a271dd61c33875ecfbaa42477f7",
+    "src/Models/Purchases.php": "3db92c1f338c34f0d1adb3eea0384e60d3e496b5298f33990162d3754be28a3a",
     "src/Models/PurchasesEsim.php": "0f8eb13251b1aa4bda7d8510c824503682fa5166b783d6b27ac7fbdba5ee78cc",
     "src/Models/TokenOkResponse.php": "753c0d7dfb433c8ebcc42077132e6c4cb9cb89a3ee3003014570a989ba1e67d1",
     "src/Models/TopUpEsimOkResponse.php": "80fd483fb8fbe81f17922a046ee3dae2ca3e2dd4f53bf7be211935d5fc204131",
     "src/Models/TopUpEsimOkResponseProfile.php": "876fa492a5a5d230eb0686f10f72784c348eb219a431b36d4666dd570133fcd4",
-    "src/Models/TopUpEsimOkResponsePurchase.php": "3c97c0ee968d3852bc80141f0c5eced8a1869f244e964cea5fc5aed4f5bd5897",
-    "src/Models/TopUpEsimRequest.php": "98740fa0c9a6adee06edfef474a0a3ba5b873befbebae21aeab8af6c72c2b1d4",
+    "src/Models/TopUpEsimOkResponsePurchase.php": "ef32e528d9b8f367f0f6ed53d68824795b458ee78152a1612310ac3fe1e6215f",
+    "src/Models/TopUpEsimRequest.php": "8df52ffc9ceccf6c3f7fecfcabd2d5fa88396a073ae9b42d009aef818b1d9988",
     "src/OAuth/OAuthToken.php": "cbcdfd36ea324eb090447ad2a3980f4bc47fbfaea3149c8977a0e53bd20bb545",
     "src/OAuth/TokenManager.php": "605ebbe899e1c370a80e6e3eb8c0658578f46ffa914eab81eb97b168133dde41",
     "src/Retry.php": "24c83f953466f0726fb3cb754a23f4f6dbba896bcd7f5d66289c1dbe5e1adb47",
-    "src/Services/BaseService.php": "95e434f01bbb24cc90e2073b13d0c9dbe85023ac97db049ba1636725d9576fbc",
+    "src/Services/BaseService.php": "9dcfb2668e74cc526dd751b3289093ec58e731dafa6fc7909bbf765da625889a",
     "src/Services/Destinations.php": "c9e425e5e4cbb1b5c80459a3f5dff424a1413cbb9f2c5850e25361b3b2a6b002",
     "src/Services/ESim.php": "1a7c47d83a78ac10218911d2eefab0ecfab0b174a62f9667f52485b2eda0ebfd",
     "src/Services/IFrame.php": "f657f4dec1a0083683897fdb066c5bebc57e18b90ae63ef53981386261e41d61",

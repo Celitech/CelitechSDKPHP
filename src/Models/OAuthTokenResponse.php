@@ -21,6 +21,13 @@ class OAuthTokenResponse implements \JsonSerializable
   {
     $this->accessToken = $accessToken;
     $this->expiresIn = $expiresIn;
+
+    if ($accessToken !== null) {
+      $this->_dirtyFields['access_token'] = true;
+    }
+    if ($expiresIn !== null) {
+      $this->_dirtyFields['expires_in'] = true;
+    }
   }
 
   /**

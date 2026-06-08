@@ -59,6 +59,12 @@ class EditPurchaseRequest implements \JsonSerializable
       'startDate' => true,
       'endDate' => true
     ];
+    if ($startTime !== null) {
+      $this->_dirtyFields['startTime'] = true;
+    }
+    if ($endTime !== null) {
+      $this->_dirtyFields['endTime'] = true;
+    }
   }
 
   /**
