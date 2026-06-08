@@ -59,6 +59,12 @@ class EditPurchaseOkResponse implements \JsonSerializable
       'newStartDate' => true,
       'newEndDate' => true
     ];
+    if ($newStartTime !== null) {
+      $this->_dirtyFields['newStartTime'] = true;
+    }
+    if ($newEndTime !== null) {
+      $this->_dirtyFields['newEndTime'] = true;
+    }
   }
 
   /**

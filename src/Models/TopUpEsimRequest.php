@@ -99,6 +99,30 @@ class TopUpEsimRequest implements \JsonSerializable
       'iccid' => true,
       'dataLimitInGB' => true
     ];
+    if ($startDate !== null) {
+      $this->_dirtyFields['startDate'] = true;
+    }
+    if ($endDate !== null) {
+      $this->_dirtyFields['endDate'] = true;
+    }
+    if ($duration !== null) {
+      $this->_dirtyFields['duration'] = true;
+    }
+    if ($email !== null) {
+      $this->_dirtyFields['email'] = true;
+    }
+    if ($referenceId !== null) {
+      $this->_dirtyFields['referenceId'] = true;
+    }
+    if ($emailBrand !== null) {
+      $this->_dirtyFields['emailBrand'] = true;
+    }
+    if ($startTime !== null) {
+      $this->_dirtyFields['startTime'] = true;
+    }
+    if ($endTime !== null) {
+      $this->_dirtyFields['endTime'] = true;
+    }
   }
 
   /**

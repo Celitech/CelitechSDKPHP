@@ -77,6 +77,12 @@ class TopUpEsimOkResponsePurchase implements \JsonSerializable
       'endDate' => true,
       'createdDate' => true
     ];
+    if ($startTime !== null) {
+      $this->_dirtyFields['startTime'] = true;
+    }
+    if ($endTime !== null) {
+      $this->_dirtyFields['endTime'] = true;
+    }
   }
 
   /**
