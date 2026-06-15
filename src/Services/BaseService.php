@@ -40,7 +40,7 @@ class BaseService
   ) {
     $this->options = [
       'headers' => [
-        'User-Agent' => 'postman-codegen/1.4.0 celitech-sdk/sdk/2.0.2 (php)'
+        'User-Agent' => 'postman-codegen/1.4.0 celitech-sdk/sdk/2.0.3 (php)'
       ]
     ];
 
