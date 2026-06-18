@@ -60,6 +60,26 @@ class CreatePurchaseV2OkResponsePurchase implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'id',
+        'contents' => $this->id
+      ],
+
+      [
+        'name' => 'packageId',
+        'contents' => $this->packageId
+      ],
+
+      [
+        'name' => 'createdDate',
+        'contents' => $this->createdDate
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

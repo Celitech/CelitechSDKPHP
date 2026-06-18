@@ -34,7 +34,7 @@ This endpoint is used to purchase a new eSIM by providing the package details.
 <?php
 
 use Celitech\Client;
-use Celitech\Models\CreatePurchaseV2Request;
+use Celitech\Models;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
@@ -115,7 +115,7 @@ This endpoint is used to purchase a new eSIM by providing the package details.
 <?php
 
 use Celitech\Client;
-use Celitech\Models\CreatePurchaseRequest;
+use Celitech\Models;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
@@ -157,7 +157,7 @@ This endpoint is used to top-up an existing eSIM with the previously associated 
 <?php
 
 use Celitech\Client;
-use Celitech\Models\TopUpEsimRequest;
+use Celitech\Models;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 
@@ -197,7 +197,7 @@ This endpoint allows you to modify the validity dates of an existing purchase.  
 <?php
 
 use Celitech\Client;
-use Celitech\Models\EditPurchaseRequest;
+use Celitech\Models;
 
 $sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
 

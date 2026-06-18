@@ -226,6 +226,61 @@ class TopUpEsimRequest implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'iccid',
+        'contents' => $this->iccid
+      ],
+
+      [
+        'name' => 'dataLimitInGb',
+        'contents' => $this->dataLimitInGb
+      ],
+
+      [
+        'name' => 'startDate',
+        'contents' => $this->startDate
+      ],
+
+      [
+        'name' => 'endDate',
+        'contents' => $this->endDate
+      ],
+
+      [
+        'name' => 'duration',
+        'contents' => $this->duration
+      ],
+
+      [
+        'name' => 'email',
+        'contents' => $this->email
+      ],
+
+      [
+        'name' => 'referenceId',
+        'contents' => $this->referenceId
+      ],
+
+      [
+        'name' => 'emailBrand',
+        'contents' => $this->emailBrand
+      ],
+
+      [
+        'name' => 'startTime',
+        'contents' => $this->startTime
+      ],
+
+      [
+        'name' => 'endTime',
+        'contents' => $this->endTime
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     Validator::validateString($this->iccid, 'iccid', minLength: 18, maxLength: 22);

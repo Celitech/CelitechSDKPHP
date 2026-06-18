@@ -247,6 +247,76 @@ class Purchases implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'id',
+        'contents' => $this->id
+      ],
+
+      [
+        'name' => 'startDate',
+        'contents' => $this->startDate
+      ],
+
+      [
+        'name' => 'endDate',
+        'contents' => $this->endDate
+      ],
+
+      [
+        'name' => 'duration',
+        'contents' => $this->duration
+      ],
+
+      [
+        'name' => 'createdDate',
+        'contents' => $this->createdDate
+      ],
+
+      [
+        'name' => 'startTime',
+        'contents' => $this->startTime
+      ],
+
+      [
+        'name' => 'endTime',
+        'contents' => $this->endTime
+      ],
+
+      [
+        'name' => 'createdAt',
+        'contents' => $this->createdAt
+      ],
+
+      [
+        'name' => 'package',
+        'contents' => $this->package
+      ],
+
+      [
+        'name' => 'esim',
+        'contents' => $this->esim
+      ],
+
+      [
+        'name' => 'source',
+        'contents' => $this->source
+      ],
+
+      [
+        'name' => 'purchaseType',
+        'contents' => $this->purchaseType
+      ],
+
+      [
+        'name' => 'referenceId',
+        'contents' => $this->referenceId
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     $this->package->validate();

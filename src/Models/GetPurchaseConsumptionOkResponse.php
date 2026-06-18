@@ -63,6 +63,26 @@ class GetPurchaseConsumptionOkResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'dataUsageRemainingInBytes',
+        'contents' => $this->dataUsageRemainingInBytes
+      ],
+
+      [
+        'name' => 'dataUsageRemainingInGb',
+        'contents' => $this->dataUsageRemainingInGb
+      ],
+
+      [
+        'name' => 'status',
+        'contents' => $this->status
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

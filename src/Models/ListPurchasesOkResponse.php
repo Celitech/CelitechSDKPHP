@@ -54,6 +54,21 @@ class ListPurchasesOkResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'purchases',
+        'contents' => $this->purchases
+      ],
+
+      [
+        'name' => 'afterCursor',
+        'contents' => $this->afterCursor
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     foreach ($this->purchases as $item) {

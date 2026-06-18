@@ -54,6 +54,21 @@ class ListPackagesOkResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'packages',
+        'contents' => $this->packages
+      ],
+
+      [
+        'name' => 'afterCursor',
+        'contents' => $this->afterCursor
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     foreach ($this->packages as $item) {

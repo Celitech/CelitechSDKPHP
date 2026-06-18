@@ -40,6 +40,16 @@ class TokenOkResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'token',
+        'contents' => $this->token
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

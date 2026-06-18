@@ -55,6 +55,21 @@ class GetEsimHistoryOkResponseEsim implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'iccid',
+        'contents' => $this->iccid
+      ],
+
+      [
+        'name' => 'history',
+        'contents' => $this->history
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     Validator::validateString($this->iccid, 'iccid', minLength: 18, maxLength: 22);

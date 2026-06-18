@@ -40,7 +40,7 @@ class BaseService
   ) {
     $this->options = [
       'headers' => [
-        'User-Agent' => 'postman-codegen/1.4.0 celitech-sdk/sdk/2.0.2 (php)'
+        'User-Agent' => 'postman-codegen/1.5.0 celitech-sdk/sdk/2.0.4 (php)'
       ]
     ];
 
@@ -305,6 +305,15 @@ class BaseService
    */
   protected function decodeJson(string $json): mixed
   {
+    // Empty / whitespace-only bodies — 204 No Content, 200 with empty body,
+    // or any operation whose successful response simply doesn't carry one —
+    // are valid responses, not malformed JSON. Return an empty array so the
+    // generated `Model::fromArray()` call sites (strictly typed `array
+    // $data`) keep working with their default field values, instead of
+    // surfacing `JsonException: Syntax error` thrown deep inside the SDK.
+    if (trim($json) === '') {
+      return [];
+    }
     try {
       return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     } catch (\JsonException $e) {

@@ -1,6 +1,6 @@
 {
-  "sdkGenVersion": "1.4.0",
-  "date": "2026-06-08T09:39:30.433Z",
+  "sdkGenVersion": "1.5.0",
+  "date": "2026-06-18T14:59:39.218Z",
   "config": {
     "languages": [
       "php"
@@ -10,7 +10,7 @@
     ],
     "languageOptions": {
       "java": {
-        "sdkVersion": "2.0.2",
+        "sdkVersion": "2.0.4",
         "githubRepoName": "CelitechSDKJava",
         "retry": {
           "enabled": true,
@@ -58,7 +58,7 @@
         ]
       },
       "typescript": {
-        "sdkVersion": "2.0.2",
+        "sdkVersion": "2.0.4",
         "githubRepoName": "CelitechSDKTypeScript",
         "retry": {
           "enabled": true,
@@ -96,7 +96,7 @@
         "npmName": "celitech-sdk"
       },
       "python": {
-        "sdkVersion": "2.0.2",
+        "sdkVersion": "2.0.4",
         "githubRepoName": "CelitechSDKPython",
         "retry": {
           "enabled": true,
@@ -134,7 +134,7 @@
         "pypiPackageName": "celitech-sdk"
       },
       "go": {
-        "sdkVersion": "2.0.2",
+        "sdkVersion": "2.0.4",
         "githubRepoName": "CelitechSDKGo",
         "retry": {
           "enabled": true,
@@ -172,7 +172,7 @@
         "goModuleName": "github.com/Celitech/CelitechSDKGo/v2"
       },
       "csharp": {
-        "sdkVersion": "2.0.2",
+        "sdkVersion": "2.0.4",
         "githubRepoName": "CelitechSDKCSharp",
         "retry": {
           "enabled": true,
@@ -211,7 +211,7 @@
         "useOptionalWrapper": false
       },
       "php": {
-        "sdkVersion": "2.0.2",
+        "sdkVersion": "2.0.4",
         "githubRepoName": "CelitechSDKPHP",
         "retry": {
           "enabled": true,
@@ -252,11 +252,11 @@
     "includeWatermark": false,
     "responseHeaders": false,
     "sdkName": "Celitech",
-    "sdkVersion": "2.0.2",
+    "sdkVersion": "2.0.4",
     "auth": [
       "oauth"
     ],
-    "apiVersion": "2.0.2",
+    "apiVersion": "2.0.4",
     "publishing": {
       "githubOrg": "Celitech"
     },
@@ -447,8 +447,8 @@
     ".env.example": "69a3ee82f15d8bcc221e9c34c99e5a851d8b318ac2ac7e78f97ef32b743b303e",
     ".gitignore": "3358880c0495623a0f5e69cb251a6dd46b4a1a977a1a3fbe5499a82309a0fca5",
     "LICENSE": "3ec558dc6e9c9355ab4b28c942caa92bf90b0b82c12d7838d2ef92467ad135c1",
-    "README.md": "0e5323e808198ddb831cbbbe2cdf842eeb414694bb53c80b14bdaeea8968b310",
-    "composer.json": "c55805030cc6ad402a55d17754f925c242b3357f000106a3e509bf6c87479a22",
+    "README.md": "05252d6a1afb5561de92cf7ddc10ed876fffe36fdce54e8e95c2e587f5f6e2cc",
+    "composer.json": "5127dbda1638422975c268d68d2b2f0055b9b3bd8c7d5401647f6688453cb646",
     "documentation/models/CreatePurchaseOkResponse.md": "c0e03a213098fffa2043b1cf6b551923c2fd4bbbb969054c73f2b6b5e3f25ac5",
     "documentation/models/CreatePurchaseOkResponseProfile.md": "e965e1f8252973b84557e28c854054533395427674371259a361793eee4a7486",
     "documentation/models/CreatePurchaseOkResponsePurchase.md": "06565ba55465b1a3ff3709d0fa54d62f4e08c16b4b33050f930d4ecad3bcd6c9",
@@ -487,8 +487,8 @@
     "documentation/services/ESim.md": "b1dbfac8d17cba48c0c05ff8f6fe67e167d714f7c9ed1307cc42110e561ecb8a",
     "documentation/services/IFrame.md": "23ae1f47c1e691de3f51c310ceeb9f5c766c2f16b8da6ea414a944ba0c33f215",
     "documentation/services/Packages.md": "1e09997e1b6a044b41707cfa014379282802175e2b9f21a5674742b14addca3a",
-    "documentation/services/Purchases.md": "09419f6e7a0a301e4a8e5965e42076a98b505cfc5b573545d7c1e206c0177791",
-    "documentation/snippets/snippets.json": "6c8845f14fe469770c268c6ff46b72e2fb14da57c07eceb52bbc11738f7e220e",
+    "documentation/services/Purchases.md": "92911a9114b2a7901fc4d45981f9f2d668a3dc9e7d988b006486a96c18fafafc",
+    "documentation/snippets/snippets.json": "0f1401955089bfbc9e490703a2e4688d29b4017418c34801abd8b4fe5356cf3c",
     "example/index.php": "5510472fd29fbae998fdf02ea91f69c3ad50a28fc471a5c011ac6995ff93819b",
     "prettier.config.js": "2fe33fda52344779fcf235afa8152cfd356880dc3161da09403dc26231bc72d9",
     "src/Client.php": "4c90bd7c359e0fc0f2bf07607a9a8dff439d066cf5985826d9a973304e5ccbf0",
@@ -496,46 +496,46 @@
     "src/Exceptions/ApiException.php": "4b46c0728c2b576c007e362788ad092fc64a75babcfc230800c107c400ea260f",
     "src/Exceptions/TimeoutException.php": "983d201136ac2f0d2f5d3b18a432135574ad6483f41a60e9c11361f4049f8d6e",
     "src/Exceptions/ValidationException.php": "e9686d773f93ded39f0c27d8c9d45cb82b260e1cd1f818cf566d6e77735e1f75",
-    "src/Models/CreatePurchaseOkResponse.php": "f0f5d3d5bfe8cf5e91040d7910a521172b7fd057ab571986ff0b4a24caff5cc7",
-    "src/Models/CreatePurchaseOkResponseProfile.php": "61bc2ba7557c5c1dcabe62d737cc687f2d9ea10dbe9082d4cdac43becb7e46e4",
-    "src/Models/CreatePurchaseOkResponsePurchase.php": "3016ef7d5efd5ac0cc9d9738102dcd17434f517654f68b079f5cae86a9e055cd",
-    "src/Models/CreatePurchaseRequest.php": "64a8cdb6baa82aab64132f8c68c9ac7fffe14c3479072d2baa83ca4734e40664",
+    "src/Models/CreatePurchaseOkResponse.php": "06a13dd4b23593a9bb48b521594545ee56148ab4833175f5c0a90eaaba8c2723",
+    "src/Models/CreatePurchaseOkResponseProfile.php": "6f584b0cde8517f6e35ffba9835701cd5d3291a405a2c067eec39b59349f82cb",
+    "src/Models/CreatePurchaseOkResponsePurchase.php": "e647cd1a9e43e83850dc1e3444350c79adbd0ce09130c5a0cebc1b59caa952b3",
+    "src/Models/CreatePurchaseRequest.php": "f98d027816b50966ba72fbf6d9bae88d221508e23b3d33d79e3bc9d74f0fdf4a",
     "src/Models/CreatePurchaseRequestLanguage.php": "83e596852208a10368f5841300053ee7887681e77ae337ed641ae994c596d2f4",
-    "src/Models/CreatePurchaseV2OkResponse.php": "cbb97cd9cd689dba5739ae0e100f29d8cdd6fca0bf602e158dfb4b9d77994d9b",
-    "src/Models/CreatePurchaseV2OkResponseProfile.php": "46e327d02e97ef6c61f62f8fabfeb50b2311ed8218f195bcea20d974e95b845a",
-    "src/Models/CreatePurchaseV2OkResponsePurchase.php": "b8e03de0c2c790094db5ed8d056d17c6f16f5e521d71b9028f0f2c7b4ec6479b",
-    "src/Models/CreatePurchaseV2Request.php": "2fcb752f05012ccea6e723ff14d6885177c4c0e84c62284033d3edddd2ddbf8c",
+    "src/Models/CreatePurchaseV2OkResponse.php": "decee981d1f6f74e09b8aa0c64a571a650d65f8b3f8ff14569c41835b4f4c7d4",
+    "src/Models/CreatePurchaseV2OkResponseProfile.php": "5ad7abde66d8e0f41e4d24912bc44690b5ada6aa18f47a375fbea1c933c17a76",
+    "src/Models/CreatePurchaseV2OkResponsePurchase.php": "d5f389e9522847d569e7b90caee62531807b6d6af96631508b397918e24f215a",
+    "src/Models/CreatePurchaseV2Request.php": "2e91f4d50bd45e12705b67383581b43cc076cdc234cacf0947b4cf2bd034032c",
     "src/Models/CreatePurchaseV2RequestLanguage.php": "e2cfb59fb8c32a4d07eeff179df64fef321a813ceaafd371cb1849774838789f",
-    "src/Models/Destinations.php": "466e0b6ed47aa7419022e7c1591e968a80849c20521af30441b11965bd7a905a",
-    "src/Models/Device.php": "77f3b62f886e553da130fdb57185ccf44a9c228318d53ce26f2f57b3bd7ee614",
-    "src/Models/EditPurchaseOkResponse.php": "df6f8bdda0a83c3409caba5784ca612fe9d8ca56aeed0654b7c15ef595f9b0a5",
-    "src/Models/EditPurchaseRequest.php": "ccaf7340a24cc53040a8e673721542d932c7dd60bb17346cbaa8a28b0c532c14",
-    "src/Models/GetEsimDeviceOkResponse.php": "b6be7c89fe39de2f50bf066589e5957da4a14676a5c24a51906a5e3b121588cf",
-    "src/Models/GetEsimHistoryOkResponse.php": "4ba40881a6acf8c45ac4392c075a0b231dfcd18504139e140a56ef032d43ee82",
-    "src/Models/GetEsimHistoryOkResponseEsim.php": "357c223dd273b85436564f928cb6aa887ce2ca22373862c56a3dfe48527bcb19",
-    "src/Models/GetEsimOkResponse.php": "38dee15520dbb1019950ebd1cbf64d6c18c3cd8f7e47c04e34102d5dd8ff4810",
-    "src/Models/GetEsimOkResponseEsim.php": "3104c46cafbf98b81df6a254167da6ea251b5c9f5b00d09d8c6d27db7024077a",
-    "src/Models/GetPurchaseConsumptionOkResponse.php": "95e720bae51dde0d3ba96804b8b6f10375ddd937c6f252a2a39f4d80d4e4cf45",
+    "src/Models/Destinations.php": "f38a5f51470b867edf02f256be28b41b92291a7c00bf9ecc0f56765f36a4c7cc",
+    "src/Models/Device.php": "1c9a19f2258cd71ddfe9bb5019d886439ea040101c6ea17a171275a6a55fa0d4",
+    "src/Models/EditPurchaseOkResponse.php": "0f9a1ca73a24d68dc9a326a9e3c8ee7fd71a0cd1e42362a15c723d5117862a55",
+    "src/Models/EditPurchaseRequest.php": "7f1d6420b8a01f34fc7168b19dd03f309b987f0c8990582baabe7330b3a268a2",
+    "src/Models/GetEsimDeviceOkResponse.php": "447d8220743d123350a79f22ee29a76ed79940f0c18c9fe7647e7a46a9b182d8",
+    "src/Models/GetEsimHistoryOkResponse.php": "68e5d34ca7d36f2326050ff2494d29e5e4206368799b0ff7baaaadeb754ceea6",
+    "src/Models/GetEsimHistoryOkResponseEsim.php": "5a3432bfa426599877ea15b2cb66e5da08e25416f11a62fc27050bfb0d18b284",
+    "src/Models/GetEsimOkResponse.php": "c811a600003439b15fb4f8a8fa4b0adc89b72eaeacbbc59a15810628411595b0",
+    "src/Models/GetEsimOkResponseEsim.php": "e10403cc58dc0f0c34582d5391815f7faa8ccac7392a2ba0f9193f85daf5fad7",
+    "src/Models/GetPurchaseConsumptionOkResponse.php": "2bbee1083c1c67c883cd2ed4a290a48b3cd71377962b30ee41769f44eecbd1c6",
     "src/Models/GrantType.php": "5beaf0714a3b9875485579698d30a24efc9dde56bee2f55b02d70c9c88874b16",
-    "src/Models/History.php": "7291a8bf7a697b66c824e01a62f22c65501a08754c7aae0e4d8fef9ff0758190",
-    "src/Models/ListDestinationsOkResponse.php": "261547742a7d506e07540e045325436dcc0009272ea765208d08f3a3f6036de1",
-    "src/Models/ListPackagesOkResponse.php": "af7266cd66a0d141a40a8ed89dcb382b782bcc6400771749ee9636d40299f7c5",
-    "src/Models/ListPurchasesOkResponse.php": "0f71241fd3111e3e2136eae711cc1b6818849c1bdcf3e495f476da3efbdd2eb9",
-    "src/Models/OAuthTokenRequest.php": "048ff7f241c04c3d19d2dffea5d0d859140da401d8fbe8cd495963dfd44525f5",
-    "src/Models/OAuthTokenResponse.php": "17176477284528aaa5eeb35473e71a9a3054791c488a7bff21b5ce72df426b60",
-    "src/Models/Package.php": "2ec2a63e7158de4b6a9d5e8e59ed661c74b58497942d8de7c488d68df80fe352",
-    "src/Models/Packages.php": "15568e8355549a47b7c38497e841ba6f24775628bd5f5726ca5848fdbc72332e",
-    "src/Models/Purchases.php": "3db92c1f338c34f0d1adb3eea0384e60d3e496b5298f33990162d3754be28a3a",
-    "src/Models/PurchasesEsim.php": "0f8eb13251b1aa4bda7d8510c824503682fa5166b783d6b27ac7fbdba5ee78cc",
-    "src/Models/TokenOkResponse.php": "753c0d7dfb433c8ebcc42077132e6c4cb9cb89a3ee3003014570a989ba1e67d1",
-    "src/Models/TopUpEsimOkResponse.php": "80fd483fb8fbe81f17922a046ee3dae2ca3e2dd4f53bf7be211935d5fc204131",
-    "src/Models/TopUpEsimOkResponseProfile.php": "876fa492a5a5d230eb0686f10f72784c348eb219a431b36d4666dd570133fcd4",
-    "src/Models/TopUpEsimOkResponsePurchase.php": "ef32e528d9b8f367f0f6ed53d68824795b458ee78152a1612310ac3fe1e6215f",
-    "src/Models/TopUpEsimRequest.php": "8df52ffc9ceccf6c3f7fecfcabd2d5fa88396a073ae9b42d009aef818b1d9988",
+    "src/Models/History.php": "13e8343a63572f945c0322317fbf932fcc9afd4d0a3612f7fbe29d606416d371",
+    "src/Models/ListDestinationsOkResponse.php": "abe7e9c082d1737caf3e16b13f305109758e25d233b98a54a671027a16e3e378",
+    "src/Models/ListPackagesOkResponse.php": "c30f11f56388661ba1da74921d629034420657e6290487b43fa6d84e6f837b8e",
+    "src/Models/ListPurchasesOkResponse.php": "11d8a33eded08c51cb54eaae6e3178b2d98bcec3c27b58f276f4d4e1bf7a4e8f",
+    "src/Models/OAuthTokenRequest.php": "054054fc03b8a3cc0e8350e6e82d5507887f9af42351d32d2d6e27a424371560",
+    "src/Models/OAuthTokenResponse.php": "da26e221476138abf15d32bb2dbc56d0609fce1a01b9a32cf40d47cccc570ebf",
+    "src/Models/Package.php": "41007d28250e8ab20dee10a8f6d8951b102cc442dc0f48ab853583eb119033bb",
+    "src/Models/Packages.php": "b3382a017d07ca2d5892d46593a00524240357ebb41dcbe3a1f0513f966abd42",
+    "src/Models/Purchases.php": "15a850a6879b535a799a626e70be94da29d2819d82a4083a61ed5fb1b373d87c",
+    "src/Models/PurchasesEsim.php": "5689cb01149ab3ea0d0faed3c79ea796d2e1280f8ea6a48f8e0f003815c12117",
+    "src/Models/TokenOkResponse.php": "497cc8190d8f032a9dfc19a89a44b0c113b4438389e4518a274526920da90a06",
+    "src/Models/TopUpEsimOkResponse.php": "71bbba4e667a9ec0e87da80acfd2928d691dc44693b0fd0fd83cadee30f60618",
+    "src/Models/TopUpEsimOkResponseProfile.php": "f22dde8d29f5e8a05a9995eebb81dd15ba8a39ab650efe007a87d21d972dfb0f",
+    "src/Models/TopUpEsimOkResponsePurchase.php": "3ba89844ae0419452efa15175f1e0c4cd560c6b2067c2d6cd28a829f6d70dc96",
+    "src/Models/TopUpEsimRequest.php": "ef6d0d45e1136863fc7546bfae8fd4a85a4387a04cd99e23a60714fe978cc8ae",
     "src/OAuth/OAuthToken.php": "cbcdfd36ea324eb090447ad2a3980f4bc47fbfaea3149c8977a0e53bd20bb545",
     "src/OAuth/TokenManager.php": "605ebbe899e1c370a80e6e3eb8c0658578f46ffa914eab81eb97b168133dde41",
     "src/Retry.php": "24c83f953466f0726fb3cb754a23f4f6dbba896bcd7f5d66289c1dbe5e1adb47",
-    "src/Services/BaseService.php": "9dcfb2668e74cc526dd751b3289093ec58e731dafa6fc7909bbf765da625889a",
+    "src/Services/BaseService.php": "c2b2bdfc41075caf61f78708661ff02c3e59d81fc2400f874ac1350a919c74aa",
     "src/Services/Destinations.php": "c9e425e5e4cbb1b5c80459a3f5dff424a1413cbb9f2c5850e25361b3b2a6b002",
     "src/Services/ESim.php": "1a7c47d83a78ac10218911d2eefab0ecfab0b174a62f9667f52485b2eda0ebfd",
     "src/Services/IFrame.php": "f657f4dec1a0083683897fdb066c5bebc57e18b90ae63ef53981386261e41d61",
@@ -543,7 +543,7 @@
     "src/Services/Packages.php": "496e01933c3727c544d5eed881d5b3c72e276929db5dd30e3088ab4ecf46ee6b",
     "src/Services/Purchases.php": "96f597bf3461dd6fe33cd37b5a98eb24873b3062bfff6d08755a8abbc2a159dd",
     "src/Utils/LineDecoder.php": "7eae6ebcf27d9e52fe7d5ab75a6ff26f817258de96b5a354042f366810b3c279",
-    "src/Utils/Serializer.php": "90c59d46b0eb03e2c7e65c609cb47528833c3db7968b3080963cf062ab4f082f",
+    "src/Utils/Serializer.php": "57041b9f8ea260ca2cce237e978780d7d7e8bb153ac364443740debfc4b4731c",
     "src/Utils/Validator.php": "c1bc928ff82412344b35ba853bbd8a58241e03ea8e9cc399d83ec36b668b0420"
   }
 }

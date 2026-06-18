@@ -45,6 +45,16 @@ class ListDestinationsOkResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'destinations',
+        'contents' => $this->destinations
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     foreach ($this->destinations as $item) {

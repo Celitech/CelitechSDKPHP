@@ -236,6 +236,66 @@ class CreatePurchaseRequest implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'destination',
+        'contents' => $this->destination
+      ],
+
+      [
+        'name' => 'dataLimitInGb',
+        'contents' => $this->dataLimitInGb
+      ],
+
+      [
+        'name' => 'startDate',
+        'contents' => $this->startDate
+      ],
+
+      [
+        'name' => 'endDate',
+        'contents' => $this->endDate
+      ],
+
+      [
+        'name' => 'email',
+        'contents' => $this->email
+      ],
+
+      [
+        'name' => 'referenceId',
+        'contents' => $this->referenceId
+      ],
+
+      [
+        'name' => 'networkBrand',
+        'contents' => $this->networkBrand
+      ],
+
+      [
+        'name' => 'emailBrand',
+        'contents' => $this->emailBrand
+      ],
+
+      [
+        'name' => 'language',
+        'contents' => $this->language
+      ],
+
+      [
+        'name' => 'startTime',
+        'contents' => $this->startTime
+      ],
+
+      [
+        'name' => 'endTime',
+        'contents' => $this->endTime
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

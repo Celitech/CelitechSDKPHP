@@ -103,6 +103,46 @@ class Package implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'id',
+        'contents' => $this->id
+      ],
+
+      [
+        'name' => 'dataLimitInBytes',
+        'contents' => $this->dataLimitInBytes
+      ],
+
+      [
+        'name' => 'dataLimitInGb',
+        'contents' => $this->dataLimitInGb
+      ],
+
+      [
+        'name' => 'destination',
+        'contents' => $this->destination
+      ],
+
+      [
+        'name' => 'destinationIso2',
+        'contents' => $this->destinationIso2
+      ],
+
+      [
+        'name' => 'destinationName',
+        'contents' => $this->destinationName
+      ],
+
+      [
+        'name' => 'priceInCents',
+        'contents' => $this->priceInCents
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }
