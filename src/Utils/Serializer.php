@@ -64,12 +64,23 @@ class Serializer
    * Converts a JSON string into an instance of the specified class using
    * Symfony's serializer with support for nested objects, arrays, and enums.
    *
+   * Empty / whitespace-only bodies — 204 No Content, 200 with empty body,
+   * or any operation whose successful response simply doesn't carry one —
+   * are valid responses, not malformed JSON. Return `null` so the caller
+   * can handle the no-data case explicitly, instead of surfacing
+   * `Symfony\Component\Serializer\Exception\NotEncodableValueException:
+   * Syntax error` thrown deep inside Symfony's JsonDecode.
+   *
    * @param string $data JSON string to deserialize
    * @param string $class Fully qualified class name to deserialize into
-   * @return mixed Instance of the specified class populated with data from JSON
+   * @return mixed Instance of the specified class populated with data from JSON, or null on empty input
    */
   public static function deserialize(string $data, string $class)
   {
+    if (trim($data) === '') {
+      return null;
+    }
+
     $context = [
       BackedEnumNormalizer::ALLOW_INVALID_VALUES => true
     ];
@@ -78,15 +89,23 @@ class Serializer
   }
 
   /**
-   * Serialize a PHP object to an associative array.
+   * Serialize a PHP object to its native-typed representation.
    *
-   * Converts an object to an array representation, skipping null values.
-   * First serializes to JSON, then decodes back to an array.
+   * Objects round-trip through JSON and become associative arrays;
+   * primitives (strings / numbers / booleans / null) round-trip as
+   * themselves. The previous `: array` return type was a lie — a method
+   * whose request body is a single primitive (a bare string ID, a bool
+   * flag, etc.) would serialize to e.g. `"foo"`, json_decode would
+   * return `"foo"`, and PHP would throw `TypeError: Return value must
+   * be of type array, string returned`. Guzzle's `json` / `body`
+   * options both accept any JSON-compatible value, so widening to
+   * `mixed` keeps the existing object/array call sites working while
+   * unblocking primitive bodies.
    *
    * @param mixed $object The object to serialize
-   * @return array Associative array representation of the object
+   * @return mixed JSON-compatible representation (associative array for objects, primitive for scalars)
    */
-  public static function serialize(mixed $object): array
+  public static function serialize(mixed $object): mixed
   {
     $context = [
       ObjectNormalizer::SKIP_NULL_VALUES => true

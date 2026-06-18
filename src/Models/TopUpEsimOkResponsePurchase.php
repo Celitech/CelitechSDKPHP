@@ -157,6 +157,46 @@ class TopUpEsimOkResponsePurchase implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'id',
+        'contents' => $this->id
+      ],
+
+      [
+        'name' => 'packageId',
+        'contents' => $this->packageId
+      ],
+
+      [
+        'name' => 'startDate',
+        'contents' => $this->startDate
+      ],
+
+      [
+        'name' => 'endDate',
+        'contents' => $this->endDate
+      ],
+
+      [
+        'name' => 'createdDate',
+        'contents' => $this->createdDate
+      ],
+
+      [
+        'name' => 'startTime',
+        'contents' => $this->startTime
+      ],
+
+      [
+        'name' => 'endTime',
+        'contents' => $this->endTime
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

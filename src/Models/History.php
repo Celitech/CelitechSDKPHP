@@ -103,6 +103,26 @@ class History implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'status',
+        'contents' => $this->status
+      ],
+
+      [
+        'name' => 'statusDate',
+        'contents' => $this->statusDate
+      ],
+
+      [
+        'name' => 'date',
+        'contents' => $this->date
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

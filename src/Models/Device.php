@@ -69,6 +69,31 @@ class Device implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'oem',
+        'contents' => $this->oem
+      ],
+
+      [
+        'name' => 'hardwareName',
+        'contents' => $this->hardwareName
+      ],
+
+      [
+        'name' => 'hardwareModel',
+        'contents' => $this->hardwareModel
+      ],
+
+      [
+        'name' => 'eid',
+        'contents' => $this->eid
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

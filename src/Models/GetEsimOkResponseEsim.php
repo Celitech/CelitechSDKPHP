@@ -104,6 +104,46 @@ class GetEsimOkResponseEsim implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'iccid',
+        'contents' => $this->iccid
+      ],
+
+      [
+        'name' => 'smdpAddress',
+        'contents' => $this->smdpAddress
+      ],
+
+      [
+        'name' => 'activationCode',
+        'contents' => $this->activationCode
+      ],
+
+      [
+        'name' => 'manualActivationCode',
+        'contents' => $this->manualActivationCode
+      ],
+
+      [
+        'name' => 'status',
+        'contents' => $this->status
+      ],
+
+      [
+        'name' => 'connectivityStatus',
+        'contents' => $this->connectivityStatus
+      ],
+
+      [
+        'name' => 'isTopUpAllowed',
+        'contents' => $this->isTopUpAllowed
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     Validator::validateString($this->iccid, 'iccid', minLength: 18, maxLength: 22);

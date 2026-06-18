@@ -89,6 +89,21 @@ class OAuthTokenResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'accessToken',
+        'contents' => $this->accessToken
+      ],
+
+      [
+        'name' => 'expiresIn',
+        'contents' => $this->expiresIn
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

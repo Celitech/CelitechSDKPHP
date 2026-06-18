@@ -132,6 +132,36 @@ class EditPurchaseRequest implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'purchaseId',
+        'contents' => $this->purchaseId
+      ],
+
+      [
+        'name' => 'startDate',
+        'contents' => $this->startDate
+      ],
+
+      [
+        'name' => 'endDate',
+        'contents' => $this->endDate
+      ],
+
+      [
+        'name' => 'startTime',
+        'contents' => $this->startTime
+      ],
+
+      [
+        'name' => 'endTime',
+        'contents' => $this->endTime
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

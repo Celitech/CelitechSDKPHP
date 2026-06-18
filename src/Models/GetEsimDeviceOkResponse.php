@@ -41,6 +41,16 @@ class GetEsimDeviceOkResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'device',
+        'contents' => $this->device
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     $this->device->validate();

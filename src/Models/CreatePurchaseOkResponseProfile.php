@@ -61,6 +61,26 @@ class CreatePurchaseOkResponseProfile implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'iccid',
+        'contents' => $this->iccid
+      ],
+
+      [
+        'name' => 'activationCode',
+        'contents' => $this->activationCode
+      ],
+
+      [
+        'name' => 'manualActivationCode',
+        'contents' => $this->manualActivationCode
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     Validator::validateString($this->iccid, 'iccid', minLength: 18, maxLength: 22);

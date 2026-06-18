@@ -241,6 +241,66 @@ class CreatePurchaseV2Request implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'destination',
+        'contents' => $this->destination
+      ],
+
+      [
+        'name' => 'dataLimitInGb',
+        'contents' => $this->dataLimitInGb
+      ],
+
+      [
+        'name' => 'startDate',
+        'contents' => $this->startDate
+      ],
+
+      [
+        'name' => 'endDate',
+        'contents' => $this->endDate
+      ],
+
+      [
+        'name' => 'duration',
+        'contents' => $this->duration
+      ],
+
+      [
+        'name' => 'quantity',
+        'contents' => $this->quantity
+      ],
+
+      [
+        'name' => 'email',
+        'contents' => $this->email
+      ],
+
+      [
+        'name' => 'referenceId',
+        'contents' => $this->referenceId
+      ],
+
+      [
+        'name' => 'networkBrand',
+        'contents' => $this->networkBrand
+      ],
+
+      [
+        'name' => 'emailBrand',
+        'contents' => $this->emailBrand
+      ],
+
+      [
+        'name' => 'language',
+        'contents' => $this->language
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     Validator::validateNumber($this->quantity, 'quantity', min: 1, max: 5);

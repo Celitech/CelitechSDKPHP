@@ -132,6 +132,36 @@ class EditPurchaseOkResponse implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'purchaseId',
+        'contents' => $this->purchaseId
+      ],
+
+      [
+        'name' => 'newStartDate',
+        'contents' => $this->newStartDate
+      ],
+
+      [
+        'name' => 'newEndDate',
+        'contents' => $this->newEndDate
+      ],
+
+      [
+        'name' => 'newStartTime',
+        'contents' => $this->newStartTime
+      ],
+
+      [
+        'name' => 'newEndTime',
+        'contents' => $this->newEndTime
+      ]
+    ];
+  }
+
   public function validate(): void
   {
   }

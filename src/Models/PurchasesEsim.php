@@ -41,6 +41,16 @@ class PurchasesEsim implements \JsonSerializable
     return $result;
   }
 
+  public function toMultipart(): array
+  {
+    return [
+      [
+        'name' => 'iccid',
+        'contents' => $this->iccid
+      ]
+    ];
+  }
+
   public function validate(): void
   {
     Validator::validateString($this->iccid, 'iccid', minLength: 18, maxLength: 22);
