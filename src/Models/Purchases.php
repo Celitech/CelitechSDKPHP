@@ -27,7 +27,7 @@ class Purchases implements \JsonSerializable
   public ?string $endDate;
 
   /**
-   * Duration of the package in days. Possible values are 1, 2, 7, 14, 30, or 90.
+   * Duration of the package in days. Possible values are 1, 2, 7, 14, 30, or 90. `null` for unlimited (date-based) packages.
    */
   #[SerializedName('duration')]
   public ?float $duration;
@@ -267,7 +267,7 @@ class Purchases implements \JsonSerializable
 
       [
         'name' => 'duration',
-        'contents' => $this->duration
+        'contents' => (string) $this->duration
       ],
 
       [
@@ -277,27 +277,27 @@ class Purchases implements \JsonSerializable
 
       [
         'name' => 'startTime',
-        'contents' => $this->startTime
+        'contents' => (string) $this->startTime
       ],
 
       [
         'name' => 'endTime',
-        'contents' => $this->endTime
+        'contents' => (string) $this->endTime
       ],
 
       [
         'name' => 'createdAt',
-        'contents' => $this->createdAt
+        'contents' => (string) $this->createdAt
       ],
 
       [
         'name' => 'package',
-        'contents' => $this->package
+        'contents' => json_encode($this->package)
       ],
 
       [
         'name' => 'esim',
-        'contents' => $this->esim
+        'contents' => json_encode($this->esim)
       ],
 
       [

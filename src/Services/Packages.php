@@ -35,22 +35,26 @@ class Packages extends BaseService
    * List Packages
    *
    * @param ?string $destination ISO representation of the package's destination. Supports both ISO2 (e.g., 'FR') and ISO3 (e.g., 'FRA') country codes.
+   * @param ?float $dataLimitInGb Filter packages by data limit in GB. When provided, only packages with this exact data limit are returned. Use `-1` together with `includeUnlimited=true` to return only unlimited packages. A value of `0` is ignored.
    * @param ?string $startDate Start date of the package's validity in the format 'yyyy-MM-dd'. This date can be set to the current day or any day within the next 12 months.
    * @param ?string $endDate End date of the package's validity in the format 'yyyy-MM-dd'. End date can be maximum 90 days after Start date.
    * @param ?string $afterCursor To get the next batch of results, use this parameter. It tells the API where to start fetching data after the last item you received. It helps you avoid repeats and efficiently browse through large sets of data.
    * @param ?float $limit Maximum number of packages to be returned in the response. The value must be greater than 0 and less than or equal to 160. If not provided, the default value is 20
    * @param ?int $startTime Epoch value representing the start time of the package's validity. This timestamp can be set to the current time or any time within the next 12 months
    * @param ?int $endTime Epoch value representing the end time of the package's validity. End time can be maximum 90 days after Start time
+   * @param ?bool $includeUnlimited Whether to include unlimited (date-based) packages in the results. Unlimited packages are excluded by default; set this to `true` to include them. An unlimited package has `dataLimitInGB` and `dataLimitInBytes` equal to `-1`, and is offered for 3 to 30 days with `minDays` equal to `maxDays`.
    * @return Models\ListPackagesOkResponse
    */
   public function listPackages(
     ?string $destination = null,
+    ?float $dataLimitInGb = null,
     ?string $startDate = null,
     ?string $endDate = null,
     ?string $afterCursor = null,
     ?float $limit = null,
     ?int $startTime = null,
     ?int $endTime = null,
+    ?bool $includeUnlimited = null,
     array $requestConfig = []
   ): Models\ListPackagesOkResponse {
     $resolvedConfig = $this->getResolvedConfig($this->listPackagesConfig, $requestConfig);
@@ -60,12 +64,14 @@ class Packages extends BaseService
       [
         'query' => [
           'destination' => $destination,
+          'dataLimitInGB' => $dataLimitInGb,
           'startDate' => $startDate,
           'endDate' => $endDate,
           'afterCursor' => $afterCursor,
           'limit' => $limit,
           'startTime' => $startTime,
-          'endTime' => $endTime
+          'endTime' => $endTime,
+          'includeUnlimited' => $includeUnlimited
         ],
         'scopes' => []
       ],

@@ -56,12 +56,12 @@ class TopUpEsimOkResponse implements \JsonSerializable
     return [
       [
         'name' => 'purchase',
-        'contents' => $this->purchase
+        'contents' => json_encode($this->purchase)
       ],
 
       [
         'name' => 'profile',
-        'contents' => $this->profile
+        'contents' => json_encode($this->profile)
       ]
     ];
   }

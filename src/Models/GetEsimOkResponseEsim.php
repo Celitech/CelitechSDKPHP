@@ -139,7 +139,7 @@ class GetEsimOkResponseEsim implements \JsonSerializable
 
       [
         'name' => 'isTopUpAllowed',
-        'contents' => $this->isTopUpAllowed
+        'contents' => $this->isTopUpAllowed ? 'true' : 'false'
       ]
     ];
   }

@@ -46,7 +46,7 @@ class GetEsimDeviceOkResponse implements \JsonSerializable
     return [
       [
         'name' => 'device',
-        'contents' => $this->device
+        'contents' => json_encode($this->device)
       ]
     ];
   }

@@ -118,7 +118,7 @@ class History implements \JsonSerializable
 
       [
         'name' => 'date',
-        'contents' => $this->date
+        'contents' => (string) $this->date
       ]
     ];
   }

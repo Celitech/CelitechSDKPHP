@@ -59,7 +59,7 @@ class ListPurchasesOkResponse implements \JsonSerializable
     return [
       [
         'name' => 'purchases',
-        'contents' => $this->purchases
+        'contents' => json_encode($this->purchases)
       ],
 
       [

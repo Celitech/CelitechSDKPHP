@@ -29,7 +29,8 @@ class Client
     array $retryConfig = [],
     string $baseOAuthUrl = 'https://auth.celitech.net',
     string $clientId = '',
-    string $clientSecret = ''
+    string $clientSecret = '',
+    ?\Psr\Http\Client\ClientInterface $httpClient = null
   ) {
     $this->tokenManager = new TokenManager(
       baseOAuthUrl: $baseOAuthUrl,
@@ -41,22 +42,37 @@ class Client
       $environment,
       $timeout,
       $retryConfig,
-      $this->tokenManager
+      $this->tokenManager,
+      $httpClient
     );
     $this->packages = new Services\Packages(
       $environment,
       $timeout,
       $retryConfig,
-      $this->tokenManager
+      $this->tokenManager,
+      $httpClient
     );
     $this->purchases = new Services\Purchases(
       $environment,
       $timeout,
       $retryConfig,
-      $this->tokenManager
+      $this->tokenManager,
+      $httpClient
     );
-    $this->eSim = new Services\ESim($environment, $timeout, $retryConfig, $this->tokenManager);
-    $this->iFrame = new Services\IFrame($environment, $timeout, $retryConfig, $this->tokenManager);
+    $this->eSim = new Services\ESim(
+      $environment,
+      $timeout,
+      $retryConfig,
+      $this->tokenManager,
+      $httpClient
+    );
+    $this->iFrame = new Services\IFrame(
+      $environment,
+      $timeout,
+      $retryConfig,
+      $this->tokenManager,
+      $httpClient
+    );
   }
 
   /**

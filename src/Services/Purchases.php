@@ -121,7 +121,7 @@ class Purchases extends BaseService
     $response = $this->sendRequest(
       'post',
       '/purchases/v2',
-      ['json' => Serializer::serialize($input), 'scopes' => []],
+      ['json' => $input, 'scopes' => []],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();
@@ -211,7 +211,7 @@ class Purchases extends BaseService
     $response = $this->sendRequest(
       'post',
       '/purchases',
-      ['json' => Serializer::serialize($input), 'scopes' => []],
+      ['json' => $input, 'scopes' => []],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();
@@ -238,7 +238,7 @@ class Purchases extends BaseService
     $response = $this->sendRequest(
       'post',
       '/purchases/topup',
-      ['json' => Serializer::serialize($input), 'scopes' => []],
+      ['json' => $input, 'scopes' => []],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();
@@ -273,7 +273,7 @@ class Purchases extends BaseService
     $response = $this->sendRequest(
       'post',
       '/purchases/edit',
-      ['json' => Serializer::serialize($input), 'scopes' => []],
+      ['json' => $input, 'scopes' => []],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();

@@ -15,7 +15,6 @@ A list of all methods in the `Purchases` service. Click on the method name to vi
 
 This endpoint is used to purchase a new eSIM by providing the package details.
 
-
 - HTTP Method: `POST`
 - Endpoint: `/purchases/v2`
 
@@ -56,7 +55,6 @@ print_r($response);
 
 This endpoint can be used to list all the successful purchases made between a given interval.
 
-
 - HTTP Method: `GET`
 - Endpoint: `/purchases`
 
@@ -95,7 +93,6 @@ print_r($response);
 ## createPurchase
 
 This endpoint is used to purchase a new eSIM by providing the package details.
-
 
 - HTTP Method: `POST`
 - Endpoint: `/purchases`
@@ -138,7 +135,6 @@ print_r($response);
 
 This endpoint is used to top-up an existing eSIM with the previously associated destination by providing its ICCID and package details. To determine if an eSIM can be topped up, use the Get eSIM endpoint, which returns the `isTopUpAllowed` flag.
 
-
 - HTTP Method: `POST`
 - Endpoint: `/purchases/topup`
 
@@ -177,7 +173,6 @@ print_r($response);
 ## editPurchase
 
 This endpoint allows you to modify the validity dates of an existing purchase.   **Behavior:** - If the purchase has **not yet been activated**, both the start and end dates can be updated.   - If the purchase is **already active**, only the **end date** can be updated, while the **start date must remain unchanged** (and should be passed as originally set).   - Updates must comply with the same pricing structure; the modification cannot alter the package size or change its duration category.   The end date can be extended or shortened as long as it adheres to the same pricing category and does not exceed the allowed duration limits. 
-
 
 - HTTP Method: `POST`
 - Endpoint: `/purchases/edit`
@@ -218,7 +213,6 @@ print_r($response);
 ## getPurchaseConsumption
 
 This endpoint can be called for consumption notifications (e.g. every 1 hour or when the user clicks a button). It returns the data balance (consumption) of purchased packages.
-
 
 - HTTP Method: `GET`
 - Endpoint: `/purchases/{purchaseId}/consumption`

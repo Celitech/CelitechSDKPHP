@@ -152,12 +152,12 @@ class EditPurchaseOkResponse implements \JsonSerializable
 
       [
         'name' => 'newStartTime',
-        'contents' => $this->newStartTime
+        'contents' => (string) $this->newStartTime
       ],
 
       [
         'name' => 'newEndTime',
-        'contents' => $this->newEndTime
+        'contents' => (string) $this->newEndTime
       ]
     ];
   }

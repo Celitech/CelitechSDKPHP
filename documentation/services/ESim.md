@@ -12,7 +12,6 @@ A list of all methods in the `ESim` service. Click on the method name to view de
 
 Get eSIM
 
-
 - HTTP Method: `GET`
 - Endpoint: `/esim`
 
@@ -45,7 +44,6 @@ print_r($response);
 
 Get eSIM Device
 
-
 - HTTP Method: `GET`
 - Endpoint: `/esim/{iccid}/device`
 
@@ -77,7 +75,6 @@ print_r($response);
 ## getESIMHistory
 
 Get eSIM History
-
 
 - HTTP Method: `GET`
 - Endpoint: `/esim/{iccid}/history`

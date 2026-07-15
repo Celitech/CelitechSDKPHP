@@ -187,12 +187,12 @@ class CreatePurchaseOkResponsePurchase implements \JsonSerializable
 
       [
         'name' => 'startTime',
-        'contents' => $this->startTime
+        'contents' => (string) $this->startTime
       ],
 
       [
         'name' => 'endTime',
-        'contents' => $this->endTime
+        'contents' => (string) $this->endTime
       ]
     ];
   }

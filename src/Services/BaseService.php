@@ -36,17 +36,34 @@ class BaseService
     string $environment = Environment::Default,
     float $timeout = 10000,
     array $retryConfig = [],
-    ?TokenManager $tokenManager = null
+    ?TokenManager $tokenManager = null,
+    ?\Psr\Http\Client\ClientInterface $httpClient = null
   ) {
     $this->options = [
       'headers' => [
-        'User-Agent' => 'postman-codegen/1.5.0 celitech-sdk/sdk/2.0.4 (php)'
+        'User-Agent' => 'postman-codegen/1.6.0 celitech-sdk/sdk/2.0.5 (php)'
       ]
     ];
 
     $this->baseUrl = $environment;
 
-    $stack = HandlerStack::create();
+    $baseHandler = null;
+    if ($httpClient !== null) {
+      $baseHandler = function (\Psr\Http\Message\RequestInterface $request, array $options) use (
+        $httpClient
+      ) {
+        try {
+          $response = $httpClient->sendRequest($request);
+          return \GuzzleHttp\Promise\Create::promiseFor($response);
+        } catch (\Psr\Http\Client\ClientExceptionInterface $e) {
+          return \GuzzleHttp\Promise\Create::rejectionFor(
+            new \GuzzleHttp\Exception\RequestException($e->getMessage(), $request, null, $e)
+          );
+        }
+      };
+    }
+
+    $stack = HandlerStack::create($baseHandler);
     $stack->push(Retry::factory($retryConfig));
 
     if ($tokenManager) {
@@ -297,11 +314,11 @@ class BaseService
   }
 
   /**
-   * Decode a JSON response body with error checking.
+   * Decode a JSON response body, tolerating empty and non-JSON bodies.
    *
    * @param string $json The JSON string to decode
-   * @return mixed The decoded data
-   * @throws ApiException If the JSON is malformed
+   * @return mixed The decoded data, or an empty array for an empty or
+   *               non-JSON body
    */
   protected function decodeJson(string $json): mixed
   {
@@ -317,12 +334,14 @@ class BaseService
     try {
       return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     } catch (\JsonException $e) {
-      throw new ApiException(
-        message: 'Failed to decode JSON response: ' . $e->getMessage(),
-        statusCode: 0,
-        responseBody: $json,
-        previous: $e
-      );
+      // The body wasn't valid JSON — a text/plain or HTML body served
+      // against a JSON-typed operation, or a malformed payload. Crashing
+      // the caller with a low-level JsonException from deep inside the
+      // SDK is never useful, so degrade to an empty array (same contract
+      // as the empty-body case above) and let the generated
+      // `Model::fromArray()` / array-deserialization call sites fall
+      // back to their default field values.
+      return [];
     }
   }
 
@@ -436,7 +455,34 @@ class BaseService
       );
     }
 
+    if (isset($mergedOptions['query']) && is_array($mergedOptions['query'])) {
+      $mergedOptions['query'] = $this->normalizeQueryParams($mergedOptions['query']);
+    }
+
     return $mergedOptions;
+  }
+
+  /**
+   * Normalize query parameter values for the wire.
+   *
+   * OpenAPI `boolean` query parameters must serialize as the literal strings
+   * `true`/`false`. PHP (via Guzzle's default query builder) would otherwise
+   * render them as `1`/`0`, which strict servers reject with a 422. Recurses
+   * into array values so arrays of booleans are normalized too.
+   *
+   * @param array $query
+   * @return array
+   */
+  private function normalizeQueryParams(array $query): array
+  {
+    foreach ($query as $key => $value) {
+      if (is_bool($value)) {
+        $query[$key] = $value ? 'true' : 'false';
+      } elseif (is_array($value)) {
+        $query[$key] = $this->normalizeQueryParams($value);
+      }
+    }
+    return $query;
   }
 
   /**

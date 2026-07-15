@@ -50,7 +50,7 @@ class ListDestinationsOkResponse implements \JsonSerializable
     return [
       [
         'name' => 'destinations',
-        'contents' => $this->destinations
+        'contents' => json_encode($this->destinations)
       ]
     ];
   }

@@ -27,13 +27,13 @@ class Packages implements \JsonSerializable
   public string $destinationIso2;
 
   /**
-   * Size of the package in Bytes
+   * Size of the package in Bytes. A value of `-1` indicates an unlimited package.
    */
   #[SerializedName('dataLimitInBytes')]
   public float $dataLimitInBytes;
 
   /**
-   * Size of the package in GB
+   * Size of the package in GB. A value of `-1` indicates an unlimited (date-based) package.
    */
   #[SerializedName('dataLimitInGB')]
   public float $dataLimitInGb;
@@ -133,27 +133,27 @@ class Packages implements \JsonSerializable
 
       [
         'name' => 'dataLimitInBytes',
-        'contents' => $this->dataLimitInBytes
+        'contents' => (string) $this->dataLimitInBytes
       ],
 
       [
         'name' => 'dataLimitInGb',
-        'contents' => $this->dataLimitInGb
+        'contents' => (string) $this->dataLimitInGb
       ],
 
       [
         'name' => 'minDays',
-        'contents' => $this->minDays
+        'contents' => (string) $this->minDays
       ],
 
       [
         'name' => 'maxDays',
-        'contents' => $this->maxDays
+        'contents' => (string) $this->maxDays
       ],
 
       [
         'name' => 'priceInCents',
-        'contents' => $this->priceInCents
+        'contents' => (string) $this->priceInCents
       ]
     ];
   }

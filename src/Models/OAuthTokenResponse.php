@@ -99,7 +99,7 @@ class OAuthTokenResponse implements \JsonSerializable
 
       [
         'name' => 'expiresIn',
-        'contents' => $this->expiresIn
+        'contents' => (string) $this->expiresIn
       ]
     ];
   }

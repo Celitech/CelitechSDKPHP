@@ -65,7 +65,7 @@ class GetEsimHistoryOkResponseEsim implements \JsonSerializable
 
       [
         'name' => 'history',
-        'contents' => $this->history
+        'contents' => json_encode($this->history)
       ]
     ];
   }
