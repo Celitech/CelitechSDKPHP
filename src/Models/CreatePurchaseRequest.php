@@ -15,7 +15,7 @@ class CreatePurchaseRequest implements \JsonSerializable
   public string $destination;
 
   /**
-   * Size of the package in GB. The available options are 0.5, 1, 2, 3, 5, 8, 20, 50GB
+   * Size of the package in GB. The available options are 0.5, 1, 2, 3, 5, 8, 20, 50GB. Use `-1` to purchase an unlimited (date-based) package — provide `startDate`/`endDate` spanning 3 to 30 days.
    */
   #[SerializedName('dataLimitInGB')]
   public float $dataLimitInGb;
@@ -246,7 +246,7 @@ class CreatePurchaseRequest implements \JsonSerializable
 
       [
         'name' => 'dataLimitInGb',
-        'contents' => $this->dataLimitInGb
+        'contents' => (string) $this->dataLimitInGb
       ],
 
       [
@@ -281,17 +281,17 @@ class CreatePurchaseRequest implements \JsonSerializable
 
       [
         'name' => 'language',
-        'contents' => $this->language
+        'contents' => json_encode($this->language)
       ],
 
       [
         'name' => 'startTime',
-        'contents' => $this->startTime
+        'contents' => (string) $this->startTime
       ],
 
       [
         'name' => 'endTime',
-        'contents' => $this->endTime
+        'contents' => (string) $this->endTime
       ]
     ];
   }

@@ -10,7 +10,6 @@ A list of all methods in the `Destinations` service. Click on the method name to
 
 List Destinations
 
-
 - HTTP Method: `GET`
 - Endpoint: `/destinations`
 

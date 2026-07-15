@@ -85,7 +85,22 @@ class Serializer
       BackedEnumNormalizer::ALLOW_INVALID_VALUES => true
     ];
 
-    return self::getSerializer()->deserialize($data, $class, 'json', $context);
+    try {
+      return self::getSerializer()->deserialize($data, $class, 'json', $context);
+    } catch (\Symfony\Component\Serializer\Exception\ExceptionInterface $e) {
+      // The response didn't match the declared schema — a required field
+      // the server omitted (MissingConstructorArguments), or a value
+      // whose type drifted from the spec (NotNormalizableValue). Crashing
+      // deep inside the serializer is never useful. Rebuild via the
+      // model's tolerant fromArray() so callers with a strict class
+      // return type still get an instance; otherwise return the decoded
+      // payload, mirroring the empty-body handling above.
+      $decoded = json_decode($data, true) ?? [];
+      if (is_array($decoded) && class_exists($class) && method_exists($class, 'fromArray')) {
+        return $class::fromArray($decoded);
+      }
+      return $decoded;
+    }
   }
 
   /**

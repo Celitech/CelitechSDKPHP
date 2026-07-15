@@ -39,10 +39,7 @@ class OAuthTokenRequest implements \JsonSerializable
   public static function fromArray(array $data): self
   {
     $instance = new self(
-      grantType: isset($data['grant_type']) &&
-      (is_string($data['grant_type']) || is_int($data['grant_type']))
-        ? GrantType::tryFrom($data['grant_type'])
-        : null,
+      grantType: isset($data['grant_type']) ? GrantType::from($data['grant_type']) : null,
       clientId: $data['client_id'],
       clientSecret: $data['client_secret'],
       scope: $data['scope']
@@ -69,7 +66,7 @@ class OAuthTokenRequest implements \JsonSerializable
     return [
       [
         'name' => 'grantType',
-        'contents' => $this->grantType
+        'contents' => json_encode($this->grantType)
       ],
 
       [

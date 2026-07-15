@@ -59,7 +59,7 @@ class ListPackagesOkResponse implements \JsonSerializable
     return [
       [
         'name' => 'packages',
-        'contents' => $this->packages
+        'contents' => json_encode($this->packages)
       ],
 
       [

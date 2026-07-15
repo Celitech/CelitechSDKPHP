@@ -25,7 +25,7 @@
     | esim | PurchasesEsim | ✅ |  |
     | source | string | ✅ | The `source` indicates whether the purchase was made from the API, dashboard, landing-page, promo-page or iframe. For purchases made before September 8, 2023, the value will be displayed as 'Not available'. |
     | purchaseType | string | ✅ | The `purchaseType` indicates whether this is the initial purchase that creates the eSIM (First Purchase) or a subsequent top-up on an existing eSIM (Top-up Purchase). |
-    | duration | float | ❌ | Duration of the package in days. Possible values are 1, 2, 7, 14, 30, or 90. |
+    | duration | float | ❌ | Duration of the package in days. Possible values are 1, 2, 7, 14, 30, or 90. `null` for unlimited (date-based) packages. |
     | startTime | float | ❌ | Epoch value representing the start time of the package's validity |
     | endTime | float | ❌ | Epoch value representing the end time of the package's validity |
     | createdAt | float | ❌ | Epoch value representing the date of creation of the purchase |
@@ -40,8 +40,8 @@
 | Name | Type | Required | Description |
 | :-------- | :----------| :----------| :----------|
     | id | string | ✅ | ID of the package |
-    | dataLimitInBytes | float | ✅ | Size of the package in Bytes |
-    | dataLimitInGB | float | ✅ | Size of the package in GB |
+    | dataLimitInBytes | float | ✅ | Size of the package in Bytes. A value of `-1` indicates an unlimited package. |
+    | dataLimitInGB | float | ✅ | Size of the package in GB. A value of `-1` indicates an unlimited (date-based) package. |
     | destination | string | ✅ | ISO3 representation of the package's destination. |
     | destinationISO2 | string | ✅ | ISO2 representation of the package's destination. |
     | destinationName | string | ✅ | Name of the package's destination |

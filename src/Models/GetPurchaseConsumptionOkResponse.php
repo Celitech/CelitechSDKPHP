@@ -9,13 +9,13 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class GetPurchaseConsumptionOkResponse implements \JsonSerializable
 {
   /**
-   * Remaining balance of the package in bytes
+   * Remaining balance of the package in bytes. Returns `-1` for unlimited packages.
    */
   #[SerializedName('dataUsageRemainingInBytes')]
   public float $dataUsageRemainingInBytes;
 
   /**
-   * Remaining balance of the package in GB
+   * Remaining balance of the package in GB. Returns `-1` for unlimited packages.
    */
   #[SerializedName('dataUsageRemainingInGB')]
   public float $dataUsageRemainingInGb;
@@ -68,12 +68,12 @@ class GetPurchaseConsumptionOkResponse implements \JsonSerializable
     return [
       [
         'name' => 'dataUsageRemainingInBytes',
-        'contents' => $this->dataUsageRemainingInBytes
+        'contents' => (string) $this->dataUsageRemainingInBytes
       ],
 
       [
         'name' => 'dataUsageRemainingInGb',
-        'contents' => $this->dataUsageRemainingInGb
+        'contents' => (string) $this->dataUsageRemainingInGb
       ],
 
       [

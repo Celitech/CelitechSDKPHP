@@ -94,7 +94,7 @@ class Destinations implements \JsonSerializable
 
       [
         'name' => 'supportedCountries',
-        'contents' => $this->supportedCountries
+        'contents' => json_encode($this->supportedCountries)
       ]
     ];
   }

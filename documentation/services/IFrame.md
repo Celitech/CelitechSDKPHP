@@ -10,7 +10,6 @@ A list of all methods in the `IFrame` service. Click on the method name to view 
 
 Generate a new token to be used in the iFrame
 
-
 - HTTP Method: `POST`
 - Endpoint: `/iframe/token`
 
