@@ -1,6 +1,7 @@
 {
-  "sdkGenVersion": "1.7.0",
-  "date": "2026-07-20T09:14:38.403Z",
+  "sdkGenVersion": "2.1.0",
+  "resolvedGeneratorVersion": "2.1.0",
+  "date": "2026-08-12T14:33:13.834Z",
   "config": {
     "languages": [
       "php"
@@ -253,6 +254,10 @@
     "responseHeaders": false,
     "sdkName": "Celitech",
     "sdkVersion": "2.0.6",
+    "specLocation": {
+      "bucketName": "us-prod-sdk-gen-api-specs",
+      "bucketKey": "specification-snapshots/384c4a61-72fc-4d28-ba6b-2691f6d6ec91/1786545193152.yaml"
+    },
     "auth": [
       "oauth"
     ],
@@ -335,6 +340,8 @@
       "queriesData": []
     },
     "ai": false,
+    "fernMode": false,
+    "fernResourceFileLayout": false,
     "specType": "openapi",
     "multipleResponses": {
       "enabled": false
@@ -493,7 +500,7 @@
     "documentation/services/Purchases.md": "d636352a817ef62590dc030bd3a6aec2789e420ad692b4273272ed201df21c7a",
     "documentation/snippets/snippets.json": "0f1401955089bfbc9e490703a2e4688d29b4017418c34801abd8b4fe5356cf3c",
     "example/index.php": "5510472fd29fbae998fdf02ea91f69c3ad50a28fc471a5c011ac6995ff93819b",
-    "prettier.config.js": "2fe33fda52344779fcf235afa8152cfd356880dc3161da09403dc26231bc72d9",
+    "prettier.config.js": "b3f990b4c84640a705ded29e3343d8e3d70ddc4b88431d10d47c23f568470cfd",
     "src/Client.php": "1a68e74601ca471edde37a756872fe75f1329f06382795cc93c6cff99c035d42",
     "src/Environment.php": "b32e6959184ccf8a12e98d1d439735f9377de4cd4d492bfed1944cc676f0f9e4",
     "src/Exceptions/ApiException.php": "4b46c0728c2b576c007e362788ad092fc64a75babcfc230800c107c400ea260f",
@@ -537,8 +544,8 @@
     "src/Models/TopUpEsimRequest.php": "e559a14b4da43e5c8ef90d0662fa162d648318acf8462a9fc44c95da94108d71",
     "src/OAuth/OAuthToken.php": "cbcdfd36ea324eb090447ad2a3980f4bc47fbfaea3149c8977a0e53bd20bb545",
     "src/OAuth/TokenManager.php": "605ebbe899e1c370a80e6e3eb8c0658578f46ffa914eab81eb97b168133dde41",
-    "src/Retry.php": "24c83f953466f0726fb3cb754a23f4f6dbba896bcd7f5d66289c1dbe5e1adb47",
-    "src/Services/BaseService.php": "0c2520777f0071f76850fb58f21511a4e6e22bfa573d64d311edef0773bcb250",
+    "src/Retry.php": "b5dd481b8c4ddb9e2b15e5bd5f60455ddfa40bd452d22e5498b514192bc01794",
+    "src/Services/BaseService.php": "b2b4e220385fac4c580628264260895519ea1ad7c3e5e15cf3ba09fe699d5138",
     "src/Services/Destinations.php": "c9e425e5e4cbb1b5c80459a3f5dff424a1413cbb9f2c5850e25361b3b2a6b002",
     "src/Services/ESim.php": "1a7c47d83a78ac10218911d2eefab0ecfab0b174a62f9667f52485b2eda0ebfd",
     "src/Services/IFrame.php": "f657f4dec1a0083683897fdb066c5bebc57e18b90ae63ef53981386261e41d61",
