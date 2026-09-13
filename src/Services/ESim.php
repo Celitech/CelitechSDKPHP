@@ -70,7 +70,7 @@ class ESim extends BaseService
    */
   public function getEsim(string $iccid, array $requestConfig = []): Models\GetEsimOkResponse
   {
-    Validator::validateString($$iccid, 'iccid', minLength: 18, maxLength: 22);
+    Validator::validateString($iccid, 'iccid', minLength: 18, maxLength: 22);
 
     $resolvedConfig = $this->getResolvedConfig($this->getEsimConfig, $requestConfig);
     $response = $this->sendRequest(
@@ -104,7 +104,7 @@ class ESim extends BaseService
     string $iccid,
     array $requestConfig = []
   ): Models\GetEsimDeviceOkResponse {
-    Validator::validateString($$iccid, 'iccid', minLength: 18, maxLength: 22);
+    Validator::validateString($iccid, 'iccid', minLength: 18, maxLength: 22);
 
     $resolvedConfig = $this->getResolvedConfig($this->getEsimDeviceConfig, $requestConfig);
     $response = $this->sendRequest(
@@ -133,7 +133,7 @@ class ESim extends BaseService
     string $iccid,
     array $requestConfig = []
   ): Models\GetEsimHistoryOkResponse {
-    Validator::validateString($$iccid, 'iccid', minLength: 18, maxLength: 22);
+    Validator::validateString($iccid, 'iccid', minLength: 18, maxLength: 22);
 
     $resolvedConfig = $this->getResolvedConfig($this->getEsimHistoryConfig, $requestConfig);
     $response = $this->sendRequest(

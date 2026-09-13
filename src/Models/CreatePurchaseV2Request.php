@@ -243,62 +243,79 @@ class CreatePurchaseV2Request implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'destination',
-        'contents' => $this->destination
-      ],
+    $parts = [];
+    $parts[] = [
+      'name' => 'destination',
+      'contents' => $this->destination
+    ];
 
-      [
-        'name' => 'dataLimitInGb',
-        'contents' => (string) $this->dataLimitInGb
-      ],
+    $parts[] = [
+      'name' => 'dataLimitInGB',
+      'contents' => (string) $this->dataLimitInGb
+    ];
 
-      [
+    if (array_key_exists('startDate', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'startDate',
         'contents' => $this->startDate
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('endDate', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'endDate',
         'contents' => $this->endDate
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('duration', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'duration',
         'contents' => (string) $this->duration
-      ],
+      ];
+    }
 
-      [
-        'name' => 'quantity',
-        'contents' => (string) $this->quantity
-      ],
+    $parts[] = [
+      'name' => 'quantity',
+      'contents' => (string) $this->quantity
+    ];
 
-      [
+    if (array_key_exists('email', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'email',
         'contents' => $this->email
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('referenceId', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'referenceId',
         'contents' => $this->referenceId
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('networkBrand', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'networkBrand',
         'contents' => $this->networkBrand
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('emailBrand', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'emailBrand',
         'contents' => $this->emailBrand
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('language', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'language',
-        'contents' => json_encode($this->language)
-      ]
-    ];
+        'contents' => $this->language?->value
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void

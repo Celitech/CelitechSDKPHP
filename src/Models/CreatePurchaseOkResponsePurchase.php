@@ -159,42 +159,47 @@ class CreatePurchaseOkResponsePurchase implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'id',
-        'contents' => $this->id
-      ],
+    $parts = [];
+    $parts[] = [
+      'name' => 'id',
+      'contents' => $this->id
+    ];
 
-      [
-        'name' => 'packageId',
-        'contents' => $this->packageId
-      ],
+    $parts[] = [
+      'name' => 'packageId',
+      'contents' => $this->packageId
+    ];
 
-      [
-        'name' => 'startDate',
-        'contents' => $this->startDate
-      ],
+    $parts[] = [
+      'name' => 'startDate',
+      'contents' => $this->startDate
+    ];
 
-      [
-        'name' => 'endDate',
-        'contents' => $this->endDate
-      ],
+    $parts[] = [
+      'name' => 'endDate',
+      'contents' => $this->endDate
+    ];
 
-      [
-        'name' => 'createdDate',
-        'contents' => $this->createdDate
-      ],
+    $parts[] = [
+      'name' => 'createdDate',
+      'contents' => $this->createdDate
+    ];
 
-      [
+    if (array_key_exists('startTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'startTime',
         'contents' => (string) $this->startTime
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('endTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'endTime',
         'contents' => (string) $this->endTime
-      ]
-    ];
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void
