@@ -117,6 +117,8 @@ class Purchases extends BaseService
     Models\CreatePurchaseV2Request $input,
     array $requestConfig = []
   ): array {
+    $input->validate();
+
     $resolvedConfig = $this->getResolvedConfig($this->createPurchaseV2Config, $requestConfig);
     $response = $this->sendRequest(
       'post',
@@ -164,7 +166,7 @@ class Purchases extends BaseService
     ?float $before = null,
     array $requestConfig = []
   ): Models\ListPurchasesOkResponse {
-    Validator::validateString($$iccid, 'iccid', minLength: 18, maxLength: 22);
+    Validator::validateString($iccid, 'iccid', minLength: 18, maxLength: 22);
 
     $resolvedConfig = $this->getResolvedConfig($this->listPurchasesConfig, $requestConfig);
     $response = $this->sendRequest(
@@ -207,6 +209,8 @@ class Purchases extends BaseService
     Models\CreatePurchaseRequest $input,
     array $requestConfig = []
   ): Models\CreatePurchaseOkResponse {
+    $input->validate();
+
     $resolvedConfig = $this->getResolvedConfig($this->createPurchaseConfig, $requestConfig);
     $response = $this->sendRequest(
       'post',
@@ -234,6 +238,8 @@ class Purchases extends BaseService
     Models\TopUpEsimRequest $input,
     array $requestConfig = []
   ): Models\TopUpEsimOkResponse {
+    $input->validate();
+
     $resolvedConfig = $this->getResolvedConfig($this->topUpEsimConfig, $requestConfig);
     $response = $this->sendRequest(
       'post',
@@ -269,6 +275,8 @@ class Purchases extends BaseService
     Models\EditPurchaseRequest $input,
     array $requestConfig = []
   ): Models\EditPurchaseOkResponse {
+    $input->validate();
+
     $resolvedConfig = $this->getResolvedConfig($this->editPurchaseConfig, $requestConfig);
     $response = $this->sendRequest(
       'post',

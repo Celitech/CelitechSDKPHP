@@ -134,32 +134,37 @@ class EditPurchaseRequest implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'purchaseId',
-        'contents' => $this->purchaseId
-      ],
+    $parts = [];
+    $parts[] = [
+      'name' => 'purchaseId',
+      'contents' => $this->purchaseId
+    ];
 
-      [
-        'name' => 'startDate',
-        'contents' => $this->startDate
-      ],
+    $parts[] = [
+      'name' => 'startDate',
+      'contents' => $this->startDate
+    ];
 
-      [
-        'name' => 'endDate',
-        'contents' => $this->endDate
-      ],
+    $parts[] = [
+      'name' => 'endDate',
+      'contents' => $this->endDate
+    ];
 
-      [
+    if (array_key_exists('startTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'startTime',
         'contents' => (string) $this->startTime
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('endTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'endTime',
         'contents' => (string) $this->endTime
-      ]
-    ];
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void

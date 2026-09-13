@@ -105,42 +105,43 @@ class Package implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'id',
-        'contents' => $this->id
-      ],
-
-      [
-        'name' => 'dataLimitInBytes',
-        'contents' => (string) $this->dataLimitInBytes
-      ],
-
-      [
-        'name' => 'dataLimitInGb',
-        'contents' => (string) $this->dataLimitInGb
-      ],
-
-      [
-        'name' => 'destination',
-        'contents' => $this->destination
-      ],
-
-      [
-        'name' => 'destinationIso2',
-        'contents' => $this->destinationIso2
-      ],
-
-      [
-        'name' => 'destinationName',
-        'contents' => $this->destinationName
-      ],
-
-      [
-        'name' => 'priceInCents',
-        'contents' => (string) $this->priceInCents
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'id',
+      'contents' => $this->id
     ];
+
+    $parts[] = [
+      'name' => 'dataLimitInBytes',
+      'contents' => (string) $this->dataLimitInBytes
+    ];
+
+    $parts[] = [
+      'name' => 'dataLimitInGB',
+      'contents' => (string) $this->dataLimitInGb
+    ];
+
+    $parts[] = [
+      'name' => 'destination',
+      'contents' => $this->destination
+    ];
+
+    $parts[] = [
+      'name' => 'destinationISO2',
+      'contents' => $this->destinationIso2
+    ];
+
+    $parts[] = [
+      'name' => 'destinationName',
+      'contents' => $this->destinationName
+    ];
+
+    $parts[] = [
+      'name' => 'priceInCents',
+      'contents' => (string) $this->priceInCents
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

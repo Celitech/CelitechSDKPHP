@@ -228,57 +228,74 @@ class TopUpEsimRequest implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'iccid',
-        'contents' => $this->iccid
-      ],
+    $parts = [];
+    $parts[] = [
+      'name' => 'iccid',
+      'contents' => $this->iccid
+    ];
 
-      [
-        'name' => 'dataLimitInGb',
-        'contents' => (string) $this->dataLimitInGb
-      ],
+    $parts[] = [
+      'name' => 'dataLimitInGB',
+      'contents' => (string) $this->dataLimitInGb
+    ];
 
-      [
+    if (array_key_exists('startDate', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'startDate',
         'contents' => $this->startDate
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('endDate', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'endDate',
         'contents' => $this->endDate
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('duration', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'duration',
         'contents' => (string) $this->duration
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('email', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'email',
         'contents' => $this->email
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('referenceId', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'referenceId',
         'contents' => $this->referenceId
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('emailBrand', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'emailBrand',
         'contents' => $this->emailBrand
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('startTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'startTime',
         'contents' => (string) $this->startTime
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('endTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'endTime',
         'contents' => (string) $this->endTime
-      ]
-    ];
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void

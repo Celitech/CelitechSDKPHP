@@ -41,7 +41,7 @@ class BaseService
   ) {
     $this->options = [
       'headers' => [
-        'User-Agent' => 'postman-codegen/1.7.0 celitech-sdk/sdk/2.0.6 (php)'
+        'User-Agent' => 'postman-codegen/2.6.0 celitech-sdk/sdk/2.0.6 (php)'
       ]
     ];
 
@@ -84,7 +84,7 @@ class BaseService
    *
    * This method merges service-level options with request-specific options,
    * applies configuration overrides, constructs the full URL, and executes the request.
-   * If the request fails with an HTTP error, it wraps the error in an ApiException
+   * If the request fails with an HTTP error, it wraps the error in ApiException
    * containing the status code, response body, and headers.
    *
    * @param string $method HTTP method (GET, POST, PUT, DELETE, etc.)
@@ -288,7 +288,7 @@ class BaseService
   }
 
   /**
-   * Wrap a Guzzle RequestException in an ApiException.
+   * Wrap a Guzzle RequestException in ApiException.
    *
    * Extracts the HTTP status code, response body, and headers from the response
    * (if available) and throws a new ApiException with the original exception chained.
