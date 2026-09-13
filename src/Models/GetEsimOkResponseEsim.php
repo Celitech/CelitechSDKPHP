@@ -106,42 +106,43 @@ class GetEsimOkResponseEsim implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'iccid',
-        'contents' => $this->iccid
-      ],
-
-      [
-        'name' => 'smdpAddress',
-        'contents' => $this->smdpAddress
-      ],
-
-      [
-        'name' => 'activationCode',
-        'contents' => $this->activationCode
-      ],
-
-      [
-        'name' => 'manualActivationCode',
-        'contents' => $this->manualActivationCode
-      ],
-
-      [
-        'name' => 'status',
-        'contents' => $this->status
-      ],
-
-      [
-        'name' => 'connectivityStatus',
-        'contents' => $this->connectivityStatus
-      ],
-
-      [
-        'name' => 'isTopUpAllowed',
-        'contents' => $this->isTopUpAllowed ? 'true' : 'false'
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'iccid',
+      'contents' => $this->iccid
     ];
+
+    $parts[] = [
+      'name' => 'smdpAddress',
+      'contents' => $this->smdpAddress
+    ];
+
+    $parts[] = [
+      'name' => 'activationCode',
+      'contents' => $this->activationCode
+    ];
+
+    $parts[] = [
+      'name' => 'manualActivationCode',
+      'contents' => $this->manualActivationCode
+    ];
+
+    $parts[] = [
+      'name' => 'status',
+      'contents' => $this->status
+    ];
+
+    $parts[] = [
+      'name' => 'connectivityStatus',
+      'contents' => $this->connectivityStatus
+    ];
+
+    $parts[] = [
+      'name' => 'isTopUpAllowed',
+      'contents' => $this->isTopUpAllowed ? 'true' : 'false'
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

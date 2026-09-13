@@ -249,72 +249,85 @@ class Purchases implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'id',
-        'contents' => $this->id
-      ],
+    $parts = [];
+    $parts[] = [
+      'name' => 'id',
+      'contents' => $this->id
+    ];
 
-      [
-        'name' => 'startDate',
-        'contents' => $this->startDate
-      ],
+    $parts[] = [
+      'name' => 'startDate',
+      'contents' => $this->startDate
+    ];
 
-      [
-        'name' => 'endDate',
-        'contents' => $this->endDate
-      ],
+    $parts[] = [
+      'name' => 'endDate',
+      'contents' => $this->endDate
+    ];
 
-      [
+    if (array_key_exists('duration', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'duration',
         'contents' => (string) $this->duration
-      ],
+      ];
+    }
 
-      [
-        'name' => 'createdDate',
-        'contents' => $this->createdDate
-      ],
+    $parts[] = [
+      'name' => 'createdDate',
+      'contents' => $this->createdDate
+    ];
 
-      [
+    if (array_key_exists('startTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'startTime',
         'contents' => (string) $this->startTime
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('endTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'endTime',
         'contents' => (string) $this->endTime
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('createdAt', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'createdAt',
         'contents' => (string) $this->createdAt
-      ],
+      ];
+    }
 
-      [
-        'name' => 'package',
-        'contents' => json_encode($this->package)
-      ],
+    $parts[] = [
+      'name' => 'package',
+      'contents' => json_encode($this->package),
+      'headers' => ['Content-Type' => 'application/json']
+    ];
 
-      [
-        'name' => 'esim',
-        'contents' => json_encode($this->esim)
-      ],
+    $parts[] = [
+      'name' => 'esim',
+      'contents' => json_encode($this->esim),
+      'headers' => ['Content-Type' => 'application/json']
+    ];
 
-      [
-        'name' => 'source',
-        'contents' => $this->source
-      ],
+    $parts[] = [
+      'name' => 'source',
+      'contents' => $this->source
+    ];
 
-      [
-        'name' => 'purchaseType',
-        'contents' => $this->purchaseType
-      ],
+    $parts[] = [
+      'name' => 'purchaseType',
+      'contents' => $this->purchaseType
+    ];
 
-      [
+    if (array_key_exists('referenceId', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'referenceId',
         'contents' => $this->referenceId
-      ]
-    ];
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void
