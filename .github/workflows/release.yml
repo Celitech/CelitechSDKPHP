@@ -10,9 +10,9 @@ on:
 env:
   # SDK identity baked in at generation time from the in-memory build context,
   # so the workflow never reads composer.json at runtime.
-  SDK_VERSION: '2.0.6'
+  SDK_VERSION: '2.0.7'
   SDK_PACKAGE_NAME: 'celitech-sdk/sdk'
-  RELEASE_TAG: 'v2.0.6'
+  RELEASE_TAG: 'v2.0.7'
 
 jobs:
   release:
