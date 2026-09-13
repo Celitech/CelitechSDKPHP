@@ -47,12 +47,14 @@ class ListDestinationsOkResponse implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'destinations',
-        'contents' => json_encode($this->destinations)
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'destinations',
+      'contents' => json_encode($this->destinations),
+      'headers' => ['Content-Type' => 'application/json']
     ];
+
+    return $parts;
   }
 
   public function validate(): void

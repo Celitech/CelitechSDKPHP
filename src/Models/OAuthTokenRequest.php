@@ -63,27 +63,28 @@ class OAuthTokenRequest implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'grantType',
-        'contents' => json_encode($this->grantType)
-      ],
-
-      [
-        'name' => 'clientId',
-        'contents' => $this->clientId
-      ],
-
-      [
-        'name' => 'clientSecret',
-        'contents' => $this->clientSecret
-      ],
-
-      [
-        'name' => 'scope',
-        'contents' => $this->scope
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'grant_type',
+      'contents' => $this->grantType->value
     ];
+
+    $parts[] = [
+      'name' => 'client_id',
+      'contents' => $this->clientId
+    ];
+
+    $parts[] = [
+      'name' => 'client_secret',
+      'contents' => $this->clientSecret
+    ];
+
+    $parts[] = [
+      'name' => 'scope',
+      'contents' => $this->scope
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

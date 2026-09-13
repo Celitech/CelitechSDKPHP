@@ -57,17 +57,19 @@ class GetEsimHistoryOkResponseEsim implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'iccid',
-        'contents' => $this->iccid
-      ],
-
-      [
-        'name' => 'history',
-        'contents' => json_encode($this->history)
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'iccid',
+      'contents' => $this->iccid
     ];
+
+    $parts[] = [
+      'name' => 'history',
+      'contents' => json_encode($this->history),
+      'headers' => ['Content-Type' => 'application/json']
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

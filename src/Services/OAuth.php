@@ -35,6 +35,8 @@ class OAuth extends BaseService
     Models\OAuthTokenRequest $input,
     array $requestConfig = []
   ): Models\OAuthTokenResponse {
+    $input->validate();
+
     $resolvedConfig = $this->getResolvedConfig($this->getAccessTokenConfig, $requestConfig);
     $response = $this->sendRequest(
       'post',

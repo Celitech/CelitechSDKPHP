@@ -42,12 +42,13 @@ class TokenOkResponse implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'token',
-        'contents' => $this->token
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'token',
+      'contents' => $this->token
     ];
+
+    return $parts;
   }
 
   public function validate(): void

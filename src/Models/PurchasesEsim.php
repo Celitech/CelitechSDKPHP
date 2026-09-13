@@ -43,12 +43,13 @@ class PurchasesEsim implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'iccid',
-        'contents' => $this->iccid
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'iccid',
+      'contents' => $this->iccid
     ];
+
+    return $parts;
   }
 
   public function validate(): void

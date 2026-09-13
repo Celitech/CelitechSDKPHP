@@ -76,27 +76,29 @@ class Destinations implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'name',
-        'contents' => $this->name
-      ],
-
-      [
-        'name' => 'destination',
-        'contents' => $this->destination
-      ],
-
-      [
-        'name' => 'destinationIso2',
-        'contents' => $this->destinationIso2
-      ],
-
-      [
-        'name' => 'supportedCountries',
-        'contents' => json_encode($this->supportedCountries)
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'name',
+      'contents' => $this->name
     ];
+
+    $parts[] = [
+      'name' => 'destination',
+      'contents' => $this->destination
+    ];
+
+    $parts[] = [
+      'name' => 'destinationISO2',
+      'contents' => $this->destinationIso2
+    ];
+
+    $parts[] = [
+      'name' => 'supportedCountries',
+      'contents' => json_encode($this->supportedCountries),
+      'headers' => ['Content-Type' => 'application/json']
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

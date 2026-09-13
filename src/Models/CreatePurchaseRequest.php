@@ -238,62 +238,77 @@ class CreatePurchaseRequest implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'destination',
-        'contents' => $this->destination
-      ],
+    $parts = [];
+    $parts[] = [
+      'name' => 'destination',
+      'contents' => $this->destination
+    ];
 
-      [
-        'name' => 'dataLimitInGb',
-        'contents' => (string) $this->dataLimitInGb
-      ],
+    $parts[] = [
+      'name' => 'dataLimitInGB',
+      'contents' => (string) $this->dataLimitInGb
+    ];
 
-      [
-        'name' => 'startDate',
-        'contents' => $this->startDate
-      ],
+    $parts[] = [
+      'name' => 'startDate',
+      'contents' => $this->startDate
+    ];
 
-      [
-        'name' => 'endDate',
-        'contents' => $this->endDate
-      ],
+    $parts[] = [
+      'name' => 'endDate',
+      'contents' => $this->endDate
+    ];
 
-      [
+    if (array_key_exists('email', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'email',
         'contents' => $this->email
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('referenceId', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'referenceId',
         'contents' => $this->referenceId
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('networkBrand', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'networkBrand',
         'contents' => $this->networkBrand
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('emailBrand', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'emailBrand',
         'contents' => $this->emailBrand
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('language', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'language',
-        'contents' => json_encode($this->language)
-      ],
+        'contents' => $this->language?->value
+      ];
+    }
 
-      [
+    if (array_key_exists('startTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'startTime',
         'contents' => (string) $this->startTime
-      ],
+      ];
+    }
 
-      [
+    if (array_key_exists('endTime', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'endTime',
         'contents' => (string) $this->endTime
-      ]
-    ];
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void
