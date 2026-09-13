@@ -115,47 +115,48 @@ class Packages implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'id',
-        'contents' => $this->id
-      ],
-
-      [
-        'name' => 'destination',
-        'contents' => $this->destination
-      ],
-
-      [
-        'name' => 'destinationIso2',
-        'contents' => $this->destinationIso2
-      ],
-
-      [
-        'name' => 'dataLimitInBytes',
-        'contents' => (string) $this->dataLimitInBytes
-      ],
-
-      [
-        'name' => 'dataLimitInGb',
-        'contents' => (string) $this->dataLimitInGb
-      ],
-
-      [
-        'name' => 'minDays',
-        'contents' => (string) $this->minDays
-      ],
-
-      [
-        'name' => 'maxDays',
-        'contents' => (string) $this->maxDays
-      ],
-
-      [
-        'name' => 'priceInCents',
-        'contents' => (string) $this->priceInCents
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'id',
+      'contents' => $this->id
     ];
+
+    $parts[] = [
+      'name' => 'destination',
+      'contents' => $this->destination
+    ];
+
+    $parts[] = [
+      'name' => 'destinationISO2',
+      'contents' => $this->destinationIso2
+    ];
+
+    $parts[] = [
+      'name' => 'dataLimitInBytes',
+      'contents' => (string) $this->dataLimitInBytes
+    ];
+
+    $parts[] = [
+      'name' => 'dataLimitInGB',
+      'contents' => (string) $this->dataLimitInGb
+    ];
+
+    $parts[] = [
+      'name' => 'minDays',
+      'contents' => (string) $this->minDays
+    ];
+
+    $parts[] = [
+      'name' => 'maxDays',
+      'contents' => (string) $this->maxDays
+    ];
+
+    $parts[] = [
+      'name' => 'priceInCents',
+      'contents' => (string) $this->priceInCents
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

@@ -71,27 +71,28 @@ class Device implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'oem',
-        'contents' => $this->oem
-      ],
-
-      [
-        'name' => 'hardwareName',
-        'contents' => $this->hardwareName
-      ],
-
-      [
-        'name' => 'hardwareModel',
-        'contents' => $this->hardwareModel
-      ],
-
-      [
-        'name' => 'eid',
-        'contents' => $this->eid
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'oem',
+      'contents' => $this->oem
     ];
+
+    $parts[] = [
+      'name' => 'hardwareName',
+      'contents' => $this->hardwareName
+    ];
+
+    $parts[] = [
+      'name' => 'hardwareModel',
+      'contents' => $this->hardwareModel
+    ];
+
+    $parts[] = [
+      'name' => 'eid',
+      'contents' => $this->eid
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

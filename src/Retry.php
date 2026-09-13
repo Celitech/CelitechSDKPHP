@@ -30,6 +30,7 @@ class Retry
     'maxDelayMs' => 5000,
     'delayJitter' => 50,
     'delayMultiplier' => 2,
+    'maxRetryAfterDelayMs' => 60000,
     'retryableStatuses' => [408, 429, 500, 502, 503, 504],
     'retryableMethods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
   ];
@@ -177,12 +178,92 @@ class Retry
     ?ResponseInterface $response = null
   ): PromiseInterface {
     $options['retryCount']++;
-    $delay = $options['baseDelayMs'] * pow($options['delayMultiplier'], $options['retryCount'] - 1);
-    $delay = min($delay, $options['maxDelayMs']);
-    if ($options['delayJitter'] > 0) {
-      $delay += mt_rand(0, (int) $options['delayJitter']);
+    $delay = $this->retryAfterDelayMs($response, $options);
+    if ($delay === null) {
+      $delay =
+        $options['baseDelayMs'] * pow($options['delayMultiplier'], $options['retryCount'] - 1);
+      $delay = min($delay, $options['maxDelayMs']);
+      if ($options['delayJitter'] > 0) {
+        $delay += mt_rand(0, (int) $options['delayJitter']);
+      }
     }
     usleep((int) ($delay * 1000));
     return $this($request, $options);
+  }
+
+  /**
+   * Determine the server-directed retry delay (in milliseconds) from rate-limit
+   * response headers, honoring `Retry-After` (delta-seconds or HTTP-date) and, when
+   * absent, `X-RateLimit-Reset` (epoch seconds). The result is clamped to
+   * `maxRetryAfterDelayMs`. May return 0.0 when the server directs an immediate retry
+   * (e.g. `Retry-After: 0` or an already-elapsed date). Returns null when no usable
+   * header is present so the caller falls back to the computed exponential backoff.
+   *
+   * @param ResponseInterface|null $response The retryable response
+   * @param array $options Request options including the max cap
+   * @return float|null Delay in milliseconds, or null to use exponential backoff
+   */
+  protected function retryAfterDelayMs(?ResponseInterface $response, array $options): ?float
+  {
+    if ($response === null) {
+      return null;
+    }
+
+    $maxMs = (float) $options['maxRetryAfterDelayMs'];
+    if ($maxMs <= 0) {
+      return null;
+    }
+
+    // retry-after-ms (milliseconds) is a non-standard but finer-grained hint some APIs
+    // send (e.g. OpenAI); it takes precedence over the whole-second Retry-After.
+    $retryAfterMs = trim($response->getHeaderLine('Retry-After-Ms'));
+    if ($retryAfterMs !== '' && preg_match('/^\d+(\.\d+)?$/', $retryAfterMs) === 1) {
+      return min((float) $retryAfterMs, $maxMs);
+    }
+
+    $seconds = $this->parseRetryAfter($response->getHeaderLine('Retry-After'));
+    if ($seconds === null) {
+      $reset = trim($response->getHeaderLine('X-RateLimit-Reset'));
+      if ($reset !== '' && is_numeric($reset)) {
+        $delta = (float) $reset - microtime(true);
+        if ($delta > 0) {
+          $seconds = $delta;
+        }
+      }
+    }
+
+    if ($seconds === null) {
+      return null;
+    }
+
+    return max(0.0, min($seconds * 1000.0, $maxMs));
+  }
+
+  /**
+   * Parse a `Retry-After` header value: an integer/float number of seconds, or an
+   * HTTP-date. Returns the delay in seconds (a past date clamps to 0), or null when
+   * the value is empty or unparseable.
+   *
+   * @param string $value The raw header value
+   * @return float|null Delay in seconds, or null if unparseable
+   */
+  protected function parseRetryAfter(string $value): ?float
+  {
+    $value = trim($value);
+    if ($value === '') {
+      return null;
+    }
+
+    if (preg_match('/^\d+(\.\d+)?$/', $value) === 1) {
+      return (float) $value;
+    }
+
+    $timestamp = strtotime($value);
+    if ($timestamp === false) {
+      return null;
+    }
+
+    $delta = $timestamp - microtime(true);
+    return $delta > 0 ? $delta : 0.0;
   }
 }

@@ -53,17 +53,20 @@ class CreatePurchaseOkResponse implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'purchase',
-        'contents' => json_encode($this->purchase)
-      ],
-
-      [
-        'name' => 'profile',
-        'contents' => json_encode($this->profile)
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'purchase',
+      'contents' => json_encode($this->purchase),
+      'headers' => ['Content-Type' => 'application/json']
     ];
+
+    $parts[] = [
+      'name' => 'profile',
+      'contents' => json_encode($this->profile),
+      'headers' => ['Content-Type' => 'application/json']
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

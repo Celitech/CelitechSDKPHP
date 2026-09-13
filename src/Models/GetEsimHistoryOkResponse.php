@@ -43,12 +43,14 @@ class GetEsimHistoryOkResponse implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'esim',
-        'contents' => json_encode($this->esim)
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'esim',
+      'contents' => json_encode($this->esim),
+      'headers' => ['Content-Type' => 'application/json']
     ];
+
+    return $parts;
   }
 
   public function validate(): void
