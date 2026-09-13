@@ -63,22 +63,23 @@ class CreatePurchaseOkResponseProfile implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'iccid',
-        'contents' => $this->iccid
-      ],
-
-      [
-        'name' => 'activationCode',
-        'contents' => $this->activationCode
-      ],
-
-      [
-        'name' => 'manualActivationCode',
-        'contents' => $this->manualActivationCode
-      ]
+    $parts = [];
+    $parts[] = [
+      'name' => 'iccid',
+      'contents' => $this->iccid
     ];
+
+    $parts[] = [
+      'name' => 'activationCode',
+      'contents' => $this->activationCode
+    ];
+
+    $parts[] = [
+      'name' => 'manualActivationCode',
+      'contents' => $this->manualActivationCode
+    ];
+
+    return $parts;
   }
 
   public function validate(): void

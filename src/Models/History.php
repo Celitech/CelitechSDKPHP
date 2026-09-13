@@ -105,22 +105,25 @@ class History implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'status',
-        'contents' => $this->status
-      ],
+    $parts = [];
+    $parts[] = [
+      'name' => 'status',
+      'contents' => $this->status
+    ];
 
-      [
-        'name' => 'statusDate',
-        'contents' => $this->statusDate
-      ],
+    $parts[] = [
+      'name' => 'statusDate',
+      'contents' => $this->statusDate
+    ];
 
-      [
+    if (array_key_exists('date', $this->_dirtyFields)) {
+      $parts[] = [
         'name' => 'date',
         'contents' => (string) $this->date
-      ]
-    ];
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void

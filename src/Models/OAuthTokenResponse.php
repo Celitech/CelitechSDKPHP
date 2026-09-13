@@ -91,17 +91,22 @@ class OAuthTokenResponse implements \JsonSerializable
 
   public function toMultipart(): array
   {
-    return [
-      [
-        'name' => 'accessToken',
+    $parts = [];
+    if (array_key_exists('access_token', $this->_dirtyFields)) {
+      $parts[] = [
+        'name' => 'access_token',
         'contents' => $this->accessToken
-      ],
+      ];
+    }
 
-      [
-        'name' => 'expiresIn',
+    if (array_key_exists('expires_in', $this->_dirtyFields)) {
+      $parts[] = [
+        'name' => 'expires_in',
         'contents' => (string) $this->expiresIn
-      ]
-    ];
+      ];
+    }
+
+    return $parts;
   }
 
   public function validate(): void
