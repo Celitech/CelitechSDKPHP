@@ -41,7 +41,7 @@ class BaseService
   ) {
     $this->options = [
       'headers' => [
-        'User-Agent' => 'postman-codegen/2.6.0 celitech-sdk/sdk/2.0.7 (php)'
+        'User-Agent' => 'postman-codegen/2.10.0 celitech-sdk/sdk/2.0.7 (php)'
       ]
     ];
 
@@ -122,11 +122,134 @@ class BaseService
    * @param array $options Request options
    * @return \Generator Generator yielding response chunks
    */
+  /**
+   * Folds one line of a `text/event-stream` body into the frame being accumulated, returning that
+   * frame's payload when the line terminated it and null otherwise.
+   *
+   * Shared by the read loop and the end-of-body flush, which see the same lines from different
+   * sources — keeping the framing in one place is what lets a field like `event:` be added once.
+   *
+   * @param array{data: array<string>, event: string, id: string, retry: ?int, sawData: bool} $acc
+   * @return ?array{data: string, event: string, id: string, retry: ?int} The completed frame, or
+   *   null when it is still open
+   */
+  private function consumeSseLine(string $line, array &$acc): ?array
+  {
+    // Strips the delimiter LineDecoder keeps on the line. Greedy over CR and LF is safe: the
+    // split is on those characters, so the content itself can hold none of them.
+    $line = rtrim($line, "\r\n");
+
+    if ($line === '') {
+      return $this->takeSseFrame($acc);
+    }
+
+    // A comment line. Keep-alives arrive as a bare `:`, and the spec says ignore.
+    if (str_starts_with($line, ':')) {
+      return null;
+    }
+
+    [$field, $value] = $this->splitSseField($line);
+
+    if ($field === 'data') {
+      $acc['data'][] = $value;
+      $acc['sawData'] = true;
+    } elseif ($field === 'event') {
+      $acc['event'] = $value;
+    } elseif ($field === 'id') {
+      // No reset between frames: the WHATWG spec makes the last id the stream's
+      // "last event ID", which a frame declaring none inherits.
+      $acc['id'] = $value;
+    } elseif ($field === 'retry') {
+      // Spec says ignore a retry that is not all digits, rather than guessing at it.
+      $acc['retry'] = ctype_digit($value) ? (int) $value : $acc['retry'];
+    }
+
+    return null;
+  }
+
+  /**
+   * Splits `field: value` per the spec: the first colon separates them, exactly ONE optional
+   * space after it is framing, and a line with no colon is a field with an empty value.
+   *
+   * @return array{0: string, 1: string}
+   */
+  private function splitSseField(string $line): array
+  {
+    $colon = strpos($line, ':');
+    if ($colon === false) {
+      return [$line, ''];
+    }
+
+    $value = substr($line, $colon + 1);
+    if (str_starts_with($value, ' ')) {
+      $value = substr($value, 1);
+    }
+
+    return [substr($line, 0, $colon), $value];
+  }
+
+  /**
+   * Takes the buffered `data:` lines of one completed SSE frame, or null when no frame is open.
+   *
+   * A method rather than a closure on purpose: a closure capturing `$sawData` by reference has it
+   * narrowed to the literal `false` it was initialised with, so static analysis reads the guard as
+   * always true, the body as dead and the return type as `null`. Declared by-ref parameters carry
+   * their declared types instead.
+   *
+   * @param array{data: array<string>, event: string, id: string, retry: ?int, sawData: bool} $acc
+   * @return ?array{data: string, event: string, id: string, retry: ?int} The frame, its `data:`
+   *   lines joined with a newline
+   */
+  private function takeSseFrame(array &$acc): ?array
+  {
+    if (!$acc['sawData']) {
+      return null;
+    }
+
+    $frame = [
+      'data' => implode("\n", $acc['data']),
+      'event' => $acc['event'],
+      // `id` deliberately survives: it is the stream's last event ID, not the frame's.
+      'id' => $acc['id'],
+      'retry' => $acc['retry']
+    ];
+    $acc['data'] = [];
+    $acc['event'] = '';
+    $acc['sawData'] = false;
+
+    return $frame;
+  }
+
   protected function sendStreamingRequest(
     string $method,
     string $uri,
     array $options = [],
-    array $resolvedConfig = []
+    array $resolvedConfig = [],
+    ?bool $declaredSse = null
+  ): \Generator {
+    foreach (
+      $this->streamSseFrames($method, $uri, $options, $resolvedConfig, $declaredSse)
+      as $frame
+    ) {
+      yield $frame['data'];
+    }
+  }
+
+  /**
+   * The same body reader as `sendStreamingRequest`, yielding whole frames instead of just their
+   * payloads, so a caller that needs `event:`/`id:`/`retry:` can have them. One producer rather
+   * than two: the framing rules live in `consumeSseLine` and must not fork.
+   *
+   * A json-framed body has no frame metadata, so each line becomes a frame carrying only `data`.
+   *
+   * @return \Generator<int, array{data: string, event: string, id: string, retry: ?int}>
+   */
+  protected function streamSseFrames(
+    string $method,
+    string $uri,
+    array $options = [],
+    array $resolvedConfig = [],
+    ?bool $declaredSse = null
   ): \Generator {
     $baseUrl = $this->getBaseUrl($resolvedConfig);
     $options['stream'] = true;
@@ -143,10 +266,18 @@ class BaseService
     }
 
     $body = $response->getBody();
+    // A declared `x-fern-streaming.format` is authoritative; only sniff the response media type
+    // when the spec said nothing. A json-framed stream may legitimately be served as
+    // `text/event-stream`, and sniffing alone reads that as SSE and drops every unprefixed line.
     $contentType = $response->getHeaderLine('Content-Type');
-    $isEventStream = strpos($contentType, 'text/event-stream') !== false;
+    $isEventStream = $declaredSse ?? strpos($contentType, 'text/event-stream') !== false;
 
     $lineDecoder = new LineDecoder();
+    // An SSE event is a FRAME, not a line: every `data:` line in one frame belongs to the same
+    // event and is joined with "\n", and the frame is only dispatched on the blank line that
+    // terminates it. Yielding per line splits a payload that spans two `data:` lines into two
+    // fragments, neither of which parses on its own.
+    $sseFrame = ['data' => [], 'event' => '', 'id' => '', 'retry' => null, 'sawData' => false];
 
     // Stream chunks from the response body
     while (!$body->eof()) {
@@ -158,15 +289,13 @@ class BaseService
       $lines = $lineDecoder->splitLines($chunk);
       foreach ($lines as $line) {
         if ($isEventStream) {
-          // For event-stream, parse data: prefix
-          $trimmedLine = trim($line);
-          if (strpos($trimmedLine, 'data: ') === 0) {
-            $data = substr($trimmedLine, 6);
-            yield $data;
+          $frame = $this->consumeSseLine($line, $sseFrame);
+          if ($frame !== null) {
+            yield $frame;
           }
         } else {
-          // For regular JSON responses, yield the line as-is
-          yield $line;
+          // For regular JSON responses, the line IS the payload and carries no metadata.
+          yield ['data' => $line, 'event' => '', 'id' => '', 'retry' => null];
         }
       }
     }
@@ -175,14 +304,19 @@ class BaseService
     $remainingLines = $lineDecoder->flush();
     foreach ($remainingLines as $line) {
       if ($isEventStream) {
-        $trimmedLine = trim($line);
-        if (strpos($trimmedLine, 'data: ') === 0) {
-          $data = substr($trimmedLine, 6);
-          yield $data;
+        $frame = $this->consumeSseLine($line, $sseFrame);
+        if ($frame !== null) {
+          yield $frame;
         }
       } else {
-        yield $line;
+        yield ['data' => $line, 'event' => '', 'id' => '', 'retry' => null];
       }
+    }
+
+    // A stream that ends without its final blank line still has one whole frame buffered.
+    $frame = $this->takeSseFrame($sseFrame);
+    if ($frame !== null) {
+      yield $frame;
     }
   }
 
@@ -203,7 +337,8 @@ class BaseService
     callable $deserializer,
     string $responseWrapperClass,
     string $metadataClass,
-    array $resolvedConfig = []
+    array $resolvedConfig = [],
+    ?bool $declaredSse = null
   ): \Generator {
     $baseUrl = $this->getBaseUrl($resolvedConfig);
     $options['stream'] = true;
@@ -226,8 +361,9 @@ class BaseService
     );
 
     $body = $response->getBody();
+    // Declared format wins over the media type; see sendStreamingRequest above.
     $contentType = $response->getHeaderLine('Content-Type');
-    $isEventStream = strpos($contentType, 'text/event-stream') !== false;
+    $isEventStream = $declaredSse ?? strpos($contentType, 'text/event-stream') !== false;
 
     $lineDecoder = new LineDecoder();
 
@@ -483,6 +619,25 @@ class BaseService
       }
     }
     return $query;
+  }
+
+  /**
+   * Percent-encode a path parameter value before it is substituted into a request URI.
+   *
+   * A value containing `/` or `..` would otherwise change which endpoint the request resolves
+   * to, so this guards routing rather than formatting.
+   *
+   * A `bool` renders as `true` or `false`, the same rendering the query serializer above uses.
+   * A bare `(string)` cast would send `false` as an empty path segment.
+   *
+   * @param string|int|float|bool|\Stringable $value The path parameter value
+   * @return string The encoded value
+   */
+  protected function encodePathParam(string|int|float|bool|\Stringable $value): string
+  {
+    $rendered = is_bool($value) ? ($value ? 'true' : 'false') : (string) $value;
+
+    return rawurlencode($rendered);
   }
 
   /**

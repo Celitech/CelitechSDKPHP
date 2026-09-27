@@ -31,7 +31,8 @@ class Retry
     'delayJitter' => 50,
     'delayMultiplier' => 2,
     'maxRetryAfterDelayMs' => 60000,
-    'retryableStatuses' => [408, 429, 500, 502, 503, 504],
+    'retryableStatuses' => [408, 429],
+    'retryAllServerErrors' => true,
     'retryableMethods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
   ];
 
@@ -157,8 +158,11 @@ class Retry
     }
 
     $statusCode = $response->getStatusCode();
-    return in_array($statusCode, $options['retryableStatuses'], true) &&
-      $options['retryCount'] < $options['maxRetries'];
+    $isRetryableStatus =
+      in_array($statusCode, $options['retryableStatuses'], true) ||
+      (($options['retryAllServerErrors'] ?? false) && $statusCode >= 500);
+
+    return $isRetryableStatus && $options['retryCount'] < $options['maxRetries'];
   }
 
   /**

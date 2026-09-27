@@ -20,7 +20,6 @@
     "phpunit/phpunit": "^9",
     "laravel/pint": "^1.13.7",
     "phpstan/phpstan": "^1.8",
-    "php-http/mock-client": "^1.6",
     "nyholm/psr7": "^1.8"
   },
   "autoload": {
