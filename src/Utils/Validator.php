@@ -35,12 +35,13 @@ class Validator
     }
 
     $strValue = (string) $value;
+    $length = self::length($strValue);
 
-    if ($minLength !== null && mb_strlen($strValue) < $minLength) {
+    if ($minLength !== null && $length < $minLength) {
       throw new ValidationException($field, "must be at least $minLength characters long");
     }
 
-    if ($maxLength !== null && mb_strlen($strValue) > $maxLength) {
+    if ($maxLength !== null && $length > $maxLength) {
       throw new ValidationException($field, "must be at most $maxLength characters long");
     }
 
@@ -50,6 +51,19 @@ class Validator
     ) {
       throw new ValidationException($field, "must match pattern $pattern");
     }
+  }
+
+  /**
+   * Character length without requiring ext-mbstring, which composer.json does not declare:
+   * PCRE counts UTF-8 code points, and invalid UTF-8 falls back to the byte length.
+   */
+  private static function length(string $value): int
+  {
+    if (function_exists('mb_strlen')) {
+      return mb_strlen($value);
+    }
+    $count = preg_match_all('/./su', $value);
+    return $count === false ? strlen($value) : $count;
   }
 
   /**

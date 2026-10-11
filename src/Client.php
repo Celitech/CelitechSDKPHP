@@ -35,7 +35,8 @@ class Client
     $this->tokenManager = new TokenManager(
       baseOAuthUrl: $baseOAuthUrl,
       clientId: $clientId,
-      clientSecret: $clientSecret
+      clientSecret: $clientSecret,
+      httpClient: $httpClient
     );
 
     $this->destinations = new Services\Destinations(
