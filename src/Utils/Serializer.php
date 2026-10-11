@@ -129,4 +129,32 @@ class Serializer
     $json = self::getSerializer()->serialize($object, 'json', $context);
     return json_decode($json, true);
   }
+
+  /**
+   * One parameter component as it goes on the wire. A bool is `true`/`false` rather than PHP's
+   * `1`/``, and a structured value is JSON rather than the literal `Array` that string
+   * concatenation produces.
+   */
+  public static function serializeParameterValue(mixed $value): string
+  {
+    if (is_bool($value)) {
+      return $value ? 'true' : 'false';
+    }
+
+    if ($value === null) {
+      return '';
+    }
+
+    if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
+      return (string) $value;
+    }
+
+    // An array is already JSON-shaped; only an object needs normalizing first.
+    $encoded = json_encode(is_array($value) ? $value : self::serialize($value));
+    if ($encoded === false) {
+      throw new \JsonException('Failed to serialize parameter value: ' . json_last_error_msg());
+    }
+
+    return $encoded;
+  }
 }
