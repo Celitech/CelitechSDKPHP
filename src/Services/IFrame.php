@@ -43,9 +43,7 @@ class IFrame extends BaseService
 
     $result = Serializer::deserialize($data, Models\TokenOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 }

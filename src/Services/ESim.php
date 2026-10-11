@@ -88,9 +88,7 @@ class ESim extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetEsimOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -109,7 +107,7 @@ class ESim extends BaseService
     $resolvedConfig = $this->getResolvedConfig($this->getEsimDeviceConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      "/esim/{$iccid}/device",
+      "/esim/{$this->encodePathParam($iccid)}/device",
       ['scopes' => []],
       $resolvedConfig
     );
@@ -117,9 +115,7 @@ class ESim extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetEsimDeviceOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -138,7 +134,7 @@ class ESim extends BaseService
     $resolvedConfig = $this->getResolvedConfig($this->getEsimHistoryConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      "/esim/{$iccid}/history",
+      "/esim/{$this->encodePathParam($iccid)}/history",
       ['scopes' => []],
       $resolvedConfig
     );
@@ -146,9 +142,7 @@ class ESim extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetEsimHistoryOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 }

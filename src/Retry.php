@@ -31,8 +31,9 @@ class Retry
     'delayJitter' => 50,
     'delayMultiplier' => 2,
     'maxRetryAfterDelayMs' => 60000,
-    'retryableStatuses' => [408, 429, 500, 502, 503, 504],
-    'retryableMethods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
+    'retryableStatuses' => [408, 429],
+    'retryAllServerErrors' => true,
+    'retryableMethods' => ['GET', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']
   ];
 
   /**
@@ -157,8 +158,11 @@ class Retry
     }
 
     $statusCode = $response->getStatusCode();
-    return in_array($statusCode, $options['retryableStatuses'], true) &&
-      $options['retryCount'] < $options['maxRetries'];
+    $isRetryableStatus =
+      in_array($statusCode, $options['retryableStatuses'], true) ||
+      (($options['retryAllServerErrors'] ?? false) && $statusCode >= 500);
+
+    return $isRetryableStatus && $options['retryCount'] < $options['maxRetries'];
   }
 
   /**
@@ -258,12 +262,18 @@ class Retry
       return (float) $value;
     }
 
-    $timestamp = strtotime($value);
-    if ($timestamp === false) {
+    // Only an IMF-fixdate: strtotime() would also accept "-5" or "tomorrow". The round-trip
+    // rejects an out-of-range date ("99 Jan") that createFromFormat() would roll over.
+    $date = \DateTimeImmutable::createFromFormat(
+      '!D, d M Y H:i:s \G\M\T',
+      $value,
+      new \DateTimeZone('UTC')
+    );
+    if ($date === false || $date->format('D, d M Y H:i:s \G\M\T') !== $value) {
       return null;
     }
 
-    $delta = $timestamp - microtime(true);
+    $delta = $date->getTimestamp() - microtime(true);
     return $delta > 0 ? $delta : 0.0;
   }
 }
