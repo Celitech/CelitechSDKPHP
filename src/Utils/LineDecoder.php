@@ -32,10 +32,10 @@ class LineDecoder
 
     // Combine the line content with its delimiter
     for ($i = 0; $i < count($parts); $i += 2) {
-      $line = ($parts[$i] ?? '') . ($parts[$i + 1] ?? '');
-      if (trim($line) !== '') {
-        $lines[] = $line;
-      }
+      // Blank lines are KEPT. In `text/event-stream` a blank line is the frame terminator,
+      // so dropping it erases every frame boundary and leaves the reader unable to tell one
+      // event from the next. Consumers that only want content skip them themselves.
+      $lines[] = ($parts[$i] ?? '') . ($parts[$i + 1] ?? '');
     }
 
     return $lines;
