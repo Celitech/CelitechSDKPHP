@@ -25,12 +25,18 @@ class TokenManager
   private string $baseOAuthUrl;
   private string $clientId;
   private string $clientSecret;
+  private ?\Psr\Http\Client\ClientInterface $httpClient;
 
-  public function __construct(string $baseOAuthUrl, string $clientId, string $clientSecret)
-  {
+  public function __construct(
+    string $baseOAuthUrl,
+    string $clientId,
+    string $clientSecret,
+    ?\Psr\Http\Client\ClientInterface $httpClient = null
+  ) {
     $this->baseOAuthUrl = $baseOAuthUrl;
     $this->clientId = $clientId;
     $this->clientSecret = $clientSecret;
+    $this->httpClient = $httpClient;
   }
 
   public function setBaseOAuthUrl(string $baseOAuthUrl): self
@@ -106,7 +112,7 @@ class TokenManager
    */
   private function getAccessToken(array $scopes): array
   {
-    $service = new OAuth(environment: $this->baseOAuthUrl);
+    $service = new OAuth(environment: $this->baseOAuthUrl, httpClient: $this->httpClient);
     $input = new OAuthTokenRequest(
       grantType: GrantType::ClientCredentials,
       clientId: $this->clientId,
