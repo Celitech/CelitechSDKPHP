@@ -130,10 +130,8 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\CreatePurchaseV2OkResponse::class . '[]');
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      foreach ($result as $item) {
-        $item?->validate();
-      }
+    foreach ($result as $item) {
+      $item?->validate();
     }
     return $result;
   }
@@ -193,9 +191,7 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\ListPurchasesOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -222,9 +218,7 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\CreatePurchaseOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -251,9 +245,7 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\TopUpEsimOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -288,9 +280,7 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\EditPurchaseOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -307,7 +297,7 @@ class Purchases extends BaseService
     $resolvedConfig = $this->getResolvedConfig($this->getPurchaseConsumptionConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      "/purchases/{$purchaseId}/consumption",
+      "/purchases/{$this->encodePathParam($purchaseId)}/consumption",
       ['scopes' => []],
       $resolvedConfig
     );
@@ -315,9 +305,7 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetPurchaseConsumptionOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 }
