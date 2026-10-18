@@ -31,6 +31,9 @@
     "/esim/{iccid}/history": {
       "get": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->eSim->getEsimHistory(\n  iccid: \"1111222233334444555000\"\n);\n\nprint_r($response);\n"
     },
+    "/esim/{iccid}/suspend": {
+      "post": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->eSim->suspendEsim(\n  iccid: \"1111222233334444555000\"\n);\n\nprint_r($response);\n"
+    },
     "/iframe/token": {
       "post": "<?php\n\nuse Celitech\\Client;\n\n$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');\n\n$response = $sdk->iFrame->token();\n\nprint_r($response);\n"
     }

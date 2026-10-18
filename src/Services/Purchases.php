@@ -111,29 +111,36 @@ class Purchases extends BaseService
    * This endpoint is used to purchase a new eSIM by providing the package details.
    *
    * @param Models\CreatePurchaseV2Request $input Request body
+   * @param ?string $idempotencyKey Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces.
    * @return array
    */
   public function createPurchaseV2(
     Models\CreatePurchaseV2Request $input,
+    ?string $idempotencyKey = null,
     array $requestConfig = []
   ): array {
+    Validator::validateString($idempotencyKey, 'Idempotency-Key', minLength: 1, maxLength: 255);
     $input->validate();
 
     $resolvedConfig = $this->getResolvedConfig($this->createPurchaseV2Config, $requestConfig);
     $response = $this->sendRequest(
       'post',
       '/purchases/v2',
-      ['json' => $input, 'scopes' => []],
+      [
+        'json' => $input,
+        'headers' => [
+          'Idempotency-Key' => $idempotencyKey
+        ],
+        'scopes' => []
+      ],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();
 
     $result = Serializer::deserialize($data, Models\CreatePurchaseV2OkResponse::class . '[]');
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      foreach ($result as $item) {
-        $item?->validate();
-      }
+    foreach ($result as $item) {
+      $item?->validate();
     }
     return $result;
   }
@@ -193,9 +200,7 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\ListPurchasesOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -203,28 +208,35 @@ class Purchases extends BaseService
    * This endpoint is used to purchase a new eSIM by providing the package details.
    *
    * @param Models\CreatePurchaseRequest $input Request body
+   * @param ?string $idempotencyKey Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces.
    * @return Models\CreatePurchaseOkResponse
    */
   public function createPurchase(
     Models\CreatePurchaseRequest $input,
+    ?string $idempotencyKey = null,
     array $requestConfig = []
   ): Models\CreatePurchaseOkResponse {
+    Validator::validateString($idempotencyKey, 'Idempotency-Key', minLength: 1, maxLength: 255);
     $input->validate();
 
     $resolvedConfig = $this->getResolvedConfig($this->createPurchaseConfig, $requestConfig);
     $response = $this->sendRequest(
       'post',
       '/purchases',
-      ['json' => $input, 'scopes' => []],
+      [
+        'json' => $input,
+        'headers' => [
+          'Idempotency-Key' => $idempotencyKey
+        ],
+        'scopes' => []
+      ],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();
 
     $result = Serializer::deserialize($data, Models\CreatePurchaseOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -232,28 +244,35 @@ class Purchases extends BaseService
    * This endpoint is used to top-up an existing eSIM with the previously associated destination by providing its ICCID and package details. To determine if an eSIM can be topped up, use the Get eSIM endpoint, which returns the `isTopUpAllowed` flag.
    *
    * @param Models\TopUpEsimRequest $input Request body
+   * @param ?string $idempotencyKey Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces.
    * @return Models\TopUpEsimOkResponse
    */
   public function topUpEsim(
     Models\TopUpEsimRequest $input,
+    ?string $idempotencyKey = null,
     array $requestConfig = []
   ): Models\TopUpEsimOkResponse {
+    Validator::validateString($idempotencyKey, 'Idempotency-Key', minLength: 1, maxLength: 255);
     $input->validate();
 
     $resolvedConfig = $this->getResolvedConfig($this->topUpEsimConfig, $requestConfig);
     $response = $this->sendRequest(
       'post',
       '/purchases/topup',
-      ['json' => $input, 'scopes' => []],
+      [
+        'json' => $input,
+        'headers' => [
+          'Idempotency-Key' => $idempotencyKey
+        ],
+        'scopes' => []
+      ],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();
 
     $result = Serializer::deserialize($data, Models\TopUpEsimOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -269,28 +288,35 @@ class Purchases extends BaseService
    *
    *
    * @param Models\EditPurchaseRequest $input Request body
+   * @param ?string $idempotencyKey Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces.
    * @return Models\EditPurchaseOkResponse
    */
   public function editPurchase(
     Models\EditPurchaseRequest $input,
+    ?string $idempotencyKey = null,
     array $requestConfig = []
   ): Models\EditPurchaseOkResponse {
+    Validator::validateString($idempotencyKey, 'Idempotency-Key', minLength: 1, maxLength: 255);
     $input->validate();
 
     $resolvedConfig = $this->getResolvedConfig($this->editPurchaseConfig, $requestConfig);
     $response = $this->sendRequest(
       'post',
       '/purchases/edit',
-      ['json' => $input, 'scopes' => []],
+      [
+        'json' => $input,
+        'headers' => [
+          'Idempotency-Key' => $idempotencyKey
+        ],
+        'scopes' => []
+      ],
       $resolvedConfig
     );
     $data = $response->getBody()->getContents();
 
     $result = Serializer::deserialize($data, Models\EditPurchaseOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -307,7 +333,7 @@ class Purchases extends BaseService
     $resolvedConfig = $this->getResolvedConfig($this->getPurchaseConsumptionConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      "/purchases/{$purchaseId}/consumption",
+      "/purchases/{$this->encodePathParam($purchaseId)}/consumption",
       ['scopes' => []],
       $resolvedConfig
     );
@@ -315,9 +341,7 @@ class Purchases extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetPurchaseConsumptionOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 }
