@@ -23,6 +23,7 @@ This endpoint is used to purchase a new eSIM by providing the package details.
 | Name    | Type| Required | Description |
 | :-------- | :----------| :----------| :----------|
 | input | Models\CreatePurchaseV2Request | ✅ | This endpoint is used to purchase a new eSIM by providing the package details. |
+| $idempotencyKey | string | ❌ | Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces. |
 
 **Return Type**
 
@@ -102,6 +103,7 @@ This endpoint is used to purchase a new eSIM by providing the package details.
 | Name    | Type| Required | Description |
 | :-------- | :----------| :----------| :----------|
 | input | Models\CreatePurchaseRequest | ✅ | This endpoint is used to purchase a new eSIM by providing the package details. |
+| $idempotencyKey | string | ❌ | Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces. |
 
 **Return Type**
 
@@ -143,6 +145,7 @@ This endpoint is used to top-up an existing eSIM with the previously associated 
 | Name    | Type| Required | Description |
 | :-------- | :----------| :----------| :----------|
 | input | Models\TopUpEsimRequest | ✅ | This endpoint is used to top-up an existing eSIM with the previously associated destination by providing its ICCID and package details. To determine if an eSIM can be topped up, use the Get eSIM endpoint, which returns the `isTopUpAllowed` flag. |
+| $idempotencyKey | string | ❌ | Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces. |
 
 **Return Type**
 
@@ -182,6 +185,7 @@ This endpoint allows you to modify the validity dates of an existing purchase.  
 | Name    | Type| Required | Description |
 | :-------- | :----------| :----------| :----------|
 | input | Models\EditPurchaseRequest | ✅ | This endpoint allows you to modify the validity dates of an existing purchase.   **Behavior:** - If the purchase has **not yet been activated**, both the start and end dates can be updated.   - If the purchase is **already active**, only the **end date** can be updated, while the **start date must remain unchanged** (and should be passed as originally set).   - Updates must comply with the same pricing structure; the modification cannot alter the package size or change its duration category.   The end date can be extended or shortened as long as it adheres to the same pricing category and does not exceed the allowed duration limits.  |
+| $idempotencyKey | string | ❌ | Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces. |
 
 **Return Type**
 

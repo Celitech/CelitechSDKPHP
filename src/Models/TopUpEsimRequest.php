@@ -46,7 +46,7 @@ class TopUpEsimRequest implements \JsonSerializable
   public ?string $email;
 
   /**
-   * An identifier provided by the partner to link this purchase to their booking or transaction for analytics and debugging purposes.
+   * An identifier provided by the partner to link this purchase to their booking or transaction for analytics and debugging purposes. Letters, digits, `-`, `_`, `.`, `@` and `+` are allowed (so an email address works), up to 255 characters.
    */
   #[SerializedName('referenceId')]
   public ?string $referenceId;
@@ -301,5 +301,11 @@ class TopUpEsimRequest implements \JsonSerializable
   public function validate(): void
   {
     Validator::validateString($this->iccid, 'iccid', minLength: 18, maxLength: 22);
+    Validator::validateString(
+      $this->referenceId,
+      'referenceId',
+      maxLength: 255,
+      pattern: '^[a-zA-Z0-9\\-_.@+]+$'
+    );
   }
 }

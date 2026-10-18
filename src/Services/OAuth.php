@@ -48,9 +48,7 @@ class OAuth extends BaseService
 
     $result = Serializer::deserialize($data, Models\OAuthTokenResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 }

@@ -43,9 +43,7 @@ class Destinations extends BaseService
 
     $result = Serializer::deserialize($data, Models\ListDestinationsOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 }

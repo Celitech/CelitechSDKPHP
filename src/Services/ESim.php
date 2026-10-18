@@ -26,6 +26,9 @@ class ESim extends BaseService
   /** @var array|null Method-level configuration for getEsimHistory */
   protected ?array $getEsimHistoryConfig = null;
 
+  /** @var array|null Method-level configuration for suspendEsim */
+  protected ?array $suspendEsimConfig = null;
+
   /**
    * Set method-level configuration for getEsim.
    *
@@ -63,6 +66,18 @@ class ESim extends BaseService
   }
 
   /**
+   * Set method-level configuration for suspendEsim.
+   *
+   * @param array $config Configuration overrides for this method
+   * @return $this
+   */
+  public function setSuspendEsimConfig(array $config): static
+  {
+    $this->suspendEsimConfig = $config;
+    return $this;
+  }
+
+  /**
    * Get eSIM
    *
    * @param string $iccid ID of the eSIM
@@ -88,9 +103,7 @@ class ESim extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetEsimOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -109,7 +122,7 @@ class ESim extends BaseService
     $resolvedConfig = $this->getResolvedConfig($this->getEsimDeviceConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      "/esim/{$iccid}/device",
+      "/esim/{$this->encodePathParam($iccid)}/device",
       ['scopes' => []],
       $resolvedConfig
     );
@@ -117,9 +130,7 @@ class ESim extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetEsimDeviceOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
     return $result;
   }
 
@@ -138,7 +149,7 @@ class ESim extends BaseService
     $resolvedConfig = $this->getResolvedConfig($this->getEsimHistoryConfig, $requestConfig);
     $response = $this->sendRequest(
       'get',
-      "/esim/{$iccid}/history",
+      "/esim/{$this->encodePathParam($iccid)}/history",
       ['scopes' => []],
       $resolvedConfig
     );
@@ -146,9 +157,42 @@ class ESim extends BaseService
 
     $result = Serializer::deserialize($data, Models\GetEsimHistoryOkResponse::class);
 
-    if ($resolvedConfig['enableResponseValidation'] ?? false) {
-      $result?->validate();
-    }
+    $result?->validate();
+    return $result;
+  }
+
+  /**
+   * Suspends an eSIM to prevent abuse. All of the eSIM's packages are terminated and its connectivity is switched off. The eSIM is not refunded: the charge stays.
+   *
+   * @param string $iccid ID of the eSIM
+   * @param ?string $idempotencyKey Optional. A unique value (for example a UUID) that makes this request safe to retry. If a request with the same `Idempotency-Key` and the same body succeeds, repeating it returns the original response instead of performing the action again, and the response includes the header `Idempotent-Replayed: true`. Keys are scoped to your credentials and remembered for 3 days. Only successful (2xx) responses are remembered, so a request that failed can be retried with the same key. Reusing a key with a different request returns `422`; sending it while the original request is still being processed returns `409`. If the idempotency store is temporarily unavailable, the request is not processed and returns `503`; retry it. Must be 1 to 255 printable ASCII characters, without spaces.
+   * @return Models\SuspendEsimOkResponse
+   */
+  public function suspendEsim(
+    string $iccid,
+    ?string $idempotencyKey = null,
+    array $requestConfig = []
+  ): Models\SuspendEsimOkResponse {
+    Validator::validateString($iccid, 'iccid', minLength: 18, maxLength: 22);
+    Validator::validateString($idempotencyKey, 'Idempotency-Key', minLength: 1, maxLength: 255);
+
+    $resolvedConfig = $this->getResolvedConfig($this->suspendEsimConfig, $requestConfig);
+    $response = $this->sendRequest(
+      'post',
+      "/esim/{$this->encodePathParam($iccid)}/suspend",
+      [
+        'headers' => [
+          'Idempotency-Key' => $idempotencyKey
+        ],
+        'scopes' => []
+      ],
+      $resolvedConfig
+    );
+    $data = $response->getBody()->getContents();
+
+    $result = Serializer::deserialize($data, Models\SuspendEsimOkResponse::class);
+
+    $result?->validate();
     return $result;
   }
 }
