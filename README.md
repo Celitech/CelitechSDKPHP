@@ -1,225 +1,180 @@
-# Celitech PHP SDK 2.0.10
+# Celitech PHP Library
 
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Celitech%2FPHP)
+[![php shield](https://img.shields.io/badge/php-packagist-pink)](https://packagist.org/packages/celitech-sdk/sdk)
 
-Welcome to the Celitech SDK documentation. This guide will help you get started with integrating and using the Celitech SDK in your project.
-
-## Versions
-
-- API version: `2.0.10`
-- SDK version: `2.0.10`
-
-## About the API
-
-Welcome to the CELITECH API documentation!
-  
-  Useful links: [Homepage](https://www.celitech.com) | [Support email](mailto:devops@celitech.com) | [Blog](https://www.celitech.com/blog/)
-
-  # Introduction
-
-  This is the reference documentation and schemas for the CELITECH API and webhooks. For tutorials and other documentation please refer to the [CELITECH Documentation](https://docs.celitech.com).
-
-  "Partners" refers to online service providers that use our eSIM API. Access levels include Gold, Platinum, and Diamond.
-
-  ## API
-
-  The CELITECH API is designed for use by partner platforms, including both web and mobile applications. It's assumed all endpoint calls are initiated from the backend of an integrated platform.
-
-  API URL: `https://api.celitech.net/v1`
-
-  ## Authentication & Authorization
-  CELITECH API uses the OAuth 2.0 protocol for authentication and authorization.
-  The endpoints are protected using client credentials flow which is based on a token exchange. The token has a defined life span (typically 1 hour), after which a new token must be obtained.
-
-  To begin, obtain OAuth 2.0 client credentials ( **CLIENT_ID** & **CLIENT_SECRET** ) from the [CELITECH Dashboard](https://www.dashboard.celitech.com/). Then your client application requests an access token from the CELITECH Authorization Server, extracts a token from the response, and sends the token to the CELITECH API that you want to access.
-
-  Security Scheme Type: `OAuth2`
-
-  Flow type: `clientCredentials`
-
-  Token URL: `https://auth.celitech.net/oauth2/token`
+The Celitech PHP library provides convenient access to the Celitech APIs from PHP.
 
 ## Table of Contents
-- [Setup & Configuration](#setup--configuration)
-	- [Supported Language Versions](#supported-language-versions)
-	- [Installation](#installation)
-- [Authentication](#authentication)
-	- [OAuth Authentication](#oauth-authentication)
-  - [Environment Variables](#environment-variables)
-- [Setting a Custom Timeout](#setting-a-custom-timeout)
-- [Sample Usage](#sample-usage)
-- [Services](#services)
-- [Models](#models)
-- [License](#license)
 
-# Setup & Configuration
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Environments](#environments)
+- [Exception Handling](#exception-handling)
+- [Advanced](#advanced)
+  - [Custom Client](#custom-client)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+- [Contributing](#contributing)
 
-## Supported Language Versions
+## Requirements
 
-This SDK is compatible with the following versions: `PHP >= 8.1`
+This SDK requires PHP ^8.1.
 
 ## Installation
 
-### Using a local path (recommended for development)
-
-To use the SDK in your project before it is published to Packagist, add a `path` repository entry in your project's `composer.json` pointing to the SDK directory:
-
-```json
-{
-  "repositories": [
-    {
-      "type": "path",
-      "url": "/path/to/celitech-sdk/sdk"
-    }
-  ]
-}
-```
-
-Then run:
-
-```bash
+```sh
 composer require celitech-sdk/sdk
 ```
 
-### Using Packagist or a private registry
+The SDK sends its requests through a [PSR-18](https://www.php-fig.org/psr/psr-18/) HTTP client, which Composer installs for you only if your project allows the `php-http/discovery` plugin — add `"allow-plugins": {"php-http/discovery": true}` under `config` in your `composer.json`, or require a client yourself with `composer require guzzlehttp/guzzle` (or `composer require symfony/http-client nyholm/psr7`). Without either, the install succeeds with no HTTP client and the first API call fails at runtime.
 
-If the package is published to Packagist or a private Composer registry, install directly:
+## Usage
 
-```bash
-composer require celitech-sdk/sdk
-```
-
-## Verifying the SDK setup
-
-To verify the SDK works correctly, you can run the included example project:
-
-1. Install dependencies:
-
-```bash
-composer install
-```
-
-2. Run the example:
-
-```bash
-php example/index.php
-```
-
-## Authentication
-
-
-### OAuth Authentication
-
-The Celitech API uses OAuth 2.0 for authentication.
-
-You need to provide your OAuth credentials when initializing the SDK. Tokens are automatically fetched, cached, and refreshed — you do not need to manage them yourself.
-
-```php
-new Client(
-    clientId: 'CLIENT_ID',
-    clientSecret: 'CLIENT_SECRET'
-)
-```
-
-If you need to set or update the OAuth credentials after the SDK initialization, you can use:
-
-```php
-$sdk->setClientId('CLIENT_ID')
-$sdk->setClientSecret('CLIENT_SECRET')
-```
-
-
-## Environment Variables
-
-These are the environment variables for the SDK:
-
-| Name      | Description  |
-| :-------- | :----------- |
-| CLIENT_ID | Client ID parameter |
-| CLIENT_SECRET | Client Secret parameter |
-
-Environment variables are a way to configure your application outside the code. You can set these environment variables on the command line or use your project's existing tooling for managing environment variables.
-
-If you are using a `.env` file, a template with the variable names is provided in the `.env.example` file located in the same directory as this README.
-
-## Setting a Custom Timeout
-
-You can set a custom timeout for the SDK's HTTP requests as follows:
-
-```php
-$sdk = new Client(timeout: 1000);
-```
-
-# Sample Usage
-
-Below is a comprehensive example demonstrating how to authenticate and call a simple endpoint:
+Instantiate and use the client with the following:
 
 ```php
 <?php
 
+namespace Example;
+
 use Celitech\Client;
+use Celitech\Purchases\Requests\CreatePurchaseV2Request;
 
-$sdk = new Client(clientId: 'CLIENT_ID', clientSecret: 'CLIENT_SECRET');
-
-$response = $sdk->destinations->listDestinations();
-
-print_r($response);
+$client = new Client(
+    clientId: '<clientId>',
+    clientSecret: '<clientSecret>',
+);
+$client->purchases->createPurchaseV2(
+    new CreatePurchaseV2Request([
+        'idempotencyKey' => '8f14e45f-ceea-4672-a1d9-0a5a3c2f1e17',
+        'destination' => 'FRA',
+        'dataLimitInGb' => 1,
+        'quantity' => 1,
+    ]),
+);
 
 ```
 
-## Services
+## Environments
 
-The SDK provides various services to interact with the API.
+This SDK allows you to configure different environments for API requests. It defaults to the `Default_` environment.
 
+```php
+use Celitech\Client;
+use Celitech\Environments;
 
-<details>
-<summary>Below is a list of all available services with links to their detailed documentation:</summary>
+$client = new Client(
+    options: [
+        'baseUrl' => Environments::Default_->value,
+    ],
+);
+```
 
-| Name |
-| :--- |
-| [Destinations](documentation/services/Destinations.md) |
-| [Packages](documentation/services/Packages.md) |
-| [Purchases](documentation/services/Purchases.md) |
-| [ESim](documentation/services/ESim.md) |
-| [IFrame](documentation/services/IFrame.md) |
-</details>
+Available environments:
+- `Environments::Default_`
 
+`baseUrl` also accepts any URL string, such as a staging server or a local mock.
 
-## Models
+## Exception Handling
 
-The SDK includes several models that represent the data structures used in API requests and responses. These models help in organizing and managing the data efficiently.
+When the API returns a non-success status code (4xx or 5xx response), an exception will be thrown.
+A successful response whose body does not match the expected type raises `CelitechException`, with the underlying error as its previous exception.
 
+```php
+use Celitech\Exceptions\CelitechApiException;
+use Celitech\Exceptions\CelitechException;
 
-<details>
-<summary>Below is a list of all available models with links to their detailed documentation:</summary>
+try {
+    $response = $client->purchases->createPurchaseV2(...);
+} catch (CelitechApiException $e) {
+    echo 'API Exception occurred: ' . $e->getMessage() . "\n";
+    echo 'Status Code: ' . $e->getCode() . "\n";
+    echo 'Response Body: ' . $e->getBody() . "\n";
+    // Optionally, rethrow the exception or handle accordingly.
+}
+```
 
-| Name       | Description |
-| :--------- | :---------- |
-| [ListDestinationsOkResponse](documentation/models/ListDestinationsOkResponse.md) |  |
-| [ListPackagesOkResponse](documentation/models/ListPackagesOkResponse.md) |  |
-| [CreatePurchaseV2Request](documentation/models/CreatePurchaseV2Request.md) |  |
-| [CreatePurchaseV2OkResponse](documentation/models/CreatePurchaseV2OkResponse.md) |  |
-| [ListPurchasesOkResponse](documentation/models/ListPurchasesOkResponse.md) |  |
-| [CreatePurchaseRequest](documentation/models/CreatePurchaseRequest.md) |  |
-| [CreatePurchaseOkResponse](documentation/models/CreatePurchaseOkResponse.md) |  |
-| [TopUpEsimRequest](documentation/models/TopUpEsimRequest.md) |  |
-| [TopUpEsimOkResponse](documentation/models/TopUpEsimOkResponse.md) |  |
-| [EditPurchaseRequest](documentation/models/EditPurchaseRequest.md) |  |
-| [EditPurchaseOkResponse](documentation/models/EditPurchaseOkResponse.md) |  |
-| [GetPurchaseConsumptionOkResponse](documentation/models/GetPurchaseConsumptionOkResponse.md) |  |
-| [GetEsimOkResponse](documentation/models/GetEsimOkResponse.md) |  |
-| [GetEsimDeviceOkResponse](documentation/models/GetEsimDeviceOkResponse.md) |  |
-| [GetEsimHistoryOkResponse](documentation/models/GetEsimHistoryOkResponse.md) |  |
-| [SuspendEsimOkResponse](documentation/models/SuspendEsimOkResponse.md) |  |
-| [TokenOkResponse](documentation/models/TokenOkResponse.md) |  |
-| [GrantType](documentation/models/GrantType.md) |  |
-</details>
+## Advanced
 
+### Custom Client
 
+This SDK is built to work with any HTTP client that implements the [PSR-18](https://www.php-fig.org/psr/psr-18/) `ClientInterface`.
+By default, if no client is provided, the SDK will use `php-http/discovery` to find an installed HTTP client.
+However, you can pass your own client that adheres to `ClientInterface`:
 
-## License
+```php
+use Celitech\Client;
 
-This SDK is licensed under the MIT License.
+// Pass any PSR-18 compatible HTTP client implementation.
+// For example, using Guzzle:
+$customClient = new \GuzzleHttp\Client([
+    'timeout' => 5.0,
+]);
 
-See the [LICENSE](LICENSE) file for more details.
+$client = new Client(options: [
+    'client' => $customClient
+]);
+```
 
+### Retries
 
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 3).
+
+A request is deemed retryable when any of the following HTTP status codes is returned:
+
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (Internal Server Error)
+
+Use the `maxRetries` request option to configure this behavior.
+
+```php
+$response = $client->purchases->createPurchaseV2(
+    ...,
+    options: [
+        'maxRetries' => 0 // Override maxRetries at the request level
+    ]
+);
+```
+
+### Timeouts
+
+The SDK applies no timeout unless you ask for one, so your HTTP client's own default applies — Guzzle's is unlimited,
+which lets a request wait indefinitely on a server that never answers. Use the `timeout` option, in
+seconds, to configure this behavior for every request:
+
+```php
+use Celitech\Client;
+
+$client = new Client(options: [
+    'timeout' => 10.0 // Applied to every request
+]);
+```
+
+or for a single call:
+
+```php
+$response = $client->purchases->createPurchaseV2(
+    ...,
+    options: [
+        'timeout' => 3.0 // Override timeout at the request level
+    ]
+);
+```
+
+The SDK forwards `timeout` to Guzzle and Symfony HttpClient, the clients it configures directly;
+other PSR-18 clients may ignore it, so set the timeout on that client instead.
+
+## Contributing
+
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!
