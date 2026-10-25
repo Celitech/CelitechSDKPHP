@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace Celitech;
 
-use Celitech\Services;
+use Celitech\Destinations\DestinationsClient;
+use Celitech\Packages\PackagesClient;
+use Celitech\Purchases\PurchasesClient;
+use Celitech\ESim\ESimClient;
+use Celitech\IFrame\IFrameClient;
+use Celitech\OAuth\OAuthClient;
 use Celitech\OAuth\TokenManager;
+use Celitech\Core\Client\RawClient;
 
 /**
  * Main SDK client providing access to all API service endpoints.
@@ -16,64 +22,49 @@ use Celitech\OAuth\TokenManager;
  */
 class Client
 {
-  public Services\Destinations $destinations;
-  public Services\Packages $packages;
-  public Services\Purchases $purchases;
-  public Services\ESim $eSim;
-  public Services\IFrame $iFrame;
+  public DestinationsClient $destinations;
+  public PackagesClient $packages;
+  public PurchasesClient $purchases;
+  public ESimClient $eSim;
+  public IFrameClient $iFrame;
+  public OAuthClient $oAuth;
   private TokenManager $tokenManager;
+  private array $options;
+  /** @var RawClient $client */
+  private RawClient $client;
 
   public function __construct(
-    string $environment = Environment::Default,
-    float $timeout = 10000,
-    array $retryConfig = [],
+    ?array $options = null,
     string $baseOAuthUrl = 'https://auth.celitech.net',
     string $clientId = '',
-    string $clientSecret = '',
-    ?\Psr\Http\Client\ClientInterface $httpClient = null
+    string $clientSecret = ''
   ) {
+    $defaultHeaders = [
+      'X-Fern-Language' => 'PHP',
+      'X-Fern-SDK-Name' => 'Celitech'
+    ];
+
+    $this->options = $options ?? [];
+    $this->options['headers'] = array_merge($defaultHeaders, $this->options['headers'] ?? []);
+
+    $this->client = new RawClient(options: $this->options);
     $this->tokenManager = new TokenManager(
       baseOAuthUrl: $baseOAuthUrl,
       clientId: $clientId,
       clientSecret: $clientSecret,
-      httpClient: $httpClient
+      options: $this->options
     );
 
-    $this->destinations = new Services\Destinations(
-      $environment,
-      $timeout,
-      $retryConfig,
-      $this->tokenManager,
-      $httpClient
+    $this->destinations = new DestinationsClient(
+      $this->client,
+      $this->options,
+      $this->tokenManager
     );
-    $this->packages = new Services\Packages(
-      $environment,
-      $timeout,
-      $retryConfig,
-      $this->tokenManager,
-      $httpClient
-    );
-    $this->purchases = new Services\Purchases(
-      $environment,
-      $timeout,
-      $retryConfig,
-      $this->tokenManager,
-      $httpClient
-    );
-    $this->eSim = new Services\ESim(
-      $environment,
-      $timeout,
-      $retryConfig,
-      $this->tokenManager,
-      $httpClient
-    );
-    $this->iFrame = new Services\IFrame(
-      $environment,
-      $timeout,
-      $retryConfig,
-      $this->tokenManager,
-      $httpClient
-    );
+    $this->packages = new PackagesClient($this->client, $this->options, $this->tokenManager);
+    $this->purchases = new PurchasesClient($this->client, $this->options, $this->tokenManager);
+    $this->eSim = new ESimClient($this->client, $this->options, $this->tokenManager);
+    $this->iFrame = new IFrameClient($this->client, $this->options, $this->tokenManager);
+    $this->oAuth = new OAuthClient($this->client, $this->options, $this->tokenManager);
   }
 
   /**

@@ -4,129 +4,113 @@ declare(strict_types=1);
 
 namespace Celitech\Utils;
 
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\Serializer\Serializer as SymfonySerializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\JsonDecode;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
-use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
+use Celitech\Exceptions\CelitechException;
 
 /**
- * JSON serialization and deserialization utility using Symfony Serializer.
+ * Lightweight JSON serialization utility.
  *
- * This class provides a centralized interface for converting between JSON strings
- * and PHP objects. It uses Symfony's serializer component configured with support
- * for attributes, enums, arrays, and PHPDoc type hints.
- *
- * The serializer is lazy-initialized and reused across all operations for performance.
+ * The generated models own their own wire mapping via fromArray()/jsonSerialize(),
+ * so no third-party serializer is needed — this uses native json_encode/json_decode
+ * plus those model hooks. The public API matches the default Serializer so call
+ * sites are unchanged.
  */
 class Serializer
 {
   /**
-   * @var SymfonySerializer|null Cached serializer instance (lazy-initialized)
-   */
-  private static ?SymfonySerializer $serializer = null;
-
-  /**
-   * Get or create the Symfony serializer instance.
-   *
-   * Lazily initializes the serializer with configured normalizers and encoders
-   * on first access, then reuses the same instance for all subsequent calls.
-   *
-   * @return SymfonySerializer Configured Symfony serializer
-   */
-  private static function getSerializer(): SymfonySerializer
-  {
-    if (self::$serializer === null) {
-      $classMetadataFactory = new ClassMetadataFactory(new AttributeLoader());
-      $nameConverter = new MetadataAwareNameConverter($classMetadataFactory);
-      $normalizers = [
-        new BackedEnumNormalizer(),
-        new ObjectNormalizer($classMetadataFactory, $nameConverter, null, new PhpDocExtractor()),
-        new ArrayDenormalizer()
-      ];
-      self::$serializer = new SymfonySerializer($normalizers, [
-        new JsonEncoder(),
-        new JsonDecode()
-      ]);
-    }
-
-    return self::$serializer;
-  }
-
-  /**
-   * Deserialize JSON string into a PHP object.
-   *
-   * Converts a JSON string into an instance of the specified class using
-   * Symfony's serializer with support for nested objects, arrays, and enums.
-   *
-   * Empty / whitespace-only bodies — 204 No Content, 200 with empty body,
-   * or any operation whose successful response simply doesn't carry one —
-   * are valid responses, not malformed JSON. Return `null` so the caller
-   * can handle the no-data case explicitly, instead of surfacing
-   * `Symfony\Component\Serializer\Exception\NotEncodableValueException:
-   * Syntax error` thrown deep inside Symfony's JsonDecode.
+   * Deserialize a JSON string into a model, an array of models, or a scalar.
    *
    * @param string $data JSON string to deserialize
-   * @param string $class Fully qualified class name to deserialize into
-   * @return mixed Instance of the specified class populated with data from JSON, or null on empty input
+   * @param string $class Target class; a trailing `[]` denotes an array of that class
+   * @return mixed Populated instance(s), or the decoded value for scalars/unknown classes
    */
-  public static function deserialize(string $data, string $class)
+  public static function deserialize(string $data, string $class): mixed
   {
     if (trim($data) === '') {
       return null;
     }
 
-    $context = [
-      BackedEnumNormalizer::ALLOW_INVALID_VALUES => true
-    ];
-
     try {
-      return self::getSerializer()->deserialize($data, $class, 'json', $context);
-    } catch (\Symfony\Component\Serializer\Exception\ExceptionInterface $e) {
-      // The response didn't match the declared schema — a required field
-      // the server omitted (MissingConstructorArguments), or a value
-      // whose type drifted from the spec (NotNormalizableValue). Crashing
-      // deep inside the serializer is never useful. Rebuild via the
-      // model's tolerant fromArray() so callers with a strict class
-      // return type still get an instance; otherwise return the decoded
-      // payload, mirroring the empty-body handling above.
-      $decoded = json_decode($data, true) ?? [];
-      if (is_array($decoded) && class_exists($class) && method_exists($class, 'fromArray')) {
-        return $class::fromArray($decoded);
-      }
-      return $decoded;
+      $decoded = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+    } catch (\JsonException $e) {
+      // An empty body is a legitimate response and returns null above. A body that is not
+      // JSON is not: decoding it silently to null left the caller unable to tell a server
+      // that sent nothing from one that sent HTML against a JSON-typed operation. Fern
+      // raises its base exception here with this message, so the two agree.
+      throw new CelitechException(
+        message: "Failed to deserialize response: {$e->getMessage()}",
+        previous: $e
+      );
     }
+
+    if (str_ends_with($class, '[]')) {
+      $itemClass = substr($class, 0, -2);
+      if (!is_array($decoded)) {
+        return $decoded;
+      }
+      return array_map(fn($item) => self::coerce($item, $itemClass), $decoded);
+    }
+
+    return self::coerce($decoded, $class);
   }
 
   /**
-   * Serialize a PHP object to its native-typed representation.
+   * Coerce a decoded value into an instance of $class when possible.
    *
-   * Objects round-trip through JSON and become associative arrays;
-   * primitives (strings / numbers / booleans / null) round-trip as
-   * themselves. The previous `: array` return type was a lie — a method
-   * whose request body is a single primitive (a bare string ID, a bool
-   * flag, etc.) would serialize to e.g. `"foo"`, json_decode would
-   * return `"foo"`, and PHP would throw `TypeError: Return value must
-   * be of type array, string returned`. Guzzle's `json` / `body`
-   * options both accept any JSON-compatible value, so widening to
-   * `mixed` keeps the existing object/array call sites working while
-   * unblocking primitive bodies.
+   * Unknown backed-enum values become null (tryFrom) to preserve
+   * forward-compatibility, matching the tolerant behavior of the default
+   * serializer.
    *
-   * @param mixed $object The object to serialize
-   * @return mixed JSON-compatible representation (associative array for objects, primitive for scalars)
+   * @param mixed $value
+   * @param string $class
+   * @return mixed
+   */
+  private static function coerce(mixed $value, string $class): mixed
+  {
+    if (
+      (is_string($value) || is_int($value)) &&
+      enum_exists($class) &&
+      is_subclass_of($class, \BackedEnum::class)
+    ) {
+      return $class::tryFrom($value);
+    }
+
+    if (class_exists($class) && method_exists($class, 'fromArray')) {
+      if (is_array($value)) {
+        return $class::fromArray($value);
+      }
+      if ($value === null) {
+        return null;
+      }
+      // Handing a scalar back for a model class left the caller's `->validate()` to fail as a
+      // PHP Error. Fern raises its base exception here, with this message.
+      throw new CelitechException(
+        message: 'Failed to deserialize response: Unexpected non-array decoded type: ' .
+          gettype($value)
+      );
+    }
+
+    return $value;
+  }
+
+  /**
+   * Serialize an object (or array/scalar) to its JSON-compatible representation.
+   *
+   * Objects are round-tripped through native json_encode, which invokes each
+   * model's JsonSerializable::jsonSerialize() (dirty-field and additional-property
+   * behavior is owned by the model), then decoded back to an associative array.
+   *
+   * @param mixed $object
+   * @return mixed
    */
   public static function serialize(mixed $object): mixed
   {
-    $context = [
-      ObjectNormalizer::SKIP_NULL_VALUES => true
-    ];
+    // Surface encode failures (invalid UTF-8, NAN/INF, resources) instead of
+    // silently sending a null field on the wire.
+    $json = json_encode($object);
+    if ($json === false) {
+      throw new \JsonException('Failed to serialize value: ' . json_last_error_msg());
+    }
 
-    $json = self::getSerializer()->serialize($object, 'json', $context);
     return json_decode($json, true);
   }
 
@@ -156,5 +140,64 @@ class Serializer
     }
 
     return $encoded;
+  }
+
+  /**
+   * Serialize a `date` value (OpenAPI `format: date`) to its wire form.
+   */
+  public static function serializeDate(\DateTime $date): string
+  {
+    return $date->format('Y-m-d');
+  }
+
+  /**
+   * Serialize a `date-time` value (OpenAPI `format: date-time`) to its wire form.
+   *
+   * RFC 3339 renders UTC as `+00:00`; Fern normalizes that to `Z`, so the two generators put
+   * byte-identical timestamps on the wire. A fractional second is kept (trailing zeros trimmed),
+   * so a value read from the API is written back unchanged.
+   */
+  public static function serializeDateTime(\DateTime $date): string
+  {
+    $fraction = rtrim($date->format('u'), '0');
+    $formatted =
+      $date->format('Y-m-d\\TH:i:s') .
+      ($fraction === '' ? '' : ".{$fraction}") .
+      $date->format('P');
+    if (str_ends_with($formatted, '+00:00')) {
+      return substr($formatted, 0, -6) . 'Z';
+    }
+
+    return $formatted;
+  }
+
+  /**
+   * Parse a `date` wire value. The leading `!` resets the time fields, so a date-only value
+   * does not inherit the current clock.
+   *
+   * @throws \JsonException If the value is not a valid date.
+   */
+  public static function deserializeDate(string $value): \DateTime
+  {
+    $date = \DateTime::createFromFormat('!Y-m-d', $value);
+    if ($date === false) {
+      throw new \JsonException("Failed to create date from string: $value");
+    }
+
+    return $date;
+  }
+
+  /**
+   * Parse a `date-time` wire value.
+   *
+   * @throws \JsonException If the value is not a valid date-time.
+   */
+  public static function deserializeDateTime(string $value): \DateTime
+  {
+    try {
+      return new \DateTime($value);
+    } catch (\Exception $e) {
+      throw new \JsonException("Failed to create DateTime from string: $value", previous: $e);
+    }
   }
 }
