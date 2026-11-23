@@ -8,9 +8,10 @@ use DateTime;
 use DateTimeZone;
 
 use Celitech\OAuth\OAuthToken;
-use Celitech\Services\OAuth;
-use Celitech\Models\OAuthTokenRequest;
-use Celitech\Models\GrantType;
+use Celitech\OAuth\OAuthClient;
+use Celitech\Core\Client\RawClient;
+use Celitech\OAuth\Requests\OAuthTokenRequest;
+use Celitech\OAuth\Types\GrantType;
 
 /**
  * Manages OAuth 2.0 access tokens with automatic refresh and scope validation.
@@ -25,18 +26,18 @@ class TokenManager
   private string $baseOAuthUrl;
   private string $clientId;
   private string $clientSecret;
-  private ?\Psr\Http\Client\ClientInterface $httpClient;
+  private array $options;
 
   public function __construct(
     string $baseOAuthUrl,
     string $clientId,
     string $clientSecret,
-    ?\Psr\Http\Client\ClientInterface $httpClient = null
+    ?array $options = null
   ) {
     $this->baseOAuthUrl = $baseOAuthUrl;
     $this->clientId = $clientId;
     $this->clientSecret = $clientSecret;
-    $this->httpClient = $httpClient;
+    $this->options = $options ?? [];
   }
 
   public function setBaseOAuthUrl(string $baseOAuthUrl): self
@@ -73,7 +74,7 @@ class TokenManager
     $has_all_scopes = $this->token && !array_diff($scopes, $this->token->scopes);
     $valid_token =
       $this->token &&
-      ($this->token->expiresAt === null || $this->token->expiresAt - $timestamp > 5);
+      ($this->token->expiresAt === null || $this->token->expiresAt - $timestamp > 30);
     if ($has_all_scopes && $valid_token) {
       return $this->token;
     }
@@ -112,15 +113,16 @@ class TokenManager
    */
   private function getAccessToken(array $scopes): array
   {
-    $service = new OAuth(environment: $this->baseOAuthUrl, httpClient: $this->httpClient);
-    $input = new OAuthTokenRequest(
-      grantType: GrantType::ClientCredentials,
-      clientId: $this->clientId,
-      clientSecret: $this->clientSecret,
-      scope: implode(' ', $scopes)
-    );
+    $options = array_merge($this->options, ['baseUrl' => $this->baseOAuthUrl]);
+    $service = new OAuthClient(new RawClient(options: $options), $options);
+    $request = new OAuthTokenRequest([
+      'grantType' => GrantType::ClientCredentials->value,
+      'clientId' => $this->clientId,
+      'clientSecret' => $this->clientSecret,
+      'scope' => implode(' ', $scopes)
+    ]);
 
-    $response = $service->getAccessToken(input: $input);
+    $response = $service->getAccessToken(request: $request);
 
     return [
       'access_token' => $response->accessToken,
