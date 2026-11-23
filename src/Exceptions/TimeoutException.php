@@ -12,10 +12,10 @@ use Throwable;
  * catch this type specifically to distinguish timeouts from other
  * transport failures.
  */
-class TimeoutException extends ApiException
+class TimeoutException extends CelitechApiException
 {
   public function __construct(string $message, ?Throwable $previous = null)
   {
-    parent::__construct(message: $message, statusCode: 0, previous: $previous);
+    parent::__construct(message: $message, statusCode: 0, body: '', previous: $previous);
   }
 }

@@ -25,7 +25,7 @@ class Retry
    */
   private array $retryOptions = [
     'isEnabled' => true,
-    'maxRetries' => 3,
+    'maxRetries' => 2,
     'baseDelayMs' => 150,
     'maxDelayMs' => 5000,
     'delayJitter' => 50,
@@ -33,7 +33,7 @@ class Retry
     'maxRetryAfterDelayMs' => 60000,
     'retryableStatuses' => [408, 429],
     'retryAllServerErrors' => true,
-    'retryableMethods' => ['GET', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']
+    'retryableMethods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
   ];
 
   /**
