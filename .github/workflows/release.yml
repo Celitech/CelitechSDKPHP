@@ -1,18 +1,23 @@
 name: Release
+
+# Runs when a merge to main changes the SDK version: creates the tag v<version> and the GitHub release,
+# then asks Packagist to sync. Packagist publishes PHP packages from git tags, so the tag is the release;
+# there is nothing to upload. Same flow as the Postman workflow it replaces. Kept out of Fern's
+# regeneration by .fernignore.
+#
+# The version is read from .manifest.json (config.target.sdkVersion): Fern's composer.json has no version.
 on:
   push:
-    branches: ['main']
+    branches: [main]
     paths:
-      - '.github/workflows/release.yml'
+      - '.manifest.json'
       - 'composer.json'
+      - '.github/workflows/release.yml'
   workflow_dispatch:
 
-env:
-  # SDK identity baked in at generation time from the in-memory build context,
-  # so the workflow never reads composer.json at runtime.
-  SDK_VERSION: '2.0.10'
-  SDK_PACKAGE_NAME: 'celitech-sdk/sdk'
-  RELEASE_TAG: 'v2.0.10'
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -20,42 +25,45 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Create tag if it does not exist
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read version
+        id: pkg
         run: |
-          if gh api "repos/${{ github.repository }}/git/refs/tags/$RELEASE_TAG" >/dev/null 2>&1; then
-            echo "::notice::Tag $RELEASE_TAG already exists, nothing to do"
-            exit 0
+          version=$(node -p "require('./.manifest.json').config.target.sdkVersion")
+          if [ -z "$version" ] || [ "$version" = "undefined" ]; then
+            echo "::error::config.target.sdkVersion not found in .manifest.json"
+            exit 1
           fi
-          gh api -X POST "repos/${{ github.repository }}/git/refs" \
-            -f ref="refs/tags/$RELEASE_TAG" \
-            -f sha="${{ github.sha }}"
-          echo "::notice::Created tag $RELEASE_TAG at ${{ github.sha }}"
-      - name: Create GitHub release
+          echo "tag=v${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag and GitHub release
+        id: release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.pkg.outputs.tag }}
         run: |
-          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            echo "::notice::Release $RELEASE_TAG already exists"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "::notice::Release $TAG already exists; nothing to release"
+            echo "created=false" >> "$GITHUB_OUTPUT"
           else
-            gh release create "$RELEASE_TAG" --title "$RELEASE_TAG" --generate-notes
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --generate-notes
+            echo "created=true" >> "$GITHUB_OUTPUT"
           fi
-      # Packagist derives versions from git tags and syncs via a VCS webhook, so
-      # the tag + GitHub release created above is the real publish signal. The
-      # ping below is an optional hint that asks Packagist to sync immediately;
-      # in practice the configured webhook usually handles the sync on its own.
-      # It only runs when both Packagist credentials are present.
+
+      # Packagist also syncs on its own through the GitHub webhook; this ping makes it immediate.
+      # It only runs when both Packagist secrets are set.
       - name: Notify Packagist
+        if: steps.release.outputs.created == 'true'
         env:
           PACKAGIST_USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
           PACKAGIST_API_TOKEN: ${{ secrets.PACKAGIST_API_TOKEN }}
         run: |
           if [ -z "$PACKAGIST_USERNAME" ] || [ -z "$PACKAGIST_API_TOKEN" ]; then
-            echo "::notice::Packagist credentials not set, relying on the VCS webhook to sync $SDK_PACKAGE_NAME"
+            echo "::notice::Packagist secrets not set; relying on the GitHub webhook to sync celitech-sdk/sdk"
             exit 0
           fi
-          curl -XPOST -H 'content-type:application/json' \
-            "https://packagist.org/api/update-package?username=$PACKAGIST_USERNAME&apiToken=$PACKAGIST_API_TOKEN" \
+          curl -sf -X POST -H 'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_API_TOKEN}" \
             -d "{\"repository\":{\"url\":\"https://github.com/${{ github.repository }}\"}}"
